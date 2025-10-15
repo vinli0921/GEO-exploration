@@ -1,0 +1,149 @@
+{
+  "metadata": {
+    "target": "nike.com",
+    "scope": "domain",
+    "source": "us",
+    "engines_tracked": [
+      "chatgpt",
+      "gemini",
+      "perplexity",
+      "ai-mode"
+    ],
+    "generated_at": "2025-10-14T20:12:21.402808"
+  },
+  "brand_info": {
+    "brands": [
+      "Nike.com"
+    ]
+  },
+  "engines": {
+    "chatgpt": {
+      "overview": {
+        "summary": {
+          "link_presence": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "average_position": {
+            "current": 0,
+            "previous": 0,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "ai_opportunity_traffic": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          }
+        },
+        "time_series": {
+          "overall_traffic": [],
+          "organic_traffic": [],
+          "ai_traffic": [],
+          "link_presence": [],
+          "average_position": []
+        }
+      },
+      "prompts": []
+    },
+    "gemini": {
+      "overview": {
+        "summary": {
+          "link_presence": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "average_position": {
+            "current": 0,
+            "previous": 0,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "ai_opportunity_traffic": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          }
+        },
+        "time_series": {
+          "overall_traffic": [],
+          "organic_traffic": [],
+          "ai_traffic": [],
+          "link_presence": [],
+          "average_position": []
+        }
+      },
+      "prompts": []
+    },
+    "perplexity": {
+      "overview": {
+        "summary": {
+          "link_presence": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "average_position": {
+            "current": 0,
+            "previous": 0,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "ai_opportunity_traffic": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          }
+        },
+        "time_series": {
+          "overall_traffic": [],
+          "organic_traffic": [],
+          "ai_traffic": [],
+          "link_presence": [],
+          "average_position": []
+        }
+      },
+      "prompts": []
+    },
+    "ai-mode": {
+      "overview": {
+        "summary": {
+          "link_presence": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "average_position": {
+            "current": 0,
+            "previous": 0,
+            "change_absolute": 0,
+            "change_percent": 0
+          },
+          "ai_opportunity_traffic": {
+            "current": null,
+            "previous": null,
+            "change_absolute": 0,
+            "change_percent": 0
+          }
+        },
+        "time_series": {
+          "overall_traffic": [],
+          "organic_traffic": [],
+          "ai_traffic": [],
+          "link_presence": [],
+          "average_position": []
+        }
+      },
+      "prompts": []
+    }
+  }
+}

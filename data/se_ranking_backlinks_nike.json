@@ -1,0 +1,585 @@
+{
+  "metadata": {
+    "target": "nike.com",
+    "mode": "domain",
+    "total_backlinks": 0,
+    "total_referring_domains": 0,
+    "total_subnets": 0,
+    "total_ips": 0,
+    "generated_at": "2025-10-14T20:12:12.641015"
+  },
+  "summary_statistics": {
+    "summary": [
+      {
+        "target": "nike.com",
+        "backlinks": 105251260,
+        "refdomains": 203366,
+        "subnets": 73644,
+        "ips": 131163,
+        "nofollow_backlinks": 2595123,
+        "dofollow_backlinks": 102656137,
+        "edu_backlinks": 251254,
+        "gov_backlinks": 5923,
+        "inlink_rank": 58,
+        "domain_inlink_rank": 93,
+        "from_home_page_backlinks": 27000,
+        "dofollow_from_home_page_backlinks": 25136,
+        "text_backlinks": 43861104,
+        "dofollow_refdomains": 177079,
+        "from_home_page_refdomains": 16512,
+        "edu_refdomains": 836,
+        "gov_refdomains": 79,
+        "anchors": 10794740,
+        "dofollow_anchors": 10739113,
+        "pages_with_backlinks": 1997885,
+        "top_anchors_by_backlinks": [
+          {
+            "anchor": "",
+            "backlinks": 9605853
+          },
+          {
+            "anchor": "\u9999\u6e2f",
+            "backlinks": 4483289
+          },
+          {
+            "anchor": "\u65b0\u805e",
+            "backlinks": 3432437
+          },
+          {
+            "anchor": "\u95dc\u65bcNIKE",
+            "backlinks": 3430724
+          },
+          {
+            "anchor": "\u5de5\u4f5c\u6a5f\u6703",
+            "backlinks": 3428611
+          },
+          {
+            "anchor": "\u6295\u8cc7\u8005",
+            "backlinks": 3426082
+          },
+          {
+            "anchor": "Nike",
+            "backlinks": 3406553
+          },
+          {
+            "anchor": "View Deal",
+            "backlinks": 2097720
+          },
+          {
+            "anchor": "NikePlus\u652f\u6301",
+            "backlinks": 1355565
+          },
+          {
+            "anchor": "Chile",
+            "backlinks": 1167510
+          }
+        ],
+        "top_anchors_by_refdomains": [
+          {
+            "anchor": "Nike",
+            "refdomains": 27634
+          },
+          {
+            "anchor": "",
+            "refdomains": 11033
+          },
+          {
+            "anchor": "www.nike.com",
+            "refdomains": 7751
+          },
+          {
+            "anchor": "nike.com",
+            "refdomains": 3508
+          },
+          {
+            "anchor": "Nike.com",
+            "refdomains": 3262
+          },
+          {
+            "anchor": "Nike Training Club",
+            "refdomains": 2204
+          },
+          {
+            "anchor": "NIKE",
+            "refdomains": 1794
+          },
+          {
+            "anchor": "Nike Air Max 270 Older Kids Shoes",
+            "refdomains": 1701
+          },
+          {
+            "anchor": "Nike Air Force 1 Shoes. Nike.com",
+            "refdomains": 1701
+          },
+          {
+            "anchor": "Mens Socks. Nike",
+            "refdomains": 1418
+          }
+        ],
+        "top_pages_by_backlinks": [
+          {
+            "url": "http://www.nike.com/language_tunnel",
+            "backlinks": 5344457
+          },
+          {
+            "url": "http://www.nike.com/",
+            "backlinks": 4805980
+          },
+          {
+            "url": "http://about.nike.com/",
+            "backlinks": 3487796
+          },
+          {
+            "url": "http://news.nike.com/",
+            "backlinks": 3483444
+          },
+          {
+            "url": "http://jobs.nike.com/",
+            "backlinks": 3448577
+          }
+        ],
+        "top_pages_by_refdomains": [
+          {
+            "url": "https://www.nike.com/",
+            "refdomains": 18594
+          },
+          {
+            "url": "http://www.nike.com/",
+            "refdomains": 10731
+          },
+          {
+            "url": "http://nike.com/",
+            "refdomains": 4629
+          },
+          {
+            "url": "https://nike.com/",
+            "refdomains": 3073
+          },
+          {
+            "url": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/1ef55791-81da-4075-89e9-327f01a726d8/air-max-270-womens-shoes-Pgb94t.png",
+            "refdomains": 2196
+          }
+        ],
+        "top_tlds": [
+          {
+            "tld": "com",
+            "count": 103040
+          },
+          {
+            "tld": "org",
+            "count": 5125
+          },
+          {
+            "tld": "dev",
+            "count": 5083
+          },
+          {
+            "tld": "net",
+            "count": 5048
+          },
+          {
+            "tld": "app",
+            "count": 4247
+          }
+        ],
+        "top_countries": [
+          {
+            "country": "us",
+            "count": 106187
+          },
+          {
+            "country": "de",
+            "count": 13347
+          },
+          {
+            "country": "fr",
+            "count": 5932
+          },
+          {
+            "country": "nl",
+            "count": 3747
+          },
+          {
+            "country": "jp",
+            "count": 3563
+          }
+        ]
+      }
+    ]
+  },
+  "top_anchors": [
+    {
+      "anchor": "",
+      "backlinks": 5023664,
+      "refdomains": 1966,
+      "dofollow_backlinks": 5020158,
+      "nofollow_backlinks": 3506,
+      "first_seen": "2014-01-07",
+      "last_visited": "2025-10-10"
+    },
+    {
+      "anchor": "\u65b0\u805e",
+      "backlinks": 3627812,
+      "refdomains": 6,
+      "dofollow_backlinks": 3627812,
+      "nofollow_backlinks": 0,
+      "first_seen": "2017-09-07",
+      "last_visited": "2025-10-10"
+    },
+    {
+      "anchor": "\u95dc\u65bcNIKE",
+      "backlinks": 3625703,
+      "refdomains": 6,
+      "dofollow_backlinks": 3625703,
+      "nofollow_backlinks": 0,
+      "first_seen": "2017-09-07",
+      "last_visited": "2025-10-10"
+    },
+    {
+      "anchor": "\u5de5\u4f5c\u6a5f\u6703",
+      "backlinks": 3623250,
+      "refdomains": 6,
+      "dofollow_backlinks": 3623250,
+      "nofollow_backlinks": 0,
+      "first_seen": "2017-09-07",
+      "last_visited": "2025-10-10"
+    },
+    {
+      "anchor": "\u6295\u8cc7\u8005",
+      "backlinks": 3620262,
+      "refdomains": 11,
+      "dofollow_backlinks": 3620262,
+      "nofollow_backlinks": 0,
+      "first_seen": "2017-09-07",
+      "last_visited": "2025-10-10"
+    },
+    {
+      "anchor": "NikePlus\u652f\u6301",
+      "backlinks": 1360314,
+      "refdomains": 7,
+      "dofollow_backlinks": 1360314,
+      "nofollow_backlinks": 0,
+      "first_seen": "2018-08-02",
+      "last_visited": "2020-04-11"
+    },
+    {
+      "anchor": "Noticias",
+      "backlinks": 1283072,
+      "refdomains": 6,
+      "dofollow_backlinks": 1283072,
+      "nofollow_backlinks": 0,
+      "first_seen": "2021-09-29",
+      "last_visited": "2025-10-07"
+    },
+    {
+      "anchor": "Inversionistas",
+      "backlinks": 1282915,
+      "refdomains": 5,
+      "dofollow_backlinks": 1282915,
+      "nofollow_backlinks": 0,
+      "first_seen": "2021-09-29",
+      "last_visited": "2025-10-07"
+    },
+    {
+      "anchor": "Empleos",
+      "backlinks": 1282866,
+      "refdomains": 1,
+      "dofollow_backlinks": 1282866,
+      "nofollow_backlinks": 0,
+      "first_seen": "2021-09-29",
+      "last_visited": "2024-03-12"
+    },
+    {
+      "anchor": "Acerca de Nike",
+      "backlinks": 1256434,
+      "refdomains": 6,
+      "dofollow_backlinks": 1256434,
+      "nofollow_backlinks": 0,
+      "first_seen": "2021-09-29",
+      "last_visited": "2025-10-10"
+    }
+  ],
+  "sample_backlinks": [
+    {
+      "url_from": "https://www.affinity.ad/blog/the-real-reason-behind-nikes-27-5-billion-loss-a-cautionary-tale-of-growth-gone-wrong",
+      "url_to": "http://nike.com/",
+      "title": "AFFINITY | Blog - The real reason behind Nike\u2019s $27.5 billion loss: A cautionary tale of growth gone wrong",
+      "anchor": "Nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 48,
+      "first_seen": "2025-06-10",
+      "last_visited": "2025-08-16"
+    },
+    {
+      "url_from": "https://suryaimport.ae/japan-shopping-sites/",
+      "url_to": "http://nike.com/",
+      "title": "Japan Shopping Sites - Suryaimport-Online Shopping Sites in UAE",
+      "anchor": "",
+      "alt": "",
+      "nofollow": false,
+      "image": true,
+      "image_source": "http://suryaimport.ae/wp-content/uploads/2025/04/nike.jpg",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 5,
+      "first_seen": "2025-04-26",
+      "last_visited": "2025-05-03"
+    },
+    {
+      "url_from": "https://suryaimport.ae/uk-shopping-sites/",
+      "url_to": "http://nike.com/",
+      "title": "UK Shopping Sites - Suryaimport-Online Shopping Sites in UAE",
+      "anchor": "",
+      "alt": "",
+      "nofollow": false,
+      "image": true,
+      "image_source": "http://suryaimport.ae/wp-content/uploads/2025/04/nike.jpg",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 5,
+      "first_seen": "2025-04-26",
+      "last_visited": "2025-05-03"
+    },
+    {
+      "url_from": "https://suryaimport.ae/usa-shopping-sites/",
+      "url_to": "http://nike.com/",
+      "title": "USA Shopping Sites - Suryaimport-Online Shopping Sites in UAE",
+      "anchor": "",
+      "alt": "",
+      "nofollow": false,
+      "image": true,
+      "image_source": "http://suryaimport.ae/wp-content/uploads/2025/04/nike.jpg",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 5,
+      "first_seen": "2025-04-26",
+      "last_visited": "2025-05-03"
+    },
+    {
+      "url_from": "https://personamagazine.africa/nike-and-the-lego-group-are-redefining-play-step-by-playful-step/",
+      "url_to": "http://nike.com/",
+      "title": "Nike and the LEGO Group are redefining play, step by playful step - Persona Magazine Africa",
+      "anchor": "Nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 1,
+      "first_seen": "2025-08-27",
+      "last_visited": "2025-08-27"
+    },
+    {
+      "url_from": "https://one2love.agency/why-does-graphic-design-matter/",
+      "url_to": "http://nike.com/",
+      "title": "Why Graphic Design Matters - one2love Agency",
+      "anchor": "Nike",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 45,
+      "first_seen": "2025-05-18",
+      "last_visited": "2025-08-15"
+    },
+    {
+      "url_from": "https://blog.bit.ai/meta-description-length/",
+      "url_to": "http://nike.com/",
+      "title": "Google's Recommended Meta Description Length in 2022!",
+      "anchor": "Nike",
+      "alt": "",
+      "nofollow": true,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 17,
+      "domain_inlink_rank": 84,
+      "first_seen": "2025-05-29",
+      "last_visited": "2025-09-09"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-05-31",
+      "last_visited": "2025-08-16"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Consultant,+Compensation+and+Benefits",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-06",
+      "last_visited": "2025-08-06"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=DIRECTOR,+GLOBAL+COMPENSATION+PROGRAMS+AND+OPERATIONS",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-07-06",
+      "last_visited": "2025-08-16"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director+-+Compensation+Strategy+&+COE=",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director+of+Compensation",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Compensation+&+Benefits=",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Compensation+Delivery+&+Offers=",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-05",
+      "last_visited": "2025-08-16"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Compensation+Operations",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Compensation+and+Benefits",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Global+Compensation+&+International+Benefits=",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Incentive+Compensation",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Retail+Compensation+Programs+&+Consulting+-+Remote+Work+Option=",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-08-29",
+      "last_visited": "2025-08-29"
+    },
+    {
+      "url_from": "https://communityjobs.compa.ai/companies/nike?q=Director,+Total+Rewards",
+      "url_to": "http://nike.com/",
+      "title": "Nike | Compa Job Board",
+      "anchor": "nike.com",
+      "alt": "",
+      "nofollow": false,
+      "image": false,
+      "image_source": "",
+      "inlink_rank": 0,
+      "domain_inlink_rank": 30,
+      "first_seen": "2025-07-06",
+      "last_visited": "2025-08-05"
+    }
+  ],
+  "top_referring_domains": []
+}
