@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Search Behavior Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>LLM Search Behavior Study</h1>
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Not Recording</span>
+      </div>
+    </header>
+
+    <!-- Consent Section -->
+    <section id="consentSection" class="section">
+      <h2>Informed Consent</h2>
+      <div class="consent-text">
+        <p><strong>Study Purpose:</strong> This research tracks your browsing behavior to understand how people search for information using LLMs and traditional search engines.</p>
+
+        <p><strong>Data Collected:</strong> Page visits, clicks, scrolls, search queries, time spent on pages, and browsing patterns.</p>
+
+        <p><strong>Privacy:</strong> Data is anonymized using your participant ID. You can pause or stop recording at any time.</p>
+
+        <p><strong>IRB Approved:</strong> This study has been reviewed and approved by the Institutional Review Board.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="participantId">Participant ID:</label>
+        <input type="text" id="participantId" placeholder="Enter your ID (e.g., P001)" />
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="consentCheckbox" />
+        <label for="consentCheckbox">I have read and agree to participate in this study</label>
+      </div>
+
+      <button id="startBtn" class="btn btn-primary" disabled>Start Recording</button>
+    </section>
+
+    <!-- Active Recording Section -->
+    <section id="recordingSection" class="section" style="display: none;">
+      <h2>Recording Active</h2>
+
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-label">Session ID:</span>
+          <span class="stat-value" id="sessionId">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Participant:</span>
+          <span class="stat-value" id="displayParticipantId">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Events Captured:</span>
+          <span class="stat-value" id="eventCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Duration:</span>
+          <span class="stat-value" id="duration">00:00:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="pauseBtn" class="btn btn-secondary">Pause</button>
+        <button id="stopBtn" class="btn btn-danger">Stop & Upload</button>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Note:</strong> Your data is being buffered locally and uploaded every 5 minutes. You can continue browsing normally.</p>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section class="section collapsible">
+      <h3 class="collapsible-header" id="settingsHeader">
+        Advanced Settings ▼
+      </h3>
+      <div id="settingsContent" class="collapsible-content" style="display: none;">
+        <div class="form-group">
+          <label for="serverUrl">Server URL:</label>
+          <input type="text" id="serverUrl" value="http://localhost:5000" />
+        </div>
+
+        <div class="form-group">
+          <label>Exclude Domains:</label>
+          <textarea id="excludedDomains" rows="3" placeholder="banking.com&#10;healthcare.org"></textarea>
+          <small>One domain per line</small>
+        </div>
+
+        <button id="saveSettingsBtn" class="btn btn-secondary">Save Settings</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p class="small-text">Questions? Contact: research@university.edu</p>
+      <p class="small-text">IRB Protocol #: XXXXX</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
