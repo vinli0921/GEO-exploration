@@ -18,11 +18,33 @@ export interface Stats {
   active_sessions: number
   total_participants: number
   total_events: number
+  avg_duration_seconds: number
 }
 
 export interface SessionsResponse {
   sessions: Session[]
   total: number
+}
+
+export interface EventTypeDistribution {
+  event_type: string
+  count: number
+}
+
+export interface SessionTimeline {
+  date: string
+  sessions: number
+  events: number
+}
+
+export interface AnalyticsData {
+  event_distribution: EventTypeDistribution[]
+  timeline: SessionTimeline[]
+  top_participants: Array<{
+    participant_id: string
+    session_count: number
+    total_events: number
+  }>
 }
 
 export class ApiService {
@@ -59,5 +81,10 @@ export class ApiService {
 
   static getExportUrl(sessionId: string): string {
     return `${API_BASE_URL}/sessions/${sessionId}/export`
+  }
+
+  static async getAnalytics(): Promise<AnalyticsData> {
+    const response = await fetch(`${API_BASE_URL}/sessions/analytics`)
+    return response.json()
   }
 }

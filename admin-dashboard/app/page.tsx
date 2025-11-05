@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { BarChart3, CheckCircle2, Zap, Users, Target, Clock, RefreshCw } from "lucide-react"
 import { StatCard } from "@/components/stat-card"
 import { PageHeader } from "@/components/page-header"
@@ -11,28 +12,39 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Progress } from "@/components/ui/progress"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { ApiService, Session, Stats } from "@/lib/api"
-import { formatDate, formatNumber } from "@/lib/utils"
+import { ApiService, Session, Stats, AnalyticsData } from "@/lib/api"
+import { EventDistributionChart } from "@/components/analytics/event-distribution-chart"
+import { SessionTimelineChart } from "@/components/analytics/session-timeline-chart"
+import { TopParticipants } from "@/components/analytics/top-participants"
+import { formatDate, formatNumber, formatDuration } from "@/lib/utils"
 import { toast } from "sonner"
 
 export default function OverviewPage() {
+  const router = useRouter()
   const [stats, setStats] = useState<Stats | null>(null)
   const [recentSessions, setRecentSessions] = useState<Session[]>([])
   const [activeSessions, setActiveSessions] = useState<Session[]>([])
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const handleViewSession = (sessionId: string) => {
+    router.push(`/sessions?session=${sessionId}`)
+  }
 
   const loadData = async () => {
     setLoading(true)
     try {
-      const [statsData, recentData, activeData] = await Promise.all([
+      const [statsData, recentData, activeData, analyticsData] = await Promise.all([
         ApiService.getStats(),
         ApiService.getSessions({ limit: 5 }),
         ApiService.getSessions({ is_active: true, limit: 5 }),
+        ApiService.getAnalytics(),
       ])
 
       setStats(statsData)
       setRecentSessions(recentData.sessions)
       setActiveSessions(activeData.sessions)
+      setAnalytics(analyticsData)
       toast.success("Data refreshed successfully")
     } catch (error) {
       console.error("Error loading overview data:", error)
@@ -105,12 +117,24 @@ export default function OverviewPage() {
             />
             <StatCard
               title="Avg Session Duration"
-              value="45 min"
+              value={stats ? formatDuration(stats.avg_duration_seconds) : "-"}
               icon={Clock}
             />
           </>
         )}
       </div>
+
+      {/* Analytics Visualizations */}
+      {analytics && analytics.event_distribution.length > 0 && (
+        <div className="grid gap-6 md:grid-cols-2">
+          <EventDistributionChart data={analytics.event_distribution} />
+          <TopParticipants data={analytics.top_participants} />
+        </div>
+      )}
+
+      {analytics && analytics.timeline.length > 0 && (
+        <SessionTimelineChart data={analytics.timeline} />
+      )}
 
       {/* Recent and Active Sessions */}
       <div className="grid gap-6 md:grid-cols-2">
@@ -157,7 +181,11 @@ export default function OverviewPage() {
                             {session.participant_id} • {formatDate(session.started_at)} • {session.total_events} events
                           </p>
                         </div>
-                        <Button variant="secondary" size="sm">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleViewSession(session.session_id)}
+                        >
                           View
                         </Button>
                       </div>
