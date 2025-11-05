@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { BarChart3, TrendingUp, PieChart as PieChartIcon, Calendar as CalendarIcon, Activity } from "lucide-react"
-import { ApiService, Session } from "@/lib/api"
+import { ApiService, Session, AnalyticsData } from "@/lib/api"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
@@ -20,6 +20,7 @@ const COLORS = ["hsl(var(--chart-1))", "hsl(var(--chart-2))", "hsl(var(--chart-3
 
 export default function AnalyticsPage() {
   const [sessions, setSessions] = useState<Session[]>([])
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>({})
 
@@ -27,8 +28,12 @@ export default function AnalyticsPage() {
     const loadData = async () => {
       setLoading(true)
       try {
-        const data = await ApiService.getSessions({ limit: 100 })
-        setSessions(data.sessions)
+        const [sessionsData, analyticsData] = await Promise.all([
+          ApiService.getSessions({ limit: 100 }),
+          ApiService.getAnalytics(),
+        ])
+        setSessions(sessionsData.sessions)
+        setAnalytics(analyticsData)
       } catch (error) {
         console.error("Error loading analytics data:", error)
         toast.error("Failed to load analytics data")
@@ -42,15 +47,11 @@ export default function AnalyticsPage() {
 
   // Calculate event type distribution
   const eventDistribution = () => {
-    const eventCounts: Record<string, number> = {}
-    sessions.forEach((session) => {
-      if (session.event_summary) {
-        Object.entries(session.event_summary).forEach(([type, count]) => {
-          eventCounts[type] = (eventCounts[type] || 0) + (count as number)
-        })
-      }
-    })
-    return Object.entries(eventCounts).map(([name, value]) => ({ name, value }))
+    if (!analytics?.event_distribution) return []
+    return analytics.event_distribution.map((item) => ({
+      name: item.event_type.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+      value: item.count,
+    }))
   }
 
   // Calculate sessions over time
