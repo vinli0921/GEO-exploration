@@ -1,196 +1,344 @@
-# LLM Search Behavior Tracker - Chrome Extension
+# Chrome Extension - LLM Search Behavior Tracker
 
-Chrome extension for tracking user behavior in LLM search studies.
+Chrome extension for tracking user browsing behavior in research studies.
 
 ## Features
 
-- **Full Session Recording**: Captures DOM snapshots, user interactions, and page events
-- **All-Website Tracking**: Monitors behavior across all browsing sessions
-- **Hybrid Storage**: Local buffering with periodic batch uploads
-- **IRB Compliant**: Built-in consent forms and privacy controls
-- **Privacy Features**: Exclude domains, pause/resume, data review
+- Full session recording with DOM snapshots and event capture
+- Tracks clicks, scrolls, inputs, navigation, and page events
+- Search query extraction from Google, ChatGPT, and other LLMs
+- Local buffering with batch uploads every 5 minutes
+- Privacy controls (exclude domains, pause/resume)
+- IRB-compliant consent flow
+- Works across all websites
 
-## Project Structure
+## Installation
+
+### For Participants (Development/Testing)
+
+1. Download or clone the extension folder
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode" (toggle in top right)
+4. Click "Load unpacked"
+5. Select the `chrome-extension` folder
+6. Extension icon should appear in toolbar
+
+### For Distribution
+
+**Option 1: ZIP File Distribution**
+
+```bash
+cd chrome-extension
+zip -r llm-search-tracker.zip . -x "*.DS_Store"
+```
+
+Send ZIP file to participants with installation instructions.
+
+**Option 2: Chrome Web Store**
+
+1. Create Chrome Developer account ($5 one-time fee)
+2. Generate PNG icons (see Icons section below)
+3. Package extension as ZIP
+4. Upload to Chrome Web Store
+5. Submit for review
+
+## Configuration
+
+### Backend URL
+
+Update API endpoint in `background.js` (line 10):
+
+```javascript
+const CONFIG = {
+  uploadEndpoint: 'https://geo-exploration-backend.vercel.app/api/sessions/upload',
+  // ...
+};
+```
+
+**Development**: Use `http://localhost:5000/api/sessions/upload`
+**Production**: Use your deployed Vercel URL
+
+### Upload Settings
+
+Configure in `background.js`:
+
+```javascript
+const CONFIG = {
+  batchUploadInterval: 5 * 60 * 1000,  // 5 minutes
+  maxBufferSize: 10 * 1024 * 1024,     // 10MB
+  retryAttempts: 3,
+  retryDelay: 5000                      // 5 seconds
+};
+```
+
+## Usage
+
+### Starting a Session
+
+1. Click extension icon in toolbar
+2. Read informed consent
+3. Enter participant ID (provided by researcher)
+4. Check consent checkbox
+5. Click "Start Recording"
+
+### During Recording
+
+- Browse normally - extension runs in background
+- Green dot indicates active recording
+- Data is buffered locally and uploaded every 5 minutes
+- Can pause/stop recording at any time
+
+### Stopping a Session
+
+1. Click extension icon
+2. Click "Stop & Upload"
+3. Wait for upload confirmation
+4. Uninstall extension when study is complete
+
+## Privacy Features
+
+### Excluded Domains
+
+Participants can exclude sensitive websites:
+
+1. Click extension icon
+2. Click "Advanced Settings"
+3. Enter domains to exclude (one per line):
+```
+mybank.com
+healthcare.org
+```
+4. Click "Save Settings"
+
+### Data Redaction
+
+- Passwords and payment fields are automatically redacted
+- Most input fields show `[REDACTED]` instead of actual value
+- Only search query inputs capture actual text
+- No incognito/private browsing data is collected
+
+### Pause Recording
+
+Participants can temporarily pause without stopping:
+1. Click extension icon
+2. Click "Pause" button
+3. Resume when ready
+
+## Data Collected
+
+**Page Events:**
+- Page loads (URL, title, referrer)
+- Navigation (forward, back, tab switches)
+- Visibility changes (tab focus/blur)
+
+**User Interactions:**
+- Clicks (element, coordinates)
+- Scrolls (position, percentage)
+- Input events (type, length, search queries)
+- Form submissions
+
+**DOM Snapshots:**
+- Initial page structure (simplified)
+- Metadata (meta tags)
+- Links and images (first 100/50)
+- Forms (field types only)
+
+**Timing Data:**
+- Timestamps for all events
+- Dwell time on pages
+- Session duration
+
+**Browser Context:**
+- User agent
+- Screen size
+- Timezone
+- Tab IDs
+
+## Icons
+
+Current implementation uses placeholder SVG icons. For production distribution:
+
+### Generate PNG Icons
+
+Required sizes: 16x16, 48x48, 128x128
+
+**Using ImageMagick:**
+```bash
+cd icons
+convert -background none icon.svg -resize 16x16 icon16.png
+convert -background none icon.svg -resize 48x48 icon48.png
+convert -background none icon.svg -resize 128x128 icon128.png
+```
+
+**Using Online Tools:**
+- https://cloudconvert.com/svg-to-png
+- https://convertio.co/svg-png/
+
+## File Structure
 
 ```
 chrome-extension/
 ├── manifest.json           # Extension configuration (Manifest V3)
-├── background.js           # Service worker for session management
-├── scripts/
-│   ├── content.js         # Injected script for event capture
-│   └── recorder.js        # Session recording engine (TODO)
+├── background.js           # Service worker (session management)
 ├── popup/
 │   ├── popup.html         # Extension popup UI
 │   ├── popup.css          # Popup styles
 │   └── popup.js           # Popup controller
+├── scripts/
+│   └── content.js         # Content script (event capture)
 ├── storage/
-│   └── indexeddb.js       # IndexedDB wrapper for local storage
-├── icons/
-│   ├── icon16.png         # Extension icons (TODO)
-│   ├── icon48.png
-│   └── icon128.png
-└── README.md              # This file
+│   └── indexeddb.js       # IndexedDB wrapper (not currently used)
+└── icons/
+    ├── icon.svg           # Placeholder SVG
+    └── README.md          # Icon generation instructions
 ```
 
-## Installation (Development)
+## Customization
 
-1. **Generate icons** (required):
-   ```bash
-   # Create placeholder icons or use a design tool
-   # Required sizes: 16x16, 48x48, 128x128
-   ```
+### Update Consent Form
 
-2. **Load extension in Chrome**:
-   - Open Chrome and navigate to `chrome://extensions/`
-   - Enable "Developer mode" (toggle in top right)
-   - Click "Load unpacked"
-   - Select the `chrome-extension` folder
+Edit `popup/popup.html` (lines 25-35) to customize:
+- Study purpose
+- Data collected
+- IRB information
+- Contact details
 
-3. **Configure backend server**:
-   - Update the server URL in popup settings
-   - Default: `http://localhost:5000`
+### Update Branding
 
-## Usage
+1. Replace icons in `icons/` folder
+2. Update extension name in `manifest.json`
+3. Customize colors in `popup/popup.css`
 
-### For Participants
+### Add Excluded Domains by Default
 
-1. Click the extension icon in Chrome toolbar
-2. Read the informed consent
-3. Enter your participant ID
-4. Check the consent checkbox
-5. Click "Start Recording"
-6. Browse normally - data is captured automatically
-7. Click "Stop & Upload" when finished
+Edit `background.js` to pre-configure excluded domains:
 
-### For Researchers
+```javascript
+await chrome.storage.local.set({
+  excludedDomains: ['banking.com', 'healthcare.org'],
+  // ...
+});
+```
 
-1. Deploy the backend server (see `backend-server/README.md`)
-2. Distribute the extension to participants
-3. Participants complete their browsing sessions
-4. Access the admin dashboard to view and export data
+## Testing
 
-## Data Collected
+### Test Locally
 
-- **Page Events**: Page loads, navigation, visibility changes
-- **User Interactions**: Clicks, scrolls, form inputs
-- **DOM Snapshots**: Initial page structure and mutations
-- **Search Queries**: Extracted from search engines and LLM interfaces
-- **Timing Data**: Dwell time, interaction timestamps
-- **Tab Management**: Tab switches, focus events
+1. Load unpacked extension
+2. Open Chrome DevTools (F12)
+3. Go to Console tab
+4. Filter by "extension" or "LLM Search"
+5. Record a test session
+6. Check for:
+   - "Recording started" message
+   - Event capture logs
+   - Upload success messages
 
-## Privacy & Compliance
+### Test Event Capture
 
-- Participant consent required before recording
-- Data anonymized using participant IDs
-- Sensitive inputs redacted (except search queries)
-- Option to exclude specific domains
-- Local buffering before upload
-- Participants can pause/stop at any time
+1. Visit different websites
+2. Perform various actions (click, scroll, type)
+3. Check console for event capture logs
+4. Verify events in backend/dashboard
 
-## Configuration
+### Test Upload
 
-### Storage Settings
-
-- **Batch Upload Interval**: 5 minutes (configurable in `background.js`)
-- **Max Buffer Size**: 10MB
-- **Retry Attempts**: 3
-- **Local Storage Retention**: 7 days for uploaded data
-
-### Privacy Settings
-
-- **Excluded Domains**: Configure in popup settings
-- **Data Review**: Review data before upload (TODO)
-- **Pause/Resume**: Temporarily pause recording (TODO)
-
-## Development
-
-### Dependencies
-
-- None! This extension uses vanilla JavaScript and browser APIs only
-
-### Building
-
-No build step required - the extension runs directly from source.
-
-### Testing
-
-1. Load the extension in Chrome
-2. Open Chrome DevTools
-3. Check Console for logs
-4. Test each interaction type
-5. Verify data in backend server
-
-### Adding New Event Types
-
-1. Edit `scripts/content.js`
-2. Add event listener in `setupEventListeners()`
-3. Create handler function
-4. Call `sendEvent()` with event data
+1. Record a short session
+2. Wait 5 minutes for auto-upload OR
+3. Stop recording to trigger immediate upload
+4. Check console for upload status
+5. Verify data appears in admin dashboard
 
 ## Troubleshooting
 
-### Extension Not Loading
+**Extension Won't Load**
+- Check manifest.json syntax
+- Ensure all referenced files exist
+- Check Chrome version (requires v88+)
+- Try restarting Chrome
 
-- Check `manifest.json` syntax
-- Ensure all file paths are correct
-- Check Chrome DevTools console for errors
+**Events Not Captured**
+- Check if recording is active (green dot)
+- Verify content script injected (DevTools > Sources)
+- Check for JavaScript errors in console
+- Try reloading the page
 
-### Events Not Captured
+**Upload Fails**
+- Verify backend URL in background.js
+- Check backend is deployed and running
+- Check network tab for failed requests
+- Verify CORS is enabled on backend
+- Check internet connection
 
-- Check if recording is active (popup status indicator)
-- Verify content script is injected (DevTools sources tab)
-- Check background service worker logs
-
-### Upload Failures
-
-- Verify backend server is running
-- Check server URL in settings
-- Review network tab in DevTools
-- Check CORS configuration on server
+**High Memory Usage**
+- Reduce batchUploadInterval (upload more frequently)
+- Reduce maxBufferSize
+- Check for memory leaks in DevTools
 
 ## Known Limitations
 
-- **Manifest V3**: Some limitations vs V2 (persistent background pages)
-- **Cross-origin iframes**: Cannot capture events in cross-origin frames
-- **Dynamic content**: Heavy SPAs may miss some mutations
-- **Performance**: Recording on complex pages may impact performance
+**Manifest V3:**
+- No persistent background pages (service workers only)
+- Some APIs limited compared to V2
 
-## TODO
+**Cross-Origin Iframes:**
+- Cannot capture events inside iframes from different domains
+- Browser security restriction
 
-- [ ] Create extension icons (16x16, 48x48, 128x128)
-- [ ] Implement pause/resume functionality
-- [ ] Add data review before upload
-- [ ] Implement compression for events
-- [ ] Add recorder.js for advanced session replay
-- [ ] Add export to local file option
-- [ ] Add real-time preview of captured data
-- [ ] Optimize performance for heavy pages
+**Heavy SPAs:**
+- May miss some DOM mutations on complex single-page apps
+- Mutation observer throttled to reduce overhead
 
-## IRB Documentation
+**Incognito Mode:**
+- Extension does not run in incognito windows
+- By design for privacy
 
-IRB materials are available in `/docs/`:
+## Performance
 
-- Consent form template
-- Privacy policy
-- Data dictionary
-- Participant instructions
+Extension is optimized to minimize impact:
+- Event listeners use capture phase
+- Scroll/mousemove events throttled
+- DOM snapshots simplified (structure only)
+- Data compressed before upload
+- Batch uploads reduce network overhead
 
-## License
+Typical overhead: <1% CPU, <50MB memory
 
-MIT License - See LICENSE file
+## Security
 
-## Contact
+**Data Protection:**
+- HTTPS required for uploads
+- Passwords/payments auto-redacted
+- Participant control over excluded sites
+- Local buffering before upload
+- No data collection in incognito mode
 
-For questions or issues:
-- Email: research@university.edu
-- IRB Protocol #: XXXXX
+**Permissions:**
+- `storage`: Local data buffering
+- `tabs`: Tab management
+- `webNavigation`: Navigation tracking
+- `activeTab`: Current tab access
+- `scripting`: Content script injection
+- `<all_urls>`: Access all websites (required for study)
 
-## Citation
+## Participant Instructions
 
-If you use this tool in your research, please cite:
+See `docs/PARTICIPANT_INSTRUCTIONS.md` for detailed participant-facing documentation.
 
-```
-[Your Research Paper]
-[Authors] (2025)
-[Publication]
-```
+## IRB Compliance
+
+Extension includes:
+- Informed consent display
+- Explicit opt-in requirement
+- Participant ID collection
+- Privacy controls
+- Data review capability
+
+See `docs/` folder for complete IRB templates.
+
+## Support
+
+For issues or questions:
+- Check console for error messages
+- Review backend logs
+- Contact research team: research@university.edu

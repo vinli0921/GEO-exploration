@@ -7,7 +7,7 @@
 const CONFIG = {
   batchUploadInterval: 5 * 60 * 1000, // 5 minutes
   maxBufferSize: 10 * 1024 * 1024, // 10MB
-  uploadEndpoint: 'http://localhost:5001/api/sessions/upload',
+  uploadEndpoint: 'https://geo-exploration-backend.vercel.app/api/sessions/upload',
   retryAttempts: 3,
   retryDelay: 5000 // 5 seconds
 };
