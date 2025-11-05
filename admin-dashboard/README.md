@@ -5,7 +5,6 @@ A modern, sleek admin dashboard built with Next.js 14, TypeScript, Tailwind CSS,
 ## Features
 
 - **Modern Stack**: Built with Next.js 14 App Router, TypeScript, and Tailwind CSS
-- **Beautiful UI**: Utilizes shadcn/ui components for a polished, professional look
 - **Real-time Stats**: Live server health monitoring and auto-refreshing statistics
 - **Responsive Design**: Fully responsive layout that works on all devices
 - **Type-Safe**: Full TypeScript support for better development experience
@@ -298,5 +297,3 @@ MIT License
 For issues or questions, please open an issue in the repository.
 
 ---
-
-Built with ❤️ using Next.js and shadcn/ui

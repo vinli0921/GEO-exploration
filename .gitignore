@@ -26,6 +26,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Exception: Allow Next.js lib directory
+!admin-dashboard/lib/
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -207,3 +210,23 @@ marimo/_lsp/
 __marimo__/
 
 CLAUDE.md
+
+# LLM Search Behavior Study - Project specific
+
+# Backend data storage
+backend-server/data/
+backend-server/llm_search_behavior.db
+backend-server/*.db
+
+# Chrome extension generated files
+chrome-extension/icons/*.png
+!chrome-extension/icons/icon.svg
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# IDE
+.idea/
+.vscode/

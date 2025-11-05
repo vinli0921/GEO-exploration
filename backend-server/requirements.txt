@@ -3,11 +3,14 @@
 # Web Framework
 flask==3.0.0
 flask-cors==4.0.0
+flask-sqlalchemy==3.1.1
 
 # Database
-flask-sqlalchemy==3.1.1
 sqlalchemy==2.0.23
-psycopg2-binary==2.9.9  # PostgreSQL adapter
+psycopg2-binary==2.9.9  # PostgreSQL adapter (required for Supabase)
+
+# Supabase
+supabase==2.3.0  # Supabase Python client
 
 # API & Validation
 marshmallow==3.20.1
@@ -25,6 +28,9 @@ zstandard==0.22.0
 # File storage (optional)
 boto3==1.34.0  # For AWS S3 integration
 
-# Development
+# Development & Testing
 pytest==7.4.3
 pytest-flask==1.3.0
+
+# Production server
+gunicorn==21.2.0  # For production deployment
