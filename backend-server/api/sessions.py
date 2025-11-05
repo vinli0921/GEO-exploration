@@ -340,17 +340,94 @@ def get_stats():
         total_events = db.session.query(db.func.sum(Session.total_events)).scalar() or 0
         total_participants = db.session.query(db.func.count(db.func.distinct(Session.participant_id))).scalar() or 0
 
+        # Calculate average duration for completed sessions
+        avg_duration = db.session.query(
+            db.func.avg(Session.duration_seconds)
+        ).filter(
+            Session.is_complete == True,
+            Session.duration_seconds != None
+        ).scalar() or 0
+
         return jsonify({
             'total_sessions': total_sessions,
             'active_sessions': active_sessions,
             'complete_sessions': complete_sessions,
             'total_events': total_events,
-            'total_participants': total_participants
+            'total_participants': total_participants,
+            'avg_duration_seconds': int(avg_duration)
         }), 200
 
     except Exception as e:
         current_app.logger.error(f'Error getting stats: {str(e)}')
         return jsonify({
             'error': 'Failed to get stats',
+            'message': str(e)
+        }), 500
+
+
+@sessions_bp.route('/analytics', methods=['GET'])
+def get_analytics():
+    """Get analytics data for visualizations"""
+
+    try:
+        # Get event type distribution
+        event_distribution = db.session.query(
+            SessionEvent.event_type,
+            db.func.count(SessionEvent.id).label('count')
+        ).group_by(
+            SessionEvent.event_type
+        ).order_by(
+            db.func.count(SessionEvent.id).desc()
+        ).all()
+
+        # Get session timeline (sessions and events per day)
+        timeline_data = db.session.query(
+            db.func.date(Session.started_at).label('date'),
+            db.func.count(Session.id).label('sessions'),
+            db.func.sum(Session.total_events).label('events')
+        ).group_by(
+            db.func.date(Session.started_at)
+        ).order_by(
+            db.func.date(Session.started_at).asc()
+        ).all()
+
+        # Get top participants by session count and events
+        top_participants = db.session.query(
+            Session.participant_id,
+            db.func.count(Session.id).label('session_count'),
+            db.func.sum(Session.total_events).label('total_events')
+        ).group_by(
+            Session.participant_id
+        ).order_by(
+            db.func.count(Session.id).desc()
+        ).limit(10).all()
+
+        return jsonify({
+            'event_distribution': [
+                {'event_type': event_type, 'count': count}
+                for event_type, count in event_distribution
+            ],
+            'timeline': [
+                {
+                    'date': date.strftime('%Y-%m-%d') if date else None,
+                    'sessions': sessions or 0,
+                    'events': int(events) if events else 0
+                }
+                for date, sessions, events in timeline_data
+            ],
+            'top_participants': [
+                {
+                    'participant_id': participant_id,
+                    'session_count': session_count,
+                    'total_events': int(total_events) if total_events else 0
+                }
+                for participant_id, session_count, total_events in top_participants
+            ]
+        }), 200
+
+    except Exception as e:
+        current_app.logger.error(f'Error getting analytics: {str(e)}')
+        return jsonify({
+            'error': 'Failed to get analytics',
             'message': str(e)
         }), 500
