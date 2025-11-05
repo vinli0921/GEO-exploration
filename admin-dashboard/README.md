@@ -1,299 +1,286 @@
-# Admin Dashboard - Next.js + shadcn/ui
+# Admin Dashboard
 
-A modern, sleek admin dashboard built with Next.js 14, TypeScript, Tailwind CSS, and shadcn/ui components for managing LLM search behavior study data.
+Next.js 14 admin dashboard for viewing and analyzing session data from the Chrome extension.
 
 ## Features
 
-- **Modern Stack**: Built with Next.js 14 App Router, TypeScript, and Tailwind CSS
-- **Real-time Stats**: Live server health monitoring and auto-refreshing statistics
-- **Responsive Design**: Fully responsive layout that works on all devices
-- **Type-Safe**: Full TypeScript support for better development experience
-- **Overview Dashboard**: Real-time statistics with animated stat cards
-- **Session Management**: Browse, filter, and view detailed session information
-- **Participant Analytics**: View aggregated participant data and completion rates
-- **Data Export**: Download session data in various formats
-- **Modal Dialogs**: Beautiful session details modal using Radix UI
+- Real-time session statistics and monitoring
+- Session browser with filtering and search
+- Detailed event viewer with timeline visualization
+- Participant activity summaries
+- Session data export (JSON)
+- Server health monitoring
+- Responsive design with shadcn/ui components
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Components**: shadcn/ui (Radix UI primitives)
-- **Icons**: Lucide React
-- **State Management**: React Hooks
+- Next.js 14 (App Router)
+- React 18
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- Recharts for data visualization
 
-## Prerequisites
+## Setup
 
-- Node.js 18+ and npm/yarn/pnpm
-- Backend server running (see backend-server directory)
+### Local Development
 
-## Installation
+```bash
+# Install dependencies
+npm install
 
-1. **Install dependencies**:
-   ```bash
-   cd admin-dashboard
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
+# Configure environment
+cp .env.local.example .env.local
+# Edit .env.local with your backend API URL
 
-2. **Configure environment variables**:
+# Start development server
+npm run dev
+```
 
-   The `.env.local` file is already set up with:
-   ```
-   NEXT_PUBLIC_API_URL=http://localhost:5001/api
-   ```
+Dashboard runs on http://localhost:3000
 
-   Update this if your backend server runs on a different port.
+### Production Deployment (Vercel)
 
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
+```bash
+# Deploy to Vercel
+vercel --prod
 
-4. **Open your browser**:
+# Expected URL: https://geo-exploration.vercel.app
+```
 
-   Navigate to [http://localhost:3000](http://localhost:3000)
+## Environment Variables
+
+Required in `.env.local` (development) or `.env.production` (production):
+
+```bash
+NEXT_PUBLIC_API_URL=https://geo-exploration-backend.vercel.app/api
+```
+
+**Development**: Use `http://localhost:5000/api` for local backend
+**Production**: Use your deployed Vercel backend URL
 
 ## Project Structure
 
 ```
 admin-dashboard/
-├── app/                      # Next.js App Router pages
-│   ├── page.tsx             # Overview page (/)
-│   ├── sessions/page.tsx    # Sessions page
-│   ├── participants/page.tsx # Participants page
-│   ├── analytics/page.tsx   # Analytics page
-│   ├── export/page.tsx      # Export page
-│   ├── layout.tsx           # Root layout
-│   └── globals.css          # Global styles
-├── components/              # React components
-│   ├── ui/                  # shadcn/ui components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── dialog.tsx
-│   │   ├── input.tsx
-│   │   ├── select.tsx
-│   │   ├── table.tsx
-│   │   ├── badge.tsx
-│   │   └── ...
-│   ├── sidebar.tsx          # Sidebar navigation
-│   ├── stat-card.tsx        # Statistics card component
-│   └── page-header.tsx      # Page header component
-├── lib/                     # Utilities and services
-│   ├── api.ts              # API service layer
-│   └── utils.ts            # Helper functions
-├── public/                  # Static assets
-├── package.json            # Dependencies
-├── tsconfig.json           # TypeScript config
-├── tailwind.config.ts      # Tailwind CSS config
-└── next.config.js          # Next.js config
+├── app/
+│   ├── layout.tsx          # Root layout with sidebar
+│   ├── page.tsx            # Dashboard home (statistics)
+│   ├── sessions/
+│   │   └── page.tsx        # Sessions list view
+│   └── participants/
+│       └── page.tsx        # Participants summary
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── dashboard-stats.tsx # Statistics cards
+│   ├── session-list.tsx    # Sessions table
+│   └── event-viewer.tsx    # Event timeline
+├── lib/
+│   └── utils.ts            # Utility functions
+└── public/                 # Static assets
 ```
-
-## Available Scripts
-
-- `npm run dev` - Start development server on port 3000
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-
-## Pages
-
-### Overview (/)
-- Dashboard with key statistics in beautiful stat cards
-- Recent sessions list with real-time updates
-- Active sessions monitoring
-- Auto-refresh every 30 seconds
-
-### Sessions (/sessions)
-- Comprehensive session table with sorting and filtering
-- Pagination for large datasets
-- Session status badges (Active/Complete)
-- Quick actions (View, Download)
-- Modal dialog for detailed session information
-
-### Participants (/participants)
-- Aggregated participant statistics
-- Search functionality
-- Completion rate tracking
-- Event count summaries
-
-### Analytics (/analytics)
-- Placeholder for future analytics visualizations
-- Event type distribution charts (coming soon)
-- Session timeline graphs (coming soon)
-
-### Export (/export)
-- Export individual sessions by ID
-- Filter exports by participant
-- Bulk export functionality
-- Multiple format support (JSON, CSV coming soon)
 
 ## API Integration
 
-The dashboard connects to the backend API through the `ApiService` class in `lib/api.ts`:
+Dashboard connects to backend API for all data operations:
 
-### Endpoints Used:
+**Endpoints Used:**
 - `GET /api/health` - Server health check
-- `GET /api/sessions/stats` - Overall statistics
-- `GET /api/sessions/list` - List sessions with pagination
+- `GET /api/sessions/stats` - Dashboard statistics
+- `GET /api/sessions/list` - List all sessions
 - `GET /api/sessions/:id` - Session details
-- `GET /api/sessions/:id/export` - Download session data
+- `GET /api/sessions/:id/events` - Session events
+- `GET /api/sessions/:id/export` - Export session data
 
-### Environment Variables:
-- `NEXT_PUBLIC_API_URL` - Backend API base URL (default: http://localhost:5001/api)
+API URL is configured via `NEXT_PUBLIC_API_URL` environment variable.
 
-## Customization
+## Key Features
 
-### Adding New Pages
+### Dashboard Home
+- Total sessions, participants, events
+- Active vs complete sessions
+- Server status indicator
+- Recent activity summary
 
-1. Create a new file in the `app` directory:
-   ```tsx
-   // app/my-page/page.tsx
-   export default function MyPage() {
-     return <div>My Custom Page</div>
-   }
-   ```
+### Sessions Browser
+- Searchable/filterable table of all sessions
+- Sort by date, participant, duration, events
+- Click to view detailed session info
+- Export individual sessions
 
-2. Add navigation item in `components/sidebar.tsx`:
-   ```tsx
-   {
-     title: "My Page",
-     href: "/my-page",
-     icon: YourIcon,
-   }
-   ```
+### Session Details
+- Full session metadata
+- Event timeline with filtering
+- Event type breakdown
+- Page visit history
+- Export as JSON
 
-### Styling
+### Participants View
+- Per-participant statistics
+- Session count and duration
+- Activity patterns
+- Data export
 
-The dashboard uses Tailwind CSS with shadcn/ui's theming system. Customize colors in `app/globals.css`:
+## Development
 
-```css
-:root {
-  --primary: 250 70% 65%;  /* Purple/blue primary color */
-  --secondary: 210 40% 96.1%;
-  /* ... more variables */
-}
-```
-
-### Adding Components
-
-Use the shadcn CLI to add more components:
+### Adding New Components
 
 ```bash
+# Add shadcn/ui component
 npx shadcn-ui@latest add [component-name]
 ```
 
-Available components: https://ui.shadcn.com/docs/components
+### Environment Variables
+
+**Development** (`.env.local`):
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+**Production** (`.env.production` or Vercel dashboard):
+```bash
+NEXT_PUBLIC_API_URL=https://geo-exploration-backend.vercel.app/api
+```
+
+### Build and Test
+
+```bash
+# Development server
+npm run dev
+
+# Production build
+npm run build
+
+# Start production server
+npm start
+
+# Linting
+npm run lint
+```
 
 ## Deployment
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import the project in Vercel
-3. Set environment variable: `NEXT_PUBLIC_API_URL`
-4. Deploy!
-
-### Docker
+### Vercel Deployment
 
 ```bash
-# Build
-docker build -t admin-dashboard .
+# Initial setup
+vercel
 
-# Run
-docker run -p 3000:3000 -e NEXT_PUBLIC_API_URL=your-api-url admin-dashboard
+# Production deployment
+vercel --prod
 ```
 
-### Static Export
+**Configuration in Vercel Dashboard:**
+1. Go to Project Settings → Environment Variables
+2. Add: `NEXT_PUBLIC_API_URL` = `https://geo-exploration-backend.vercel.app/api`
+3. Redeploy if needed
 
-For static hosting (if no server-side features needed):
+### Manual Deployment
 
 ```bash
+# Build for production
 npm run build
-# The output will be in the .next folder
+
+# Output is in .next/ folder
+# Deploy to any Node.js hosting
 ```
 
-## Performance
+## Testing
 
-- **Server Components**: Most components use React Server Components for optimal performance
-- **Client Components**: Only interactive components use "use client" directive
-- **Code Splitting**: Automatic code splitting by Next.js
-- **Image Optimization**: Next.js Image component for optimized images
+### Test API Connection
 
-## Browser Support
+1. Start dashboard: `npm run dev`
+2. Open http://localhost:3000
+3. Check server status indicator in sidebar
+4. Should show "Server Online" if backend is running
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+### Test Data Display
+
+1. Record a test session with Chrome extension
+2. Wait for upload (5 minutes or stop recording)
+3. Refresh dashboard
+4. Session should appear in Sessions tab
 
 ## Troubleshooting
 
-### Server Offline Error
+**Server Status Shows "Offline"**
+- Verify backend is running and accessible
+- Check `NEXT_PUBLIC_API_URL` in environment variables
+- Open browser DevTools → Network tab to see failed requests
+- Verify CORS is enabled on backend
 
-**Problem**: Red "Server Offline" indicator in sidebar
+**No Sessions Displayed**
+- Check that sessions exist in Supabase database
+- Verify API endpoint `/api/sessions/list` returns data
+- Check browser console for errors
+- Ensure backend has correct database credentials
 
-**Solution**:
-- Ensure backend server is running on the correct port
-- Check `NEXT_PUBLIC_API_URL` in `.env.local`
-- Verify CORS settings on backend
-- Check browser console for network errors
+**Build Fails**
+- Clear `.next` folder: `rm -rf .next`
+- Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
+- Check for TypeScript errors: `npm run build`
 
-### Build Errors
+**Environment Variables Not Working**
+- Ensure variable starts with `NEXT_PUBLIC_` for client-side access
+- Restart dev server after changing `.env.local`
+- In Vercel, redeploy after updating environment variables
 
-**Problem**: TypeScript errors during build
+## Performance
 
-**Solution**:
-```bash
-# Clear Next.js cache
-rm -rf .next
-npm run build
+Dashboard is optimized with:
+- Server Components for data fetching
+- Client Components only where needed
+- Automatic code splitting
+- Image optimization
+- Static page generation where possible
+
+Typical load time: <2 seconds
+
+## Security
+
+**Authentication**: Not currently implemented (add if needed)
+
+**CORS**: Backend must allow dashboard origin
+**API Access**: Dashboard uses anonymous public API endpoints
+**Data**: No sensitive data displayed (participant IDs only)
+
+For production use, consider adding:
+- Authentication (NextAuth.js)
+- Role-based access control
+- API key authentication
+- Rate limiting
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Customization
+
+### Update Branding
+
+Edit `app/layout.tsx`:
+```tsx
+<title>Your Study Name - Admin Dashboard</title>
 ```
 
-### Port Already in Use
+### Modify Theme
 
-**Problem**: Port 3000 is already in use
+Edit `tailwind.config.ts` for custom colors and styling.
 
-**Solution**:
+### Add New Pages
+
 ```bash
-# Use a different port
-npm run dev -- -p 3001
+# Create new page
+mkdir -p app/your-page
+touch app/your-page/page.tsx
 ```
 
-## Future Enhancements
+## Resources
 
-- [ ] Dark mode toggle
-- [ ] Real-time updates with WebSockets
-- [ ] Advanced data visualization with Chart.js or Recharts
-- [ ] CSV export functionality
-- [ ] User authentication
-- [ ] Role-based access control
-- [ ] Session replay viewer
-- [ ] Advanced filtering and search
-- [ ] Keyboard shortcuts
-- [ ] Accessibility improvements
-
-## Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request
-
-## License
-
-MIT License
-
-## Support
-
-For issues or questions, please open an issue in the repository.
-
----
+- Next.js Docs: https://nextjs.org/docs
+- shadcn/ui: https://ui.shadcn.com/
+- Tailwind CSS: https://tailwindcss.com/docs
+- Vercel Deployment: https://vercel.com/docs
