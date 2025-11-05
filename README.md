@@ -16,6 +16,7 @@ This research platform consists of three integrated components:
 
 - Google Chrome browser
 - Python 3.11+
+- Node.js 18+
 - Git
 
 ### Installation
@@ -51,28 +52,33 @@ python app.py
 
 ```bash
 cd admin-dashboard
-python -m http.server 8080
-# Visit http://localhost:8080
+npm install
+npm run dev
+# Visit http://localhost:3000
 ```
 
-## Production with Supabase
+## Production Deployment
 
-For production deployment, this project is configured to use **Supabase PostgreSQL**:
+The platform is production-ready and deployed on Vercel with Supabase PostgreSQL:
 
-✅ **Database Ready**: Tables created with indexes and foreign keys
-✅ **Backend Configured**: SQLAlchemy ORM with PostgreSQL support
-✅ **Test Suite**: Connection and integration tests included
+**Live URLs**:
+- Admin Dashboard: https://geo-exploration.vercel.app/
+- Backend API: https://geo-exploration-backend.vercel.app/api
+- Database: Supabase PostgreSQL (https://pycqquvjgiojipxcmehl.supabase.co)
 
-**Quick Supabase Setup** (5 minutes):
+**Deploy Backend**:
+```bash
+cd backend-server
+vercel --prod
+```
 
-1. Get your Supabase connection string from Dashboard → Settings → Database
-2. Copy `backend-server/.env.production` to `.env` and add your password
-3. Run `python backend-server/test_supabase.py` to verify connection
-4. Start production server: `gunicorn -w 4 app:app`
+**Deploy Dashboard**:
+```bash
+cd admin-dashboard
+vercel --prod
+```
 
-See [**SUPABASE_QUICKSTART.md**](SUPABASE_QUICKSTART.md) for full setup guide.
-
-**Your Supabase Project**: `https://pycqquvjgiojipxcmehl.supabase.co`
+See component READMEs for detailed deployment instructions.
 
 ## Project Structure
 
@@ -91,10 +97,11 @@ GEO-exploration/
 │   ├── api/                 # API endpoints
 │   └── utils/               # Utilities
 │
-├── admin-dashboard/           # Web dashboard
-│   ├── index.html           # Dashboard UI
-│   ├── app.js               # Dashboard logic
-│   └── styles.css           # Styles
+├── admin-dashboard/           # Next.js admin dashboard
+│   ├── app/                 # App router pages
+│   ├── components/          # React components
+│   ├── lib/                 # Utilities
+│   └── public/              # Static assets
 │
 ├── docs/                      # Documentation
 │   ├── IRB_CONSENT_FORM_TEMPLATE.md
@@ -149,7 +156,7 @@ GEO-exploration/
 - Data export tools
 - Session detail viewer
 
-**Technology**: Vanilla HTML/CSS/JavaScript
+**Technology**: Next.js 14, React 18, TypeScript, Tailwind CSS, shadcn/ui
 
 [Full Documentation →](admin-dashboard/README.md)
 
@@ -286,22 +293,10 @@ pytest
 
 ### Hosting Options
 
-**Backend**:
-- AWS EC2 / Elastic Beanstalk
-- Heroku
-- DigitalOcean
-- University servers
-
-**Dashboard**:
-- Netlify
-- Vercel
-- GitHub Pages
-- Same server as backend
-
-**Database**:
-- AWS RDS (PostgreSQL)
-- Heroku Postgres
-- Self-hosted PostgreSQL
+**Current Production Stack**:
+- Backend: Vercel (Serverless Python)
+- Dashboard: Vercel (Next.js)
+- Database: Supabase (PostgreSQL)
 
 ## Troubleshooting
 
