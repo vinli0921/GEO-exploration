@@ -102,11 +102,15 @@ def internal_error(error):
     }), 500
 
 
-if __name__ == '__main__':
-    # Create tables if they don't exist
-    with app.app_context():
+# Initialize database tables
+with app.app_context():
+    try:
         db.create_all()
+    except Exception as e:
+        # Tables may already exist
+        pass
 
+if __name__ == '__main__':
     # Run development server
     app.run(
         host='0.0.0.0',

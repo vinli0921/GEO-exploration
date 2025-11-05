@@ -1,63 +1,92 @@
 # Backend API Server
 
-Flask backend for receiving and storing session data from the Chrome extension.
+Flask REST API for receiving and storing session data from the Chrome extension.
 
 ## Features
 
-- RESTful API for session data upload
-- PostgreSQL/SQLite database storage
+- RESTful API endpoints for session management
+- Supabase PostgreSQL database integration
+- SQLAlchemy ORM for database operations
 - Compressed JSON file storage for raw data
-- Session and event management
-- Data export capabilities
-- Health checks and monitoring
+- CORS enabled for Chrome extension
+- Vercel serverless deployment ready
 
 ## Setup
 
-### 1. Install Dependencies
+### Local Development
 
 ```bash
-cd backend-server
+# Install dependencies
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### 2. Configure Environment
-
-```bash
+# Configure environment
 cp .env.example .env
-# Edit .env with your configuration
-```
+# Edit .env with your Supabase credentials
 
-### 3. Initialize Database
-
-For SQLite (development):
-```bash
-python app.py
-# Database will be created automatically
-```
-
-For PostgreSQL (production):
-```bash
-# Create database
-createdb llm_search_behavior
-
-# Update DATABASE_URL in .env
-DATABASE_URL=postgresql://user:password@localhost:5432/llm_search_behavior
-
-# Run migrations (tables created automatically on first run)
+# Start server
 python app.py
 ```
 
-### 4. Run Server
+Server runs on http://localhost:5000
+
+### Production Deployment (Vercel)
 
 ```bash
-python app.py
+# Deploy to Vercel
+vercel --prod
+
+# Expected URL: https://geo-exploration-backend.vercel.app
 ```
 
-Server will start on `http://localhost:5000`
+## Environment Variables
 
-## API Endpoints
+Required in `.env` or Vercel environment:
+
+```bash
+# Database (Supabase)
+DATABASE_URL=postgresql://postgres.PROJECT:PASSWORD@aws-0-us-east-1.pooler.supabase.com:5432/postgres
+SUPABASE_URL=https://pycqquvjgiojipxcmehl.supabase.co
+SUPABASE_SERVICE_KEY=your_service_key
+
+# Application
+DEBUG=False
+SECRET_KEY=your-secret-key
+DATA_STORAGE_PATH=/tmp/sessions
+
+# Security
+ALLOWED_ORIGINS=*  # Restrict in production
+MAX_CONTENT_LENGTH=52428800
+```
+
+## Database Configuration
+
+### Supabase Connection
+
+**Session Mode (Port 5432)** - Recommended for persistent Flask server
+
+```bash
+DATABASE_URL=postgresql://postgres.pycqquvjgiojipxcmehl:PASSWORD@aws-0-us-east-1.pooler.supabase.com:5432/postgres
+```
+
+**Transaction Mode (Port 6543)** - For serverless only (requires additional config)
+
+### Database Schema
+
+Tables are created automatically on first run:
+
+- **sessions** - Session metadata and statistics
+- **session_events** - Individual user events with JSONB storage
+- **uploads** - Batch upload tracking
+
+Indexes created on:
+- Foreign keys
+- session_id, participant_id
+- event_type, timestamp
+- JSONB data (GIN index)
+
+## API Reference
 
 ### Health Check
 
@@ -73,6 +102,63 @@ Response:
   "timestamp": "2025-01-15T10:30:00"
 }
 ```
+
+### Statistics
+
+```
+GET /api/sessions/stats
+```
+
+Response:
+```json
+{
+  "total_sessions": 100,
+  "active_sessions": 5,
+  "complete_sessions": 95,
+  "total_events": 50000,
+  "total_participants": 25
+}
+```
+
+### List Sessions
+
+```
+GET /api/sessions/list?participant_id=P001&limit=50&offset=0
+```
+
+Query parameters:
+- `participant_id` (optional): Filter by participant
+- `is_active` (optional): true/false
+- `is_complete` (optional): true/false
+- `limit` (default: 100): Results per page
+- `offset` (default: 0): Pagination offset
+
+### Get Session Details
+
+```
+GET /api/sessions/<session_id>
+```
+
+Returns session info with event summary and upload details.
+
+### Get Session Events
+
+```
+GET /api/sessions/<session_id>/events?event_type=click&limit=1000
+```
+
+Query parameters:
+- `event_type` (optional): Filter by type
+- `limit` (default: 1000)
+- `offset` (default: 0)
+
+### Export Session
+
+```
+GET /api/sessions/<session_id>/export
+```
+
+Downloads complete session data as JSON file.
 
 ### Upload Session Data
 
@@ -90,8 +176,7 @@ Request body:
     {
       "type": "page_load",
       "timestamp": 1705315800000,
-      "url": "https://example.com",
-      "title": "Example Page"
+      "url": "https://example.com"
     }
   ],
   "uploadTimestamp": 1705315800000
@@ -108,283 +193,218 @@ Response:
 }
 ```
 
-### List Sessions
+## Vercel Configuration
 
-```
-GET /api/sessions/list?participant_id=P001&limit=50&offset=0
-```
+File: `vercel.json`
 
-Query parameters:
-- `participant_id` (optional): Filter by participant
-- `is_active` (optional): Filter active sessions (true/false)
-- `is_complete` (optional): Filter complete sessions (true/false)
-- `limit` (default: 100): Number of results
-- `offset` (default: 0): Pagination offset
-
-Response:
 ```json
 {
-  "sessions": [
-    {
-      "id": 1,
-      "session_id": "session_123456",
-      "participant_id": "P001",
-      "started_at": "2025-01-15T10:30:00",
-      "ended_at": null,
-      "total_events": 150,
-      "total_pages": 10,
-      "is_active": true
-    }
-  ],
-  "total": 1,
-  "limit": 50,
-  "offset": 0
+  "version": 2,
+  "builds": [{"src": "app.py", "use": "@vercel/python"}],
+  "routes": [{"src": "/(.*)", "dest": "app.py"}],
+  "env": {
+    "DATABASE_URL": "...",
+    "SUPABASE_URL": "...",
+    "SUPABASE_SERVICE_KEY": "...",
+    "DEBUG": "False"
+  }
 }
 ```
 
-### Get Session Details
+## Testing
 
-```
-GET /api/sessions/<session_id>
-```
+### Test Supabase Connection
 
-Response:
-```json
-{
-  "id": 1,
-  "session_id": "session_123456",
-  "participant_id": "P001",
-  "started_at": "2025-01-15T10:30:00",
-  "total_events": 150,
-  "event_summary": {
-    "page_load": 10,
-    "click": 50,
-    "scroll": 90
-  },
-  "uploads": [
-    {
-      "id": 1,
-      "upload_timestamp": "2025-01-15T10:35:00",
-      "event_count": 50
-    }
-  ]
-}
+```bash
+python test_supabase.py
 ```
 
-### Get Session Events
+Verifies:
+- Database connection
+- Table existence
+- Indexes
+- Foreign keys
+- Data operations
 
-```
-GET /api/sessions/<session_id>/events?event_type=click&limit=100
-```
+### Test API Endpoints
 
-Query parameters:
-- `event_type` (optional): Filter by event type
-- `limit` (default: 1000): Number of results
-- `offset` (default: 0): Pagination offset
+```bash
+# Health check
+curl http://localhost:5000/api/health
 
-Response:
-```json
-{
-  "events": [
-    {
-      "id": 1,
-      "event_type": "click",
-      "timestamp": "2025-01-15T10:30:00",
-      "event_data": {
-        "element": { "tag": "button" },
-        "coordinates": { "x": 100, "y": 200 }
-      },
-      "url": "https://example.com"
-    }
-  ],
-  "total": 50,
-  "limit": 100,
-  "offset": 0
-}
+# Stats
+curl http://localhost:5000/api/sessions/stats
+
+# List sessions
+curl http://localhost:5000/api/sessions/list
 ```
 
-### Export Session
+### Test Upload
 
-```
-GET /api/sessions/<session_id>/export
-```
-
-Downloads complete session data as JSON file.
-
-### Get Statistics
-
-```
-GET /api/sessions/stats
-```
-
-Response:
-```json
-{
-  "total_sessions": 100,
-  "active_sessions": 5,
-  "complete_sessions": 95,
-  "total_events": 50000,
-  "total_participants": 25
-}
+```bash
+curl -X POST http://localhost:5000/api/sessions/upload \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sessionId": "test_123",
+    "participantId": "TEST_001",
+    "events": [{"type": "test", "timestamp": 1705315800000}],
+    "uploadTimestamp": 1705315800000
+  }'
 ```
 
-## Database Schema
+## Database Schema Details
 
-### Sessions Table
+### sessions Table
 
-- `id`: Primary key
-- `session_id`: Unique session identifier
-- `participant_id`: Participant identifier
-- `started_at`: Session start timestamp
-- `ended_at`: Session end timestamp (nullable)
-- `total_events`: Total number of events
-- `total_pages`: Number of unique pages visited
-- `is_active`: Whether session is currently active
-- `is_complete`: Whether session is complete
-- `user_agent`: Browser user agent
-- `timezone`: User timezone
+```sql
+CREATE TABLE sessions (
+    id BIGSERIAL PRIMARY KEY,
+    session_id VARCHAR(128) UNIQUE NOT NULL,
+    participant_id VARCHAR(64) NOT NULL,
+    started_at TIMESTAMPTZ DEFAULT NOW(),
+    ended_at TIMESTAMPTZ,
+    total_events INTEGER DEFAULT 0,
+    total_pages INTEGER DEFAULT 0,
+    duration_seconds INTEGER,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_complete BOOLEAN DEFAULT FALSE,
+    user_agent TEXT,
+    timezone VARCHAR(64),
+    screen_width INTEGER,
+    screen_height INTEGER
+);
+```
 
-### Session Events Table
+### session_events Table
 
-- `id`: Primary key
-- `session_id`: Foreign key to sessions
-- `event_type`: Type of event (click, scroll, etc.)
-- `timestamp`: Event timestamp
-- `event_data`: JSON data for event
-- `url`: Page URL
-- `title`: Page title
-- `tab_id`: Browser tab ID
+```sql
+CREATE TABLE session_events (
+    id BIGSERIAL PRIMARY KEY,
+    session_id BIGINT REFERENCES sessions(id),
+    event_type VARCHAR(64) NOT NULL,
+    timestamp TIMESTAMPTZ NOT NULL,
+    event_data JSONB NOT NULL,
+    url TEXT,
+    title TEXT,
+    tab_id INTEGER,
+    upload_id BIGINT REFERENCES uploads(id)
+);
 
-### Uploads Table
+CREATE INDEX idx_session_events_event_data ON session_events USING GIN (event_data);
+```
 
-- `id`: Primary key
-- `session_id`: Foreign key to sessions
-- `upload_timestamp`: When data was uploaded
-- `event_count`: Number of events in upload
-- `file_path`: Path to stored JSON file
-- `is_compressed`: Whether file is compressed
-- `is_processed`: Whether upload has been processed
+## File Storage
 
-## Data Storage
+Session data is stored in two locations:
 
-Session data is stored in two places:
-
-1. **Database**: Structured data for querying (sessions, events metadata)
-2. **Files**: Raw event data stored as compressed JSON files
+1. **Database**: Structured metadata for querying
+2. **Files**: Raw event data as compressed JSON
 
 File structure:
 ```
 data/sessions/
 ├── P001/
-│   └── session_123456/
-│       ├── upload_1_20250115_103000.json.gz
-│       └── upload_2_20250115_103500.json.gz
+│   └── session_123/
+│       └── upload_1_20250115.json.gz
 └── P002/
-    └── session_789012/
-        └── upload_3_20250115_110000.json.gz
+    └── session_456/
+        └── upload_2_20250115.json.gz
 ```
 
-## Development
+On Vercel, files are stored in `/tmp/sessions` (temporary, lost on redeployment).
 
-### Running Tests
-
-```bash
-pytest
-```
-
-### Database Migrations
-
-If you make changes to models, drop and recreate tables:
-
-```bash
-python
->>> from app import app, db
->>> with app.app_context():
-...     db.drop_all()
-...     db.create_all()
-```
-
-For production, use a migration tool like Alembic.
-
-## Production Deployment
-
-### Using Gunicorn
-
-```bash
-pip install gunicorn
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
-```
-
-### Using Docker
-
-```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
-```
-
-### Environment Variables
-
-Set these in production:
-- `DEBUG=False`
-- `DATABASE_URL=postgresql://...`
-- `SECRET_KEY=<random-key>`
-- `ALLOWED_ORIGINS=chrome-extension://<your-id>`
+For persistent file storage, use Supabase Storage (see utilities in `utils/supabase_client.py`).
 
 ## Monitoring
 
-Monitor these metrics:
-- Database connection health
-- API response times
-- Upload success rate
-- Storage disk usage
-- Error rates
-
-## Backup
-
-Regular backups recommended:
-
-1. **Database**: Use pg_dump for PostgreSQL
-2. **Files**: Backup `data/sessions` directory
+### Vercel Logs
 
 ```bash
-# Database backup
-pg_dump llm_search_behavior > backup_$(date +%Y%m%d).sql
+vercel logs
+```
 
-# File backup
-tar -czf sessions_backup_$(date +%Y%m%d).tar.gz data/sessions/
+Or visit Vercel Dashboard > Deployments > View Logs
+
+### Supabase Monitoring
+
+Go to Supabase Dashboard:
+- Table Editor: View data
+- Logs: View database queries
+- Reports: Monitor usage and performance
+
+### Application Logs
+
+```bash
+# Local development
+python app.py
+# Check console output
+
+# Production (Vercel)
+vercel logs --follow
+```
+
+## Troubleshooting
+
+**Database Connection Failed**
+- Verify DATABASE_URL format
+- Check password is correct
+- Test with: `python test_supabase.py`
+- Try direct connection (port 5432) vs pooled (6543)
+
+**CORS Errors**
+- Verify CORS is enabled in app.py
+- Check extension origin is allowed
+- Update ALLOWED_ORIGINS if needed
+
+**Upload Endpoint Timeout**
+- Check payload size < 50MB
+- Verify database connection is active
+- Check Vercel function timeout (default 10s)
+
+**Table Not Found**
+- Ensure db.create_all() runs on startup
+- Check Supabase dashboard for tables
+- Run migrations if needed
+
+## Performance Optimization
+
+For high-traffic deployments:
+
+```python
+# Add to app.py after line 27
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_size': 5,
+    'max_overflow': 10,
+    'pool_pre_ping': True,
+    'pool_recycle': 3600
+}
 ```
 
 ## Security Considerations
 
-- Use HTTPS in production
-- Restrict CORS to your extension ID only
-- Implement rate limiting
-- Sanitize all input data
-- Encrypt sensitive data
-- Regular security updates
-- Monitor for suspicious activity
+**Production Recommendations:**
 
-## Troubleshooting
+1. Restrict CORS origins:
+```python
+ALLOWED_ORIGINS = [
+    'chrome-extension://your-extension-id',
+    'https://geo-exploration.vercel.app'
+]
+```
 
-### Database Connection Errors
+2. Generate strong SECRET_KEY:
+```bash
+python -c "import secrets; print(secrets.token_urlsafe(32))"
+```
 
-Check DATABASE_URL format and credentials.
+3. Enable rate limiting (optional):
+```bash
+pip install flask-limiter
+```
 
-### CORS Errors
+## Additional Resources
 
-Verify extension origin in CORS configuration.
-
-### File Storage Issues
-
-Check DATA_STORAGE_PATH permissions and disk space.
-
-## Support
-
-For issues or questions, contact: research@university.edu
+- Supabase Docs: https://supabase.com/docs
+- Flask Docs: https://flask.palletsprojects.com/
+- SQLAlchemy Docs: https://docs.sqlalchemy.org/
+- Vercel Docs: https://vercel.com/docs
