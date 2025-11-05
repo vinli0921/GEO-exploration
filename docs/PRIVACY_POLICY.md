@@ -89,7 +89,7 @@ We do NOT:
 ## Data Storage and Security
 
 ### Storage Location
-- Data is stored on secure servers at [INSTITUTION]
+- Data is stored on secure servers at Supabase
 - Backup copies maintained on encrypted storage
 - File storage uses industry-standard compression and security
 

@@ -19,29 +19,13 @@ You should have received:
 
 ### Step 1: Download the Extension
 
-[Your researcher will provide the extension files]
-
-Option A: **Distributed as ZIP file**
-1. Download the extension ZIP file
-2. Extract/unzip to a folder on your computer
-3. Remember the folder location
-
-Option B: **Install from Chrome Web Store** (if published)
+**Install from Chrome Web Store** 
 1. Visit the Chrome Web Store link provided
 2. Click "Add to Chrome"
 3. Click "Add extension" to confirm
 4. Skip to Step 3
 
-### Step 2: Load Extension in Chrome (For ZIP Distribution)
-
-1. Open Google Chrome browser
-2. Type `chrome://extensions/` in the address bar and press Enter
-3. Toggle "Developer mode" ON (switch in top-right corner)
-4. Click "Load unpacked"
-5. Navigate to and select the extension folder you extracted
-6. The extension should now appear in your extensions list
-
-### Step 3: Pin the Extension (Recommended)
+### Step 2: Pin the Extension (Recommended)
 
 1. Click the puzzle piece icon (🧩) in Chrome toolbar
 2. Find "LLM Search Behavior Tracker"
@@ -113,7 +97,7 @@ The extension does NOT track:
 You can exclude specific websites from tracking:
 
 1. Click the extension icon
-2. Click "Advanced Settings ▼"
+2. Click "Advanced Settings"
 3. Under "Exclude Domains", enter domains (one per line):
    ```
    mybank.com
@@ -153,15 +137,6 @@ After stopping recording:
 2. Select "Remove from Chrome"
 3. Confirm removal
 
-Or:
-1. Go to `chrome://extensions/`
-2. Find "LLM Search Behavior Tracker"
-3. Click "Remove"
-
-### Complete Survey (If Required)
-
-Your researcher may ask you to fill out a brief survey about your experience. Follow the link they provide.
-
 ---
 
 ## Troubleshooting
@@ -171,8 +146,6 @@ Your researcher may ask you to fill out a brief survey about your experience. Fo
 **Problem**: Error message when loading extension
 
 **Solutions**:
-- Make sure you extracted the ZIP file (don't load the ZIP directly)
-- Make sure "Developer mode" is enabled
 - Try restarting Chrome
 - Contact the research team
 
@@ -316,4 +289,4 @@ Your participation helps advance our understanding of how people search for info
 ---
 
 **Version:** 1.0
-**Last Updated:** January 2025
+**Last Updated:** Nov 2025

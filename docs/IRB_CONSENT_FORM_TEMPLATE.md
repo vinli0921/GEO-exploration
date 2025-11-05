@@ -131,12 +131,12 @@ If you have questions about the research, contact the research team. If you have
 
 By checking the consent box in the Chrome extension and entering your participant ID, you indicate that:
 
-- ☑ I have read and understand this consent form
-- ☑ I have had the opportunity to ask questions
-- ☑ I understand that my participation is voluntary
-- ☑ I understand that I can withdraw at any time
-- ☑ I understand what data will be collected and how it will be used
-- ☑ I agree to participate in this research study
+- I have read and understand this consent form
+- I have had the opportunity to ask questions
+- I understand that my participation is voluntary
+- I understand that I can withdraw at any time
+- I understand what data will be collected and how it will be used
+- I agree to participate in this research study
 
 **You may print or save a copy of this consent form for your records.**
 
