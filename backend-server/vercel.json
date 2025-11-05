@@ -11,15 +11,5 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ],
-  "env": {
-    "DEBUG": "False",
-    "DATABASE_URL": "postgresql://postgres.pycqquvjgiojipxcmehl:FjmVO9xIZkWFC2LQ@aws-0-us-east-1.pooler.supabase.com:5432/postgres",
-    "SUPABASE_URL": "https://pycqquvjgiojipxcmehl.supabase.co",
-    "SUPABASE_SERVICE_KEY": "sb_secret_8_xzRwIB9beJdnnBAMZkjQ_yrP-ku6D",
-    "DATA_STORAGE_PATH": "/tmp/sessions",
-    "SECRET_KEY": "llm-search-behavior-study-production-2025-secure-key",
-    "ALLOWED_ORIGINS": "*",
-    "MAX_CONTENT_LENGTH": "52428800"
-  }
+  ]
 }
