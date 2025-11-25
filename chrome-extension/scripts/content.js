@@ -453,7 +453,11 @@ function getElementSelector(element) {
   if (element.id) return `#${element.id}`;
 
   let selector = element.tagName?.toLowerCase() || '';
-  if (element.className) {
+
+  // Handle className safely (SVG elements have SVGAnimatedString, not string)
+  if (element.classList && element.classList.length > 0) {
+    selector += '.' + Array.from(element.classList).join('.');
+  } else if (element.className && typeof element.className === 'string') {
     selector += '.' + element.className.split(' ').filter(Boolean).join('.');
   }
 

@@ -51,8 +51,9 @@ async function init() {
 
   // Check if already recording
   if (settings.isRecording) {
+    const status = await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
     showRecordingSection(settings);
-    startDurationTimer();
+    startDurationTimer(status.startTime);
   } else if (settings.consentGiven && settings.participantId) {
     // Pre-fill participant ID if consent was previously given
     participantIdInput.value = settings.participantId;
@@ -136,11 +137,12 @@ async function handleStartRecording() {
     });
 
     if (response.success) {
+      const status = await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
       showRecordingSection({
         participantId,
         currentSessionId: response.sessionId
       });
-      startDurationTimer();
+      startDurationTimer(status.startTime);
 
       // Notify content scripts to start capturing
       const tabs = await chrome.tabs.query({});
@@ -253,7 +255,6 @@ function showRecordingSection(settings) {
   sessionIdDisplay.textContent = settings.currentSessionId?.substring(0, 12) + '...' || '-';
 
   updateStatusIndicator(true);
-  startTime = Date.now();
 }
 
 /**
@@ -287,8 +288,9 @@ async function updateStatus() {
 /**
  * Start duration timer
  */
-function startDurationTimer() {
-  startTime = Date.now();
+function startDurationTimer(initialStartTime) {
+  startTime = initialStartTime || Date.now();
+
   durationInterval = setInterval(() => {
     const elapsed = Date.now() - startTime;
     const hours = Math.floor(elapsed / 3600000);
