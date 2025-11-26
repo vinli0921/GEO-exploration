@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 import json
 import gzip
+from sqlalchemy import text
 
 from models.database import db
 from models.session import Session, SessionEvent, Upload, SessionMetrics
@@ -183,12 +184,14 @@ def upload_session_data():
         session.total_pages = len(unique_urls)
 
         # Check for session end event
+        session_ended = False
         for event_data in events:
             if event_data.get('type') == 'session_end':
                 session.is_active = False
                 session.is_complete = True
                 session.ended_at = datetime.fromtimestamp(event_data.get('timestamp', 0) / 1000)
                 session.duration_seconds = event_data.get('duration', 0) // 1000
+                session_ended = True
 
         # Mark upload as processed
         upload.is_processed = True
@@ -196,6 +199,19 @@ def upload_session_data():
 
         # Commit transaction
         db.session.commit()
+
+        # Compute metrics if session just ended (safety net in case trigger doesn't fire)
+        if session_ended:
+            try:
+                db.session.execute(
+                    text("SELECT compute_session_metrics(:session_id)"),
+                    {'session_id': session.id}
+                )
+                db.session.commit()
+                current_app.logger.info(f'Computed metrics for completed session {session.id}')
+            except Exception as e:
+                current_app.logger.warning(f'Failed to compute metrics for session {session.id}: {str(e)}')
+                # Don't fail the entire request if metrics computation fails
 
         return jsonify({
             'success': True,

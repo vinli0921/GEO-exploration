@@ -187,20 +187,34 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION auto_compute_metrics_on_session_end()
 RETURNS TRIGGER AS $$
 BEGIN
-  -- If session was marked as complete, compute metrics
-  IF NEW.is_complete = TRUE AND OLD.is_complete = FALSE THEN
-    PERFORM compute_session_metrics(NEW.id);
+  -- Compute metrics if session is complete
+  IF NEW.is_complete = TRUE THEN
+    -- For UPDATE: only compute if it changed from FALSE to TRUE
+    -- For INSERT: always compute if is_complete is TRUE
+    IF (TG_OP = 'INSERT') OR (TG_OP = 'UPDATE' AND OLD.is_complete = FALSE) THEN
+      PERFORM compute_session_metrics(NEW.id);
+    END IF;
   END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
--- Create trigger
-DROP TRIGGER IF EXISTS trigger_auto_compute_metrics ON sessions;
-CREATE TRIGGER trigger_auto_compute_metrics
+-- Create triggers for both INSERT and UPDATE
+DROP TRIGGER IF EXISTS trigger_auto_compute_metrics_update ON sessions;
+DROP TRIGGER IF EXISTS trigger_auto_compute_metrics_insert ON sessions;
+
+-- Trigger on UPDATE when is_complete changes to TRUE
+CREATE TRIGGER trigger_auto_compute_metrics_update
   AFTER UPDATE ON sessions
   FOR EACH ROW
   WHEN (NEW.is_complete = TRUE AND OLD.is_complete = FALSE)
+  EXECUTE FUNCTION auto_compute_metrics_on_session_end();
+
+-- Trigger on INSERT when is_complete is already TRUE
+CREATE TRIGGER trigger_auto_compute_metrics_insert
+  AFTER INSERT ON sessions
+  FOR EACH ROW
+  WHEN (NEW.is_complete = TRUE)
   EXECUTE FUNCTION auto_compute_metrics_on_session_end();
 
 -- Add helpful comments
