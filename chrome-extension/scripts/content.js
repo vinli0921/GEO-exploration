@@ -72,14 +72,14 @@ async function loadPlatformConfig() {
     const response = await fetch(chrome.runtime.getURL('config/platforms.json'));
     platformConfig = await response.json();
 
-    // Load PlatformDetector class
-    const script = document.createElement('script');
-    script.src = chrome.runtime.getURL('scripts/platform-detector.js');
-    await new Promise((resolve, reject) => {
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
+    // Load PlatformDetector class - MV3 fix: fetch and eval in content script context
+    // (injecting via script tag runs in page context, not accessible to content script)
+    const scriptResponse = await fetch(chrome.runtime.getURL('scripts/platform-detector.js'));
+    const scriptCode = await scriptResponse.text();
+
+    // Execute in content script context
+    // Use indirect eval to execute in global scope of content script
+    (0, eval)(scriptCode);
 
     // Initialize detector
     if (typeof PlatformDetector !== 'undefined') {
