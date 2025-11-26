@@ -527,7 +527,7 @@ def compute_session_metrics(session_db_id):
         # Call PostgreSQL function to compute metrics
         # The function is defined in migration 002_create_session_metrics.sql
         db.session.execute(
-            "SELECT compute_session_metrics(:session_id)",
+            text("SELECT compute_session_metrics(:session_id)"),
             {'session_id': session_db_id}
         )
         db.session.commit()
