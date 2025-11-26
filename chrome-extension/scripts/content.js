@@ -24,9 +24,9 @@ const CAPTURE_CONFIG = {
 
 // Event filtering rules by platform type
 const EVENT_RULES = {
-  general: ['page_load', 'navigation', 'click', 'page_unload'],
-  ai: ['page_load', 'ai_query_input', 'ai_result_click', 'navigation', 'click', 'page_unload', 'visibility_change'],
-  ecommerce: ['page_load', 'product_click', 'conversion_action', 'click', 'page_unload', 'navigation']
+  general: ['page_load', 'navigation', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'visibility_change'],
+  ai: ['page_load', 'ai_query_input', 'ai_result_click', 'navigation', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'visibility_change'],
+  ecommerce: ['page_load', 'product_click', 'conversion_action', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'navigation', 'visibility_change']
 };
 
 /**
