@@ -47,7 +47,11 @@ SET
   platform_name = event_data->>'platformName',
   query_text = event_data->>'queryText',
   clicked_url = COALESCE(event_data->>'destination', event_data->>'productUrl'),
-  is_ai_attributed = COALESCE((event_data->>'isAIToEcommerce')::boolean, FALSE),
+  -- OR both AI attribution flags (matching Python and trigger logic)
+  is_ai_attributed = (
+    COALESCE((event_data->>'isAIToEcommerce')::boolean, FALSE) OR
+    COALESCE((event_data->>'sessionHasAIReferrer')::boolean, FALSE)
+  ),
   scroll_depth = (event_data->>'scrollDepth')::integer,
   dwell_time_ms = (event_data->>'dwellTime')::integer
 WHERE event_data IS NOT NULL
@@ -78,11 +82,16 @@ BEGIN
     NEW.clicked_url := NEW.event_data->>'productUrl';
   END IF;
 
-  -- Extract AI attribution
+  -- Extract AI attribution (OR both flags, matching Python logic in sessions.py)
+  -- A conversion is AI-attributed if EITHER flag is true
+  NEW.is_ai_attributed := FALSE;
+
   IF NEW.event_data ? 'isAIToEcommerce' THEN
-    NEW.is_ai_attributed := (NEW.event_data->>'isAIToEcommerce')::boolean;
-  ELSIF NEW.event_data ? 'sessionHasAIReferrer' THEN
-    NEW.is_ai_attributed := (NEW.event_data->>'sessionHasAIReferrer')::boolean;
+    NEW.is_ai_attributed := COALESCE((NEW.event_data->>'isAIToEcommerce')::boolean, FALSE);
+  END IF;
+
+  IF NEW.event_data ? 'sessionHasAIReferrer' THEN
+    NEW.is_ai_attributed := NEW.is_ai_attributed OR COALESCE((NEW.event_data->>'sessionHasAIReferrer')::boolean, FALSE);
   END IF;
 
   -- Extract engagement metrics
