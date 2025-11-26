@@ -50,6 +50,8 @@ def upload_session_data():
 
         if filtered_count > 0:
             current_app.logger.info(f'Filtered {filtered_count} low-value events from upload')
+            if len(events) == 0:
+                current_app.logger.warning(f'All {original_count} events filtered - no data to process')
 
         # Find or create session
         session = Session.query.filter_by(session_id=session_id).first()
@@ -179,19 +181,21 @@ def upload_session_data():
         if event_objects:
             db.session.bulk_save_objects(event_objects)
 
-        # Update session statistics
-        session.total_events += len(events)
-        session.total_pages = len(unique_urls)
-
-        # Check for session end event
+        # Update session statistics only if there are events after filtering
+        # This prevents wiping stats when all events are filtered out
         session_ended = False
-        for event_data in events:
-            if event_data.get('type') == 'session_end':
-                session.is_active = False
-                session.is_complete = True
-                session.ended_at = datetime.fromtimestamp(event_data.get('timestamp', 0) / 1000)
-                session.duration_seconds = event_data.get('duration', 0) // 1000
-                session_ended = True
+        if events:
+            session.total_events += len(events)
+            session.total_pages = len(unique_urls)
+
+            # Check for session end event
+            for event_data in events:
+                if event_data.get('type') == 'session_end':
+                    session.is_active = False
+                    session.is_complete = True
+                    session.ended_at = datetime.fromtimestamp(event_data.get('timestamp', 0) / 1000)
+                    session.duration_seconds = event_data.get('duration', 0) // 1000
+                    session_ended = True
 
         # Mark upload as processed
         upload.is_processed = True
