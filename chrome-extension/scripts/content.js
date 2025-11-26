@@ -88,21 +88,12 @@ async function loadPlatformConfig() {
     const response = await fetch(chrome.runtime.getURL('config/platforms.json'));
     platformConfig = await response.json();
 
-    // Load PlatformDetector class - MV3 fix: fetch and eval in content script context
-    // (injecting via script tag runs in page context, not accessible to content script)
-    const scriptResponse = await fetch(chrome.runtime.getURL('scripts/platform-detector.js'));
-    const scriptCode = await scriptResponse.text();
-
-    // Execute in content script context
-    // Use indirect eval to execute in global scope of content script
-    (0, eval)(scriptCode);
-
-    // Initialize detector
+    // Initialize detector (PlatformDetector class loaded via manifest content_scripts)
     if (typeof PlatformDetector !== 'undefined') {
       platformDetector = new PlatformDetector(platformConfig);
       console.log('[Content] Platform detector initialized with', Object.keys(platformConfig.ai_platforms).length, 'AI platforms and', Object.keys(platformConfig.ecommerce_platforms).length, 'e-commerce platforms');
     } else {
-      console.error('[Content] PlatformDetector class not loaded! Detection will fail.');
+      console.error('[Content] PlatformDetector class not loaded! Check manifest.json content_scripts.');
     }
   } catch (error) {
     console.error('[Content] Failed to load platform config:', error);

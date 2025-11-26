@@ -664,7 +664,7 @@ def get_metrics_summary():
             'total_ai_conversions': int(summary.total_ai_conversions or 0),
             'avg_queries_per_session': float(summary.avg_queries_per_session or 0),
             'avg_conversions_per_session': float(summary.avg_conversions_per_session or 0),
-            'avg_ai_to_purchase_seconds': float(summary.avg_ai_to_purchase_seconds or 0) if summary.avg_ai_to_purchase_seconds else None,
+            'avg_ai_to_purchase_seconds': float(summary.avg_ai_to_purchase_seconds) if summary.avg_ai_to_purchase_seconds is not None else None,
             'conversion_rate': round(conversion_rate, 2),
             'ai_attribution_rate': round(ai_attribution_rate, 2),
             'platform_usage': [

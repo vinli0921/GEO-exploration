@@ -25,7 +25,10 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["scripts/content.js"],
+      "js": [
+        "scripts/platform-detector.js",
+        "scripts/content.js"
+      ],
       "run_at": "document_start",
       "all_frames": false
     }
