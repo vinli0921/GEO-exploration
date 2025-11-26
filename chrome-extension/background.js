@@ -20,6 +20,7 @@ let sessionState = {
   startTime: null,
   eventBuffer: [],
   uploadQueue: [],
+  excludedDomains: [],  // Domains opted out of tracking
   _restored: false,
   totalSessionEvents: 0  // Track total events across all uploads
 };
@@ -53,7 +54,8 @@ async function restoreSessionState() {
     'eventBuffer',
     'uploadQueue',
     'pendingUploads',
-    'totalSessionEvents'
+    'totalSessionEvents',
+    'excludedDomains'
   ]);
 
   if (stored.isRecording && stored.recordingStartTime) {
@@ -64,6 +66,7 @@ async function restoreSessionState() {
     sessionState.eventBuffer = stored.eventBuffer || [];
     sessionState.uploadQueue = stored.uploadQueue || [];
     sessionState.totalSessionEvents = stored.totalSessionEvents || 0;
+    sessionState.excludedDomains = stored.excludedDomains || [];
 
     // Restore pending uploads
     if (stored.pendingUploads && stored.pendingUploads.length > 0) {
@@ -425,12 +428,50 @@ async function uploadBufferedData() {
 }
 
 /**
+ * Listen for storage changes to update excluded domains
+ */
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'local' && changes.excludedDomains) {
+    sessionState.excludedDomains = changes.excludedDomains.newValue || [];
+    console.log('[Background] Updated excluded domains:', sessionState.excludedDomains);
+  }
+});
+
+/**
+ * Check if a URL should be excluded from tracking
+ */
+function isUrlExcluded(url) {
+  if (!url || !sessionState.excludedDomains || sessionState.excludedDomains.length === 0) {
+    return false;
+  }
+
+  try {
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname;
+
+    // Check if hostname matches any excluded domain (exact or subdomain match)
+    return sessionState.excludedDomains.some(domain => {
+      return hostname === domain || hostname.endsWith('.' + domain);
+    });
+  } catch (e) {
+    // Invalid URL, don't exclude
+    return false;
+  }
+}
+
+/**
  * Track tab navigation
  */
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (!sessionState.isRecording) return;
 
   if (changeInfo.status === 'complete') {
+    // Skip if URL is excluded from tracking
+    if (isUrlExcluded(tab.url)) {
+      console.log('[Background] Skipping navigation event for excluded domain:', tab.url);
+      return;
+    }
+
     handleEventCaptured({
       type: 'navigation',
       url: tab.url,
@@ -447,6 +488,13 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   if (!sessionState.isRecording) return;
 
   const tab = await chrome.tabs.get(activeInfo.tabId);
+
+  // Skip if URL is excluded from tracking
+  if (isUrlExcluded(tab.url)) {
+    console.log('[Background] Skipping tab_switch event for excluded domain:', tab.url);
+    return;
+  }
+
   handleEventCaptured({
     type: 'tab_switch',
     tabId: activeInfo.tabId,
