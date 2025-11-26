@@ -25,9 +25,17 @@ class PlatformDetector {
     for (const [platform, config] of Object.entries(this.config.ai_platforms || {})) {
       console.log(`[PlatformDetector] Checking AI platform: ${platform}`);
       if (this.matchesPlatform(hostname, url, config)) {
-        // For Google, verify AI Overview is actually present
-        // BUT skip DOM check when checking referrers (DOM is from different page!)
-        if (platform === 'google_ai' && !skipDomChecks) {
+        // Google AI requires DOM verification - can't detect from URL alone
+        // When checking referrers, we can't verify DOM, so skip google_ai entirely
+        // to avoid false positives (regular Google search != AI Overview)
+        if (platform === 'google_ai') {
+          if (skipDomChecks) {
+            // Can't verify AI Overview from referrer URL - skip to avoid false positives
+            console.log(`[PlatformDetector] Skipping google_ai - requires DOM verification`);
+            continue;
+          }
+
+          // On current page - verify AI Overview is actually present
           const hasAIOverview = this.findElement(config.selectors.aiOverview);
           if (!hasAIOverview) {
             continue; // Regular Google search, not AI

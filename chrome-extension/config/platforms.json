@@ -110,6 +110,7 @@
     },
     "gemini": {
       "domains": ["gemini.google.com", "bard.google.com"],
+      "urlPatterns": ["/app/"],
       "selectors": {
         "queryInput": [
           ".ql-editor",
