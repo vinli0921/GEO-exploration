@@ -42,6 +42,9 @@ const EVENT_RULES = {
   // Detect current platform
   detectCurrentPlatform();
 
+  // Cache AI referrer AFTER platform detector is ready (not before!)
+  cacheAIReferrer();
+
   // Check if recording is active
   chrome.runtime.sendMessage({ type: 'GET_STATUS' }, (response) => {
     if (response && response.isRecording) {
@@ -124,6 +127,25 @@ function detectCurrentPlatform() {
   } else {
     console.log(`[Content] No platform detected for: ${window.location.hostname}`);
     console.log(`[Content] URL: ${window.location.href}`);
+  }
+}
+
+/**
+ * Cache AI referrer in sessionStorage for multi-page journey tracking
+ * Must be called AFTER platformDetector is initialized
+ */
+function cacheAIReferrer() {
+  if (!document.referrer || !platformDetector) {
+    return;
+  }
+
+  try {
+    if (platformDetector.isFromAI(document.referrer)) {
+      sessionStorage.setItem('hasAIReferrer', 'true');
+      console.log('[Content] Cached AI referrer in sessionStorage');
+    }
+  } catch (e) {
+    console.warn('[Content] Failed to cache AI referrer:', e);
   }
 }
 
@@ -628,15 +650,4 @@ function debounce(func, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), wait);
   };
-}
-
-// Store AI referrer in session storage for tracking
-if (document.referrer && platformDetector) {
-  try {
-    if (platformDetector.isFromAI(document.referrer)) {
-      sessionStorage.setItem('hasAIReferrer', 'true');
-    }
-  } catch (e) {
-    // Session storage not available
-  }
 }
