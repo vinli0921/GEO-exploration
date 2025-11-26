@@ -115,16 +115,51 @@ def upload_session_data():
             platform_name = event_data.get('platformName')
             query_text = event_data.get('queryText')
             clicked_url = event_data.get('destination') or event_data.get('productUrl')
-            is_ai_attributed = event_data.get('isAIToEcommerce', False) or event_data.get('sessionHasAIReferrer', False)
-            scroll_depth = event_data.get('scrollDepth')
-            dwell_time_ms = event_data.get('dwellTime')
+
+            # Fix boolean extraction with proper type conversion
+            is_ai_attributed_val = event_data.get('isAIToEcommerce', False)
+            session_has_ai = event_data.get('sessionHasAIReferrer', False)
+            is_ai_attributed = bool(is_ai_attributed_val) if isinstance(is_ai_attributed_val, bool) else \
+                               (is_ai_attributed_val == 'true' if isinstance(is_ai_attributed_val, str) else False)
+            is_ai_attributed = is_ai_attributed or \
+                               (bool(session_has_ai) if isinstance(session_has_ai, bool) else \
+                                (session_has_ai == 'true' if isinstance(session_has_ai, str) else False))
+
+            # Fix numeric field extraction with type conversion
+            scroll_depth = None
+            scroll_depth_val = event_data.get('scrollDepth')
+            if scroll_depth_val is not None:
+                try:
+                    scroll_depth = int(scroll_depth_val)
+                except (ValueError, TypeError):
+                    current_app.logger.warning(f"Invalid scroll_depth value: {scroll_depth_val}")
+
+            dwell_time_ms = None
+            dwell_time_val = event_data.get('dwellTime')
+            if dwell_time_val is not None:
+                try:
+                    dwell_time_ms = int(dwell_time_val)
+                except (ValueError, TypeError):
+                    current_app.logger.warning(f"Invalid dwell_time value: {dwell_time_val}")
+
+            # Parse timestamp with type validation
+            if not timestamp:
+                parsed_timestamp = datetime.utcnow()
+            else:
+                try:
+                    # Ensure it's numeric before division
+                    timestamp_num = float(timestamp)
+                    parsed_timestamp = datetime.fromtimestamp(timestamp_num / 1000)
+                except (ValueError, TypeError) as e:
+                    current_app.logger.warning(f"Invalid timestamp value: {timestamp}, using current time")
+                    parsed_timestamp = datetime.utcnow()
 
             # Create event object with extracted fields
             event = SessionEvent(
                 session_id=session.id,
                 upload_id=upload.id,
                 event_type=event_type,
-                timestamp=datetime.fromtimestamp(timestamp / 1000) if timestamp else datetime.utcnow(),
+                timestamp=parsed_timestamp,
                 event_data=event_data,
                 url=url,
                 title=title,
@@ -171,7 +206,13 @@ def upload_session_data():
 
     except Exception as e:
         db.session.rollback()
-        current_app.logger.error(f'Error processing upload: {str(e)}')
+        # Log full exception details for debugging
+        current_app.logger.error(f'Error processing upload: {str(e)}', exc_info=True)
+        # Log additional context if available
+        try:
+            current_app.logger.error(f'Session ID: {session_id}, Events count: {len(data.get("events", []))}')
+        except:
+            pass
         return jsonify({
             'error': 'Failed to process upload',
             'message': str(e)

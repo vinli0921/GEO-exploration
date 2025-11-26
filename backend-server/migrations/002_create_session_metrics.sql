@@ -55,6 +55,16 @@ DECLARE
   v_ecommerce_urls TEXT[];
   v_first_ai_timestamp TIMESTAMP;
   v_first_conversion_timestamp TIMESTAMP;
+  v_query_count INTEGER;
+  v_query_refinements INTEGER;
+  v_avg_query_length NUMERIC;
+  v_ai_result_clicks INTEGER;
+  v_ai_dwell_time INTEGER;
+  v_ecommerce_visits INTEGER;
+  v_products_viewed INTEGER;
+  v_conversions INTEGER;
+  v_ai_attributed_conversions INTEGER;
+  v_ai_to_purchase_seconds INTEGER;
 BEGIN
   -- Delete existing metrics if any
   DELETE FROM session_metrics WHERE session_id = p_session_id;

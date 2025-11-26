@@ -18,8 +18,11 @@ class PlatformDetector {
   detect(url, hostname) {
     if (!url || !hostname) return null;
 
+    console.log(`[PlatformDetector] Detecting platform for hostname: ${hostname}, URL: ${url}`);
+
     // Check AI platforms first
     for (const [platform, config] of Object.entries(this.config.ai_platforms || {})) {
+      console.log(`[PlatformDetector] Checking AI platform: ${platform}`);
       if (this.matchesPlatform(hostname, url, config)) {
         // For Google, verify AI Overview is actually present
         if (platform === 'google_ai') {
@@ -29,6 +32,7 @@ class PlatformDetector {
           }
         }
 
+        console.log(`[PlatformDetector] ✓ Matched AI platform: ${platform}`);
         return {
           platform,
           type: 'ai',
@@ -39,7 +43,9 @@ class PlatformDetector {
 
     // Check e-commerce platforms
     for (const [platform, config] of Object.entries(this.config.ecommerce_platforms || {})) {
+      console.log(`[PlatformDetector] Checking e-commerce platform: ${platform}`);
       if (this.matchesPlatform(hostname, url, config)) {
+        console.log(`[PlatformDetector] ✓ Matched e-commerce platform: ${platform}`);
         return {
           platform,
           type: 'ecommerce',
@@ -48,6 +54,7 @@ class PlatformDetector {
       }
     }
 
+    console.log(`[PlatformDetector] No platform match found`);
     return null;
   }
 
@@ -59,16 +66,27 @@ class PlatformDetector {
    * @returns {boolean}
    */
   matchesPlatform(hostname, url, config) {
-    // Check domain matches
+    // Check domain matches with exact or suffix matching
     if (config.domains && config.domains.length > 0) {
-      const domainMatch = config.domains.some(domain => hostname.includes(domain));
-      if (domainMatch) return true;
+      const domainMatch = config.domains.some(domain => {
+        // Exact match or subdomain match
+        return hostname === domain || hostname.endsWith('.' + domain);
+      });
+
+      if (domainMatch) {
+        console.log(`[PlatformDetector] Domain matched: ${hostname} with config domains`);
+        return true;
+      }
     }
 
     // Check URL pattern matches
     if (config.urlPatterns && config.urlPatterns.length > 0) {
       const urlMatch = config.urlPatterns.some(pattern => url.includes(pattern));
-      if (urlMatch) return true;
+
+      if (urlMatch) {
+        console.log(`[PlatformDetector] URL pattern matched: ${url}`);
+        return true;
+      }
     }
 
     return false;

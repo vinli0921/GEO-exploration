@@ -355,6 +355,14 @@ async function uploadBufferedData() {
     eventCount: dataToUpload.length
   };
 
+  // Debug logging to see what's being sent
+  console.log('[Background] Upload payload:', {
+    sessionId: payload.sessionId,
+    participantId: payload.participantId,
+    eventCount: payload.eventCount,
+    sampleEvent: payload.events[0] // Log first event for inspection
+  });
+
   // Upload with retries
   for (let attempt = 1; attempt <= CONFIG.retryAttempts; attempt++) {
     try {
@@ -387,7 +395,16 @@ async function uploadBufferedData() {
         console.log(`Uploaded ${dataToUpload.length} events (attempt ${attempt})`);
         return { success: true, eventsUploaded: dataToUpload.length, batchId };
       } else {
-        throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+        // Try to get error details from response body
+        let errorDetails = response.statusText;
+        try {
+          const errorBody = await response.json();
+          errorDetails = JSON.stringify(errorBody);
+          console.error('[Background] Server error response:', errorBody);
+        } catch (e) {
+          // Response body not JSON, use status text
+        }
+        throw new Error(`Upload failed: ${response.status} - ${errorDetails}`);
       }
     } catch (error) {
       console.error(`Upload attempt ${attempt} failed:`, error);

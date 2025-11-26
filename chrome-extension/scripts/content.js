@@ -84,7 +84,9 @@ async function loadPlatformConfig() {
     // Initialize detector
     if (typeof PlatformDetector !== 'undefined') {
       platformDetector = new PlatformDetector(platformConfig);
-      console.log('[Content] Platform detector initialized');
+      console.log('[Content] Platform detector initialized with', Object.keys(platformConfig.ai_platforms).length, 'AI platforms and', Object.keys(platformConfig.ecommerce_platforms).length, 'e-commerce platforms');
+    } else {
+      console.error('[Content] PlatformDetector class not loaded! Detection will fail.');
     }
   } catch (error) {
     console.error('[Content] Failed to load platform config:', error);
@@ -107,7 +109,10 @@ async function loadExcludedDomains() {
  * Detect current platform
  */
 function detectCurrentPlatform() {
-  if (!platformDetector) return;
+  if (!platformDetector) {
+    console.warn('[Content] Platform detector not initialized');
+    return;
+  }
 
   currentPlatform = platformDetector.detect(
     window.location.href,
@@ -116,6 +121,9 @@ function detectCurrentPlatform() {
 
   if (currentPlatform) {
     console.log(`[Content] Detected: ${currentPlatform.platform} (${currentPlatform.type})`);
+  } else {
+    console.log(`[Content] No platform detected for: ${window.location.hostname}`);
+    console.log(`[Content] URL: ${window.location.href}`);
   }
 }
 
