@@ -50,9 +50,7 @@ CREATE INDEX IF NOT EXISTS idx_metrics_conversions
 CREATE OR REPLACE FUNCTION compute_session_metrics(p_session_id INTEGER)
 RETURNS void AS $$
 DECLARE
-  v_query_texts TEXT[];
   v_ai_platforms TEXT[];
-  v_ecommerce_urls TEXT[];
   v_first_ai_timestamp TIMESTAMP;
   v_first_conversion_timestamp TIMESTAMP;
   v_query_count INTEGER;
@@ -79,16 +77,16 @@ BEGIN
   FROM session_events
   WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id);
 
-  -- Get query texts for refinement counting
-  SELECT array_agg(query_text ORDER BY timestamp)
-  INTO v_query_texts
+  -- Count refinements (distinct query texts - 1 for initial query)
+  -- Using COUNT(DISTINCT) to avoid counting duplicate query submissions as refinements
+  SELECT COUNT(DISTINCT query_text) - 1
+  INTO v_query_refinements
   FROM session_events
   WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id)
     AND event_type = 'ai_query_input'
     AND query_text IS NOT NULL;
 
-  -- Count refinements (simplified: count distinct queries)
-  v_query_refinements := COALESCE(array_length(array_remove(v_query_texts, NULL), 1), 0) - 1;
+  -- Ensure non-negative
   IF v_query_refinements < 0 THEN
     v_query_refinements := 0;
   END IF;

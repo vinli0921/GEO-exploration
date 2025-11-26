@@ -212,6 +212,11 @@ function startCapturing() {
 
   console.log('[Content] Starting event capture');
 
+  // Reset session-specific state to prevent contamination from previous sessions
+  lastQuery = '';
+  scrollMilestonesReached.clear();
+  pageLoadTime = Date.now();
+
   // Detect platform for this page
   detectCurrentPlatform();
 
@@ -246,6 +251,10 @@ function stopCapturing() {
   // Disconnect observers
   observers.forEach(observer => observer.disconnect());
   observers = [];
+
+  // Clear session-specific state to prevent contamination
+  lastQuery = '';
+  scrollMilestonesReached.clear();
 }
 
 /**
