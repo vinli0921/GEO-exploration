@@ -1,0 +1,296 @@
+{
+  "ai_platforms": {
+    "chatgpt": {
+      "domains": ["chat.openai.com", "chatgpt.com"],
+      "selectors": {
+        "queryInput": [
+          "textarea#prompt-textarea",
+          "textarea[data-id='root']",
+          "div[contenteditable='true'].ProseMirror",
+          "textarea[placeholder*='Message']"
+        ],
+        "submitButton": [
+          "button[data-testid='send-button']",
+          "button[data-testid='fruitjuice-send-button']"
+        ],
+        "responseContainer": [
+          ".markdown",
+          ".text-base",
+          "[data-message-author-role='assistant']",
+          ".agent-turn"
+        ],
+        "resultLinks": [
+          ".markdown a[href^='http']",
+          "[data-message-author-role='assistant'] a[href^='http']"
+        ]
+      }
+    },
+    "perplexity": {
+      "domains": ["perplexity.ai", "www.perplexity.ai"],
+      "selectors": {
+        "queryInput": [
+          "textarea[placeholder*='Ask']",
+          "textarea[placeholder*='follow']",
+          "input[type='search']",
+          "textarea.search-input"
+        ],
+        "submitButton": [
+          "button[type='submit']",
+          "button[aria-label='Submit']"
+        ],
+        "responseContainer": [
+          ".answer-container",
+          "[class*='Answer']",
+          ".prose",
+          "[class*='SearchResult']"
+        ],
+        "citations": [
+          ".citation",
+          "[data-citation]",
+          ".source",
+          "[class*='Citation']"
+        ],
+        "resultLinks": [
+          ".citation a",
+          ".source-link",
+          "[class*='Citation'] a"
+        ]
+      }
+    },
+    "google_ai": {
+      "domains": ["google.com", "www.google.com"],
+      "urlPatterns": ["/search"],
+      "selectors": {
+        "queryInput": [
+          "textarea[name='q']",
+          "input[name='q']",
+          "textarea[aria-label*='Search']"
+        ],
+        "aiOverview": [
+          "[data-attrid='SGPQuestionAnswer']",
+          ".AI-Overview",
+          "[jsname='yp1CPe']",
+          ".xpdopen",
+          "[data-hveid*='AI']"
+        ],
+        "organicResults": [
+          "#search .g",
+          ".g",
+          "[data-sokoban-container]"
+        ],
+        "aiResultLinks": [
+          ".AI-Overview a[href^='http']",
+          "[data-attrid='SGPQuestionAnswer'] a[href^='http']"
+        ]
+      }
+    },
+    "claude": {
+      "domains": ["claude.ai"],
+      "selectors": {
+        "queryInput": [
+          "div[contenteditable='true']",
+          "div[contenteditable='true'][data-placeholder]",
+          ".ProseMirror"
+        ],
+        "submitButton": [
+          "button[aria-label='Send Message']",
+          "button[type='submit']"
+        ],
+        "responseContainer": [
+          "[data-is-streaming]",
+          ".font-claude-message",
+          "[data-test-render-count]",
+          ".whitespace-pre-wrap"
+        ],
+        "resultLinks": [
+          ".font-claude-message a[href^='http']",
+          "[data-is-streaming] a[href^='http']"
+        ]
+      }
+    },
+    "gemini": {
+      "domains": ["gemini.google.com", "bard.google.com"],
+      "selectors": {
+        "queryInput": [
+          ".ql-editor",
+          "textarea",
+          "div[contenteditable='true']",
+          "rich-textarea"
+        ],
+        "submitButton": [
+          "button[aria-label='Send']",
+          "button[mattooltip='Send']"
+        ],
+        "responseContainer": [
+          ".model-response-text",
+          ".response-container",
+          "message-content",
+          ".markdown-container"
+        ],
+        "resultLinks": [
+          ".model-response-text a[href^='http']",
+          ".response-container a[href^='http']"
+        ]
+      }
+    },
+    "bing_copilot": {
+      "domains": ["bing.com", "www.bing.com", "copilot.microsoft.com"],
+      "urlPatterns": ["/search", "/chat"],
+      "selectors": {
+        "queryInput": [
+          "#sb_form_q",
+          "textarea[placeholder*='Ask']",
+          ".b_searchbox"
+        ],
+        "responseContainer": [
+          ".b_ans",
+          ".cib-serp-main",
+          "[data-content='Copilot']"
+        ],
+        "aiResultLinks": [
+          ".b_ans a[href^='http']",
+          ".cib-serp-main a[href^='http']"
+        ]
+      }
+    }
+  },
+  "ecommerce_platforms": {
+    "amazon": {
+      "domains": ["amazon.com", "www.amazon.com", "amazon.co.uk", "amazon.ca"],
+      "selectors": {
+        "searchInput": [
+          "#twotabsearchtextbox",
+          "input[type='text'][name='field-keywords']"
+        ],
+        "productLinks": [
+          "a.s-product-image-container",
+          "h2 a.a-link-normal",
+          "[data-component-type='s-search-result'] a.a-link-normal",
+          "a[href*='/dp/']"
+        ],
+        "addToCart": [
+          "#add-to-cart-button",
+          "input[name='submit.add-to-cart']",
+          "#add-to-cart-button-ubb"
+        ],
+        "buyNow": [
+          "#buy-now-button",
+          "input[name='submit.buy-now']"
+        ],
+        "checkout": [
+          "input[name='proceedToRetailCheckout']",
+          "a[href*='spc/checkout']",
+          "button[name='proceedToCheckout']"
+        ]
+      }
+    },
+    "walmart": {
+      "domains": ["walmart.com", "www.walmart.com"],
+      "selectors": {
+        "searchInput": [
+          "input[type='search']",
+          "input[name='q']"
+        ],
+        "productLinks": [
+          "a[link-identifier='itemTitle']",
+          "[data-item-id] a"
+        ],
+        "addToCart": [
+          "button[data-automation-id='add-to-cart']",
+          "button[aria-label*='Add to cart']"
+        ],
+        "checkout": [
+          "button[data-automation-id='checkout']",
+          "a[href*='/checkout']"
+        ]
+      }
+    },
+    "target": {
+      "domains": ["target.com", "www.target.com"],
+      "selectors": {
+        "searchInput": [
+          "input[type='search']",
+          "input[data-test='@web/Search/SearchInput']"
+        ],
+        "productLinks": [
+          "a[data-test='product-title']",
+          "a[href*='/p/']"
+        ],
+        "addToCart": [
+          "button[data-test='chooseOptionsButton']",
+          "button[data-test='addToCartButton']"
+        ],
+        "checkout": [
+          "button[data-test='checkout-button']",
+          "a[href*='/checkout']"
+        ]
+      }
+    },
+    "ebay": {
+      "domains": ["ebay.com", "www.ebay.com"],
+      "selectors": {
+        "searchInput": [
+          "input[type='text'][name='_nkw']",
+          "#gh-ac"
+        ],
+        "productLinks": [
+          ".s-item__link",
+          "a[href*='/itm/']"
+        ],
+        "addToCart": [
+          "a[href*='AddToCart']",
+          "button[data-test-id='add-to-cart-button']"
+        ],
+        "buyNow": [
+          "a[href*='BuyItNow']"
+        ],
+        "checkout": [
+          "button[data-test-id='cta-btn']"
+        ]
+      }
+    },
+    "shopify": {
+      "domains": [],
+      "urlPatterns": ["/products/", "/cart", "/checkouts/"],
+      "selectors": {
+        "productLinks": [
+          "a[href*='/products/']",
+          ".product-card a"
+        ],
+        "addToCart": [
+          "button[name='add']",
+          "[type='submit'][name='add']",
+          "button[data-action='add-to-cart']",
+          ".product-form__submit"
+        ],
+        "checkout": [
+          "button[name='checkout']",
+          "a[href*='/checkout']",
+          "input[name='checkout']"
+        ]
+      }
+    },
+    "generic_ecommerce": {
+      "domains": [],
+      "urlPatterns": ["/cart", "/checkout", "/product", "/shop"],
+      "selectors": {
+        "productLinks": [
+          "a[href*='/product']",
+          "a.product-link",
+          ".product a"
+        ],
+        "addToCart": [
+          "button[class*='add-to-cart']",
+          "button[class*='addtocart']",
+          "button[id*='add-to-cart']",
+          "[data-add-to-cart]"
+        ],
+        "checkout": [
+          "button[class*='checkout']",
+          "a[href*='checkout']",
+          "button[id*='checkout']"
+        ]
+      }
+    }
+  }
+}

@@ -1,29 +1,46 @@
 /**
- * Content Script - Injected into all pages
- * Captures user interactions, DOM changes, and page events
+ * Content Script - Platform-aware event tracking for GEO research
+ * Captures consumer search behavior on AI platforms and e-commerce sites
  */
 
 // State
 let isRecording = false;
 let observers = [];
 let eventListeners = [];
+let platformDetector = null;
+let currentPlatform = null;
+let platformConfig = null;
+let pageLoadTime = Date.now();
+let lastQuery = '';
+let excludedDomains = [];
+let scrollMilestonesReached = new Set();
 
 // Configuration
 const CAPTURE_CONFIG = {
   captureClicks: true,
-  captureScrolls: true,
   captureInputs: true,
-  captureMutations: true,
-  captureMouseMovement: false, // Can be very verbose
-  scrollThrottle: 500, // ms
-  mouseMoveThrottle: 1000 // ms
+  scrollMilestones: [25, 50, 75, 100] // Track scroll depth milestones
+};
+
+// Event filtering rules by platform type
+const EVENT_RULES = {
+  general: ['page_load', 'navigation', 'click', 'page_unload'],
+  ai: ['page_load', 'ai_query_input', 'ai_result_click', 'navigation', 'click', 'page_unload', 'visibility_change'],
+  ecommerce: ['page_load', 'product_click', 'conversion_action', 'click', 'page_unload', 'navigation']
 };
 
 /**
  * Initialize content script
  */
-(function init() {
-  console.log('LLM Search Behavior Tracker - Content script loaded');
+(async function init() {
+  console.log('[Content] LLM Search Behavior Tracker loaded');
+
+  // Load platform configuration and excluded domains
+  await loadPlatformConfig();
+  await loadExcludedDomains();
+
+  // Detect current platform
+  detectCurrentPlatform();
 
   // Check if recording is active
   chrome.runtime.sendMessage({ type: 'GET_STATUS' }, (response) => {
@@ -48,23 +65,82 @@ const CAPTURE_CONFIG = {
 })();
 
 /**
+ * Load platform configuration from JSON file
+ */
+async function loadPlatformConfig() {
+  try {
+    const response = await fetch(chrome.runtime.getURL('config/platforms.json'));
+    platformConfig = await response.json();
+
+    // Load PlatformDetector class
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL('scripts/platform-detector.js');
+    await new Promise((resolve, reject) => {
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    // Initialize detector
+    if (typeof PlatformDetector !== 'undefined') {
+      platformDetector = new PlatformDetector(platformConfig);
+      console.log('[Content] Platform detector initialized');
+    }
+  } catch (error) {
+    console.error('[Content] Failed to load platform config:', error);
+  }
+}
+
+/**
+ * Load excluded domains from storage
+ */
+async function loadExcludedDomains() {
+  try {
+    const result = await chrome.storage.local.get('excludedDomains');
+    excludedDomains = result.excludedDomains || [];
+  } catch (error) {
+    console.error('[Content] Failed to load excluded domains:', error);
+  }
+}
+
+/**
+ * Detect current platform
+ */
+function detectCurrentPlatform() {
+  if (!platformDetector) return;
+
+  currentPlatform = platformDetector.detect(
+    window.location.href,
+    window.location.hostname
+  );
+
+  if (currentPlatform) {
+    console.log(`[Content] Detected: ${currentPlatform.platform} (${currentPlatform.type})`);
+  }
+}
+
+/**
  * Start capturing events
  */
 function startCapturing() {
   if (isRecording) return;
   isRecording = true;
 
-  console.log('Starting event capture on:', window.location.href);
+  console.log('[Content] Starting event capture');
 
-  // Capture DOM snapshot
-  captureDOMSnapshot();
+  // Detect platform for this page
+  detectCurrentPlatform();
 
-  // Setup event listeners
+  // Setup general event listeners
   setupEventListeners();
 
-  // Setup mutation observer
-  if (CAPTURE_CONFIG.captureMutations) {
-    setupMutationObserver();
+  // Setup platform-specific tracking
+  if (currentPlatform) {
+    if (currentPlatform.type === 'ai') {
+      setupAIPlatformTracking();
+    } else if (currentPlatform.type === 'ecommerce') {
+      setupEcommercePlatformTracking();
+    }
   }
 }
 
@@ -75,7 +151,7 @@ function stopCapturing() {
   if (!isRecording) return;
   isRecording = false;
 
-  console.log('Stopping event capture');
+  console.log('[Content] Stopping event capture');
 
   // Remove all event listeners
   eventListeners.forEach(({ element, event, handler }) => {
@@ -92,6 +168,8 @@ function stopCapturing() {
  * Capture initial page load
  */
 function capturePageLoad() {
+  pageLoadTime = Date.now();
+
   sendEvent({
     type: 'page_load',
     url: window.location.href,
@@ -100,122 +178,12 @@ function capturePageLoad() {
     viewport: {
       width: window.innerWidth,
       height: window.innerHeight
-    },
-    screen: {
-      width: window.screen.width,
-      height: window.screen.height
-    },
-    performance: {
-      loadTime: performance.timing.loadEventEnd - performance.timing.navigationStart,
-      domContentLoaded: performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart
     }
   });
 }
 
 /**
- * Capture full DOM snapshot
- */
-function captureDOMSnapshot() {
-  // Capture simplified DOM structure (not full HTML to reduce size)
-  const snapshot = {
-    type: 'dom_snapshot',
-    url: window.location.href,
-    title: document.title,
-    meta: extractMetadata(),
-    structure: simplifyDOM(document.body),
-    forms: extractForms(),
-    links: extractLinks(),
-    images: extractImages()
-  };
-
-  sendEvent(snapshot);
-}
-
-/**
- * Extract page metadata
- */
-function extractMetadata() {
-  const meta = {};
-  document.querySelectorAll('meta').forEach(tag => {
-    const name = tag.getAttribute('name') || tag.getAttribute('property');
-    const content = tag.getAttribute('content');
-    if (name && content) {
-      meta[name] = content;
-    }
-  });
-  return meta;
-}
-
-/**
- * Simplify DOM for storage (capture structure, not full content)
- */
-function simplifyDOM(element, depth = 0, maxDepth = 5) {
-  if (!element || depth > maxDepth) return null;
-
-  const simplified = {
-    tag: element.tagName?.toLowerCase(),
-    id: element.id || undefined,
-    classes: element.className ? element.className.split(' ').filter(Boolean) : undefined,
-    children: []
-  };
-
-  // Only traverse important elements
-  if (depth < maxDepth && element.children) {
-    for (let child of element.children) {
-      const simplifiedChild = simplifyDOM(child, depth + 1, maxDepth);
-      if (simplifiedChild) {
-        simplified.children.push(simplifiedChild);
-      }
-    }
-  }
-
-  return simplified;
-}
-
-/**
- * Extract form information
- */
-function extractForms() {
-  return Array.from(document.querySelectorAll('form')).map(form => ({
-    id: form.id,
-    action: form.action,
-    method: form.method,
-    fields: Array.from(form.elements).map(el => ({
-      type: el.type,
-      name: el.name,
-      id: el.id
-    }))
-  }));
-}
-
-/**
- * Extract links
- */
-function extractLinks() {
-  return Array.from(document.querySelectorAll('a[href]'))
-    .slice(0, 100) // Limit to first 100 links
-    .map(link => ({
-      href: link.href,
-      text: link.textContent?.trim().substring(0, 100),
-      id: link.id
-    }));
-}
-
-/**
- * Extract images
- */
-function extractImages() {
-  return Array.from(document.querySelectorAll('img[src]'))
-    .slice(0, 50) // Limit to first 50 images
-    .map(img => ({
-      src: img.src,
-      alt: img.alt,
-      id: img.id
-    }));
-}
-
-/**
- * Setup event listeners
+ * Setup general event listeners
  */
 function setupEventListeners() {
   // Click events
@@ -223,27 +191,197 @@ function setupEventListeners() {
     addListener(document, 'click', handleClick, true);
   }
 
-  // Scroll events
-  if (CAPTURE_CONFIG.captureScrolls) {
-    addListener(window, 'scroll', throttle(handleScroll, CAPTURE_CONFIG.scrollThrottle), true);
-  }
-
   // Input events
   if (CAPTURE_CONFIG.captureInputs) {
     addListener(document, 'input', handleInput, true);
-    addListener(document, 'change', handleChange, true);
     addListener(document, 'submit', handleSubmit, true);
   }
 
-  // Focus events
-  addListener(window, 'focus', handleFocus, true);
-  addListener(window, 'blur', handleBlur, true);
+  // Scroll milestones (instead of continuous scroll tracking)
+  if (CAPTURE_CONFIG.scrollMilestones && CAPTURE_CONFIG.scrollMilestones.length > 0) {
+    setupScrollMilestones();
+  }
 
-  // Visibility change
+  // Visibility change (replaces window focus/blur)
   addListener(document, 'visibilitychange', handleVisibilityChange, true);
 
-  // Before unload
+  // Before unload (for dwell time calculation)
   addListener(window, 'beforeunload', handleBeforeUnload, true);
+}
+
+/**
+ * Setup scroll milestone tracking
+ */
+function setupScrollMilestones() {
+  scrollMilestonesReached.clear();
+
+  const checkScrollMilestones = throttle(() => {
+    if (!isRecording || !platformDetector) return;
+
+    const scrollPercentage = platformDetector.getCurrentScrollPercentage();
+
+    CAPTURE_CONFIG.scrollMilestones.forEach(milestone => {
+      if (scrollPercentage >= milestone && !scrollMilestonesReached.has(milestone)) {
+        scrollMilestonesReached.add(milestone);
+        sendEvent({
+          type: 'scroll_milestone',
+          milestone: milestone,
+          scrollPercentage: scrollPercentage
+        });
+      }
+    });
+  }, 1000);
+
+  addListener(window, 'scroll', checkScrollMilestones, true);
+}
+
+/**
+ * Setup AI platform-specific tracking
+ */
+function setupAIPlatformTracking() {
+  if (!currentPlatform || !platformDetector) return;
+
+  const config = currentPlatform.config;
+
+  // Track query input with full text capture
+  const queryInput = platformDetector.findElement(config.selectors.queryInput);
+  if (queryInput) {
+    const handleQueryInput = debounce((e) => {
+      if (!isRecording) return;
+
+      const currentQuery = e.target.value || e.target.textContent || '';
+
+      sendEvent({
+        type: 'ai_query_input',
+        platform: currentPlatform.platform,
+        queryText: currentQuery,
+        queryLength: currentQuery.length,
+        isRefinement: lastQuery && currentQuery.includes(lastQuery),
+        previousQuery: lastQuery || null
+      });
+
+      lastQuery = currentQuery;
+    }, 500);
+
+    addListener(queryInput, 'input', handleQueryInput);
+    // For contenteditable
+    addListener(queryInput, 'keyup', handleQueryInput);
+  }
+
+  // Track AI result link clicks with position
+  const responseContainer = platformDetector.findElement(config.selectors.responseContainer);
+  if (responseContainer) {
+    const handleResultClick = (e) => {
+      if (!isRecording) return;
+
+      const link = e.target.closest('a');
+      if (link && link.href && !link.href.startsWith(window.location.origin)) {
+        const linkPosition = platformDetector.getLinkPosition(link, responseContainer);
+
+        sendEvent({
+          type: 'ai_result_click',
+          platform: currentPlatform.platform,
+          destination: link.href,
+          linkText: link.textContent.trim().substring(0, 200),
+          linkPosition: linkPosition
+        });
+      }
+    };
+
+    addListener(responseContainer, 'click', handleResultClick, true);
+  }
+}
+
+/**
+ * Setup e-commerce platform-specific tracking
+ */
+function setupEcommercePlatformTracking() {
+  if (!currentPlatform || !platformDetector) return;
+
+  const config = currentPlatform.config;
+
+  // Track product link clicks
+  const handleProductClick = (e) => {
+    if (!isRecording) return;
+
+    let productLink = null;
+
+    // Try to find product link from click target
+    for (const selector of (config.selectors.productLinks || [])) {
+      try {
+        productLink = e.target.closest(selector);
+        if (productLink && productLink.href) break;
+      } catch (err) {
+        // Invalid selector, continue
+      }
+    }
+
+    if (productLink && productLink.href) {
+      const productName = platformDetector.extractProductName(productLink);
+
+      sendEvent({
+        type: 'product_click',
+        platform: currentPlatform.platform,
+        productUrl: productLink.href,
+        productName: productName,
+        referrer: document.referrer,
+        fromAI: platformDetector.isFromAI(document.referrer)
+      });
+    }
+  };
+
+  addListener(document, 'click', handleProductClick, true);
+
+  // Track conversion actions (add to cart, checkout, etc.)
+  const handleConversionClick = (e) => {
+    if (!isRecording) return;
+
+    const allConversionSelectors = [
+      ...(config.selectors.addToCart || []),
+      ...(config.selectors.buyNow || []),
+      ...(config.selectors.checkout || [])
+    ];
+
+    for (const selector of allConversionSelectors) {
+      try {
+        if (e.target.matches(selector) || e.target.closest(selector)) {
+          const action = platformDetector.determineAction(selector);
+
+          sendEvent({
+            type: 'conversion_action',
+            action: action,
+            platform: currentPlatform.platform,
+            sessionHasAIReferrer: checkSessionForAI()
+          });
+          break;
+        }
+      } catch (err) {
+        // Invalid selector, continue
+      }
+    }
+  };
+
+  addListener(document, 'click', handleConversionClick, true);
+}
+
+/**
+ * Check if this session has any AI referrers
+ */
+function checkSessionForAI() {
+  if (!platformDetector) return false;
+
+  // Check current referrer
+  if (platformDetector.isFromAI(document.referrer)) {
+    return true;
+  }
+
+  // Could extend this to check session storage for AI visits
+  try {
+    const sessionAI = sessionStorage.getItem('hasAIReferrer');
+    return sessionAI === 'true';
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -273,28 +411,7 @@ function handleClick(event) {
     },
     coordinates: {
       x: event.clientX,
-      y: event.clientY,
-      pageX: event.pageX,
-      pageY: event.pageY
-    }
-  });
-}
-
-/**
- * Handle scroll events
- */
-function handleScroll(event) {
-  if (!isRecording) return;
-
-  sendEvent({
-    type: 'scroll',
-    position: {
-      x: window.scrollX,
-      y: window.scrollY
-    },
-    percentage: {
-      x: (window.scrollX / (document.documentElement.scrollWidth - window.innerWidth)) * 100,
-      y: (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      y: event.clientY
     }
   });
 }
@@ -345,24 +462,6 @@ function isSearchQueryInput(element) {
 }
 
 /**
- * Handle change events
- */
-function handleChange(event) {
-  if (!isRecording) return;
-
-  const target = event.target;
-  sendEvent({
-    type: 'change',
-    element: {
-      tag: target.tagName?.toLowerCase(),
-      id: target.id,
-      name: target.name,
-      type: target.type
-    }
-  });
-}
-
-/**
  * Handle form submit
  */
 function handleSubmit(event) {
@@ -377,22 +476,6 @@ function handleSubmit(event) {
       method: form.method
     }
   });
-}
-
-/**
- * Handle window focus
- */
-function handleFocus() {
-  if (!isRecording) return;
-  sendEvent({ type: 'window_focus' });
-}
-
-/**
- * Handle window blur
- */
-function handleBlur() {
-  if (!isRecording) return;
-  sendEvent({ type: 'window_blur' });
 }
 
 /**
@@ -415,38 +498,6 @@ function handleBeforeUnload() {
 }
 
 /**
- * Setup mutation observer for DOM changes
- */
-function setupMutationObserver() {
-  const observer = new MutationObserver(throttle((mutations) => {
-    if (!isRecording) return;
-
-    const significantMutations = mutations.filter(mutation => {
-      // Filter out insignificant mutations
-      return mutation.type === 'childList' && mutation.addedNodes.length > 0;
-    });
-
-    if (significantMutations.length > 0) {
-      sendEvent({
-        type: 'dom_mutation',
-        mutationCount: significantMutations.length,
-        addedNodes: significantMutations.reduce((sum, m) => sum + m.addedNodes.length, 0),
-        removedNodes: significantMutations.reduce((sum, m) => sum + m.removedNodes.length, 0)
-      });
-    }
-  }, 1000));
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: false,
-    characterData: false
-  });
-
-  observers.push(observer);
-}
-
-/**
  * Get unique selector for element
  */
 function getElementSelector(element) {
@@ -465,14 +516,70 @@ function getElementSelector(element) {
 }
 
 /**
+ * Check if domain is excluded
+ */
+function isExcludedDomain(hostname) {
+  return excludedDomains.some(domain => hostname.includes(domain));
+}
+
+/**
+ * Check if event should be captured based on platform and type
+ */
+function shouldCaptureEvent(eventType) {
+  // Check if domain is excluded
+  if (isExcludedDomain(window.location.hostname)) {
+    return false;
+  }
+
+  // Get platform type
+  const platformType = currentPlatform?.type || 'general';
+
+  // Get allowed events for this platform type
+  const allowedEvents = EVENT_RULES[platformType] || EVENT_RULES.general;
+
+  return allowedEvents.includes(eventType);
+}
+
+/**
+ * Enrich event with platform context before sending
+ */
+function enrichEvent(eventData) {
+  if (!platformDetector) return eventData;
+
+  return {
+    ...eventData,
+
+    // Platform context
+    platformType: currentPlatform?.type || 'general',
+    platformName: currentPlatform?.platform || null,
+
+    // Journey context
+    referrerPlatform: platformDetector.detect(document.referrer, new URL(document.referrer || 'https://example.com').hostname)?.platform || null,
+    isAIToEcommerce: platformDetector.isAIToEcommerce(document.referrer, window.location.href),
+
+    // Engagement
+    scrollDepth: platformDetector.getCurrentScrollPercentage(),
+    dwellTime: Date.now() - pageLoadTime
+  };
+}
+
+/**
  * Send event to background script
  */
 function sendEvent(eventData) {
+  // Filter event
+  if (!shouldCaptureEvent(eventData.type)) {
+    return;
+  }
+
+  // Enrich event with platform context
+  const enrichedEvent = enrichEvent(eventData);
+
   chrome.runtime.sendMessage({
     type: 'EVENT_CAPTURED',
-    data: eventData
+    data: enrichedEvent
   }).catch(err => {
-    console.error('Error sending event:', err);
+    console.error('[Content] Error sending event:', err);
   });
 }
 
@@ -502,4 +609,26 @@ function throttle(func, wait) {
       }, remaining);
     }
   };
+}
+
+/**
+ * Debounce function
+ */
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+// Store AI referrer in session storage for tracking
+if (document.referrer && platformDetector) {
+  try {
+    if (platformDetector.isFromAI(document.referrer)) {
+      sessionStorage.setItem('hasAIReferrer', 'true');
+    }
+  } catch (e) {
+    // Session storage not available
+  }
 }

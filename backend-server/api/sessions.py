@@ -10,8 +10,8 @@ import json
 import gzip
 
 from models.database import db
-from models.session import Session, SessionEvent, Upload
-from utils.validation import validate_upload_data
+from models.session import Session, SessionEvent, Upload, SessionMetrics
+from utils.validation import validate_upload_data, filter_events
 
 sessions_bp = Blueprint('sessions', __name__)
 
@@ -41,6 +41,14 @@ def upload_session_data():
         participant_id = data.get('participantId')
         events = data.get('events', [])
         upload_timestamp = data.get('uploadTimestamp')
+
+        # Server-side event filtering
+        original_count = len(events)
+        events = filter_events(events)
+        filtered_count = original_count - len(events)
+
+        if filtered_count > 0:
+            current_app.logger.info(f'Filtered {filtered_count} low-value events from upload')
 
         # Find or create session
         session = Session.query.filter_by(session_id=session_id).first()
@@ -102,7 +110,16 @@ def upload_session_data():
             if url:
                 unique_urls.add(url)
 
-            # Create event object
+            # Extract platform and journey fields (trigger will also do this, but explicit is better)
+            platform_type = event_data.get('platformType')
+            platform_name = event_data.get('platformName')
+            query_text = event_data.get('queryText')
+            clicked_url = event_data.get('destination') or event_data.get('productUrl')
+            is_ai_attributed = event_data.get('isAIToEcommerce', False) or event_data.get('sessionHasAIReferrer', False)
+            scroll_depth = event_data.get('scrollDepth')
+            dwell_time_ms = event_data.get('dwellTime')
+
+            # Create event object with extracted fields
             event = SessionEvent(
                 session_id=session.id,
                 upload_id=upload.id,
@@ -111,7 +128,14 @@ def upload_session_data():
                 event_data=event_data,
                 url=url,
                 title=title,
-                tab_id=tab_id
+                tab_id=tab_id,
+                platform_type=platform_type,
+                platform_name=platform_name,
+                query_text=query_text,
+                clicked_url=clicked_url,
+                is_ai_attributed=is_ai_attributed,
+                scroll_depth=scroll_depth,
+                dwell_time_ms=dwell_time_ms
             )
             event_objects.append(event)
 
@@ -429,5 +453,168 @@ def get_analytics():
         current_app.logger.error(f'Error getting analytics: {str(e)}')
         return jsonify({
             'error': 'Failed to get analytics',
+            'message': str(e)
+        }), 500
+
+
+@sessions_bp.route('/<int:session_db_id>/compute-metrics', methods=['POST'])
+def compute_session_metrics(session_db_id):
+    """Compute aggregated metrics for a specific session"""
+
+    try:
+        # Check if session exists
+        session = Session.query.get(session_db_id)
+        if not session:
+            return jsonify({'error': 'Session not found'}), 404
+
+        # Call PostgreSQL function to compute metrics
+        # The function is defined in migration 002_create_session_metrics.sql
+        db.session.execute(
+            "SELECT compute_session_metrics(:session_id)",
+            {'session_id': session_db_id}
+        )
+        db.session.commit()
+
+        # Fetch computed metrics
+        metrics = SessionMetrics.query.filter_by(session_id=session_db_id).first()
+
+        if not metrics:
+            return jsonify({
+                'error': 'Failed to compute metrics',
+                'message': 'No metrics generated'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'metrics': metrics.to_dict()
+        }), 200
+
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f'Error computing metrics: {str(e)}')
+        return jsonify({
+            'error': 'Failed to compute metrics',
+            'message': str(e)
+        }), 500
+
+
+@sessions_bp.route('/metrics', methods=['GET'])
+def get_all_metrics():
+    """Get metrics for all sessions with optional filters"""
+
+    try:
+        # Get query parameters
+        participant_id = request.args.get('participant_id')
+        has_conversions = request.args.get('has_conversions')
+        has_ai_attribution = request.args.get('has_ai_attribution')
+        limit = int(request.args.get('limit', 100))
+        offset = int(request.args.get('offset', 0))
+
+        # Build query
+        query = db.session.query(SessionMetrics, Session).join(
+            Session, SessionMetrics.session_id == Session.id
+        )
+
+        if participant_id:
+            query = query.filter(Session.participant_id == participant_id)
+
+        if has_conversions and has_conversions.lower() == 'true':
+            query = query.filter(SessionMetrics.conversions > 0)
+
+        if has_ai_attribution and has_ai_attribution.lower() == 'true':
+            query = query.filter(SessionMetrics.ai_attributed_conversions > 0)
+
+        # Order by most recent first
+        query = query.order_by(Session.started_at.desc())
+
+        # Get total count
+        total = query.count()
+
+        # Apply pagination
+        results = query.limit(limit).offset(offset).all()
+
+        return jsonify({
+            'metrics': [
+                {
+                    **metrics.to_dict(),
+                    'session': session.to_dict()
+                }
+                for metrics, session in results
+            ],
+            'total': total,
+            'limit': limit,
+            'offset': offset
+        }), 200
+
+    except Exception as e:
+        current_app.logger.error(f'Error getting metrics: {str(e)}')
+        return jsonify({
+            'error': 'Failed to get metrics',
+            'message': str(e)
+        }), 500
+
+
+@sessions_bp.route('/metrics/summary', methods=['GET'])
+def get_metrics_summary():
+    """Get aggregated summary statistics across all sessions"""
+
+    try:
+        # Aggregate metrics across all sessions
+        summary = db.session.query(
+            db.func.count(SessionMetrics.id).label('total_sessions'),
+            db.func.sum(SessionMetrics.query_count).label('total_queries'),
+            db.func.sum(SessionMetrics.ai_result_clicks).label('total_ai_clicks'),
+            db.func.sum(SessionMetrics.conversions).label('total_conversions'),
+            db.func.sum(SessionMetrics.ai_attributed_conversions).label('total_ai_conversions'),
+            db.func.avg(SessionMetrics.query_count).label('avg_queries_per_session'),
+            db.func.avg(SessionMetrics.conversions).label('avg_conversions_per_session'),
+            db.func.avg(SessionMetrics.ai_to_purchase_seconds).label('avg_ai_to_purchase_seconds')
+        ).first()
+
+        # Platform usage statistics
+        platform_stats = db.session.execute("""
+            SELECT
+                unnest(ai_platforms_used) as platform,
+                COUNT(*) as usage_count
+            FROM session_metrics
+            WHERE ai_platforms_used IS NOT NULL
+            GROUP BY platform
+            ORDER BY usage_count DESC
+        """).fetchall()
+
+        # Conversion rate
+        sessions_with_conversions = db.session.query(
+            db.func.count(SessionMetrics.id)
+        ).filter(SessionMetrics.conversions > 0).scalar()
+
+        total_sessions = summary.total_sessions or 0
+        conversion_rate = (sessions_with_conversions / total_sessions * 100) if total_sessions > 0 else 0
+
+        # AI attribution rate
+        ai_attribution_rate = 0
+        if summary.total_conversions and summary.total_conversions > 0:
+            ai_attribution_rate = (summary.total_ai_conversions / summary.total_conversions * 100)
+
+        return jsonify({
+            'total_sessions': total_sessions,
+            'total_queries': int(summary.total_queries or 0),
+            'total_ai_clicks': int(summary.total_ai_clicks or 0),
+            'total_conversions': int(summary.total_conversions or 0),
+            'total_ai_conversions': int(summary.total_ai_conversions or 0),
+            'avg_queries_per_session': float(summary.avg_queries_per_session or 0),
+            'avg_conversions_per_session': float(summary.avg_conversions_per_session or 0),
+            'avg_ai_to_purchase_seconds': float(summary.avg_ai_to_purchase_seconds or 0) if summary.avg_ai_to_purchase_seconds else None,
+            'conversion_rate': round(conversion_rate, 2),
+            'ai_attribution_rate': round(ai_attribution_rate, 2),
+            'platform_usage': [
+                {'platform': row[0], 'usage_count': row[1]}
+                for row in platform_stats
+            ]
+        }), 200
+
+    except Exception as e:
+        current_app.logger.error(f'Error getting metrics summary: {str(e)}')
+        return jsonify({
+            'error': 'Failed to get metrics summary',
             'message': str(e)
         }), 500

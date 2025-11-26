@@ -48,7 +48,11 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["scripts/recorder.js"],
+      "resources": [
+        "scripts/recorder.js",
+        "scripts/platform-detector.js",
+        "config/platforms.json"
+      ],
       "matches": ["<all_urls>"]
     }
   ]
