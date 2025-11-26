@@ -3,6 +3,7 @@ Database models for sessions and events
 """
 
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import JSONB
 from .database import db
 
 
@@ -75,7 +76,7 @@ class SessionEvent(db.Model):
 
     # Event data (JSONB) - kept for backward compatibility and flexibility
     # Using JSONB for better performance and indexing support
-    event_data = db.Column(db.JSONB, nullable=False)
+    event_data = db.Column(JSONB, nullable=False)
 
     # Page context
     url = db.Column(db.Text)
