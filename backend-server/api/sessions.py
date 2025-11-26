@@ -629,7 +629,7 @@ def get_metrics_summary():
         ).first()
 
         # Platform usage statistics
-        platform_stats = db.session.execute("""
+        platform_stats = db.session.execute(text("""
             SELECT
                 unnest(ai_platforms_used) as platform,
                 COUNT(*) as usage_count
@@ -637,7 +637,7 @@ def get_metrics_summary():
             WHERE ai_platforms_used IS NOT NULL
             GROUP BY platform
             ORDER BY usage_count DESC
-        """).fetchall()
+        """)).fetchall()
 
         # Conversion rate
         sessions_with_conversions = db.session.query(
