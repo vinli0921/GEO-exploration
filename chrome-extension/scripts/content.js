@@ -646,8 +646,8 @@ function enrichEvent(eventData) {
     platformType: currentPlatform?.type || 'general',
     platformName: currentPlatform?.platform || null,
 
-    // Journey context
-    referrerPlatform: platformDetector.detect(document.referrer, new URL(document.referrer || 'https://example.com').hostname)?.platform || null,
+    // Journey context (skip DOM checks for referrer - it's a different page!)
+    referrerPlatform: platformDetector.detect(document.referrer, new URL(document.referrer || 'https://example.com').hostname, true)?.platform || null,
     isAIToEcommerce: platformDetector.isAIToEcommerce(document.referrer, window.location.href),
 
     // Engagement
