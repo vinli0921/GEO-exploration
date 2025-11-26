@@ -13,9 +13,10 @@ class PlatformDetector {
    * Detect platform from URL and hostname
    * @param {string} url - Full URL
    * @param {string} hostname - Hostname (e.g., 'chat.openai.com')
+   * @param {boolean} skipDomChecks - Skip DOM-based validation (for referrer checking)
    * @returns {Object|null} Platform info or null
    */
-  detect(url, hostname) {
+  detect(url, hostname, skipDomChecks = false) {
     if (!url || !hostname) return null;
 
     console.log(`[PlatformDetector] Detecting platform for hostname: ${hostname}, URL: ${url}`);
@@ -25,7 +26,8 @@ class PlatformDetector {
       console.log(`[PlatformDetector] Checking AI platform: ${platform}`);
       if (this.matchesPlatform(hostname, url, config)) {
         // For Google, verify AI Overview is actually present
-        if (platform === 'google_ai') {
+        // BUT skip DOM check when checking referrers (DOM is from different page!)
+        if (platform === 'google_ai' && !skipDomChecks) {
           const hasAIOverview = this.findElement(config.selectors.aiOverview);
           if (!hasAIOverview) {
             continue; // Regular Google search, not AI
@@ -225,7 +227,8 @@ class PlatformDetector {
 
     try {
       const url = new URL(referrer);
-      const referrerPlatform = this.detect(referrer, url.hostname);
+      // Skip DOM checks - we're checking a referrer URL, not current page
+      const referrerPlatform = this.detect(referrer, url.hostname, true);
       return referrerPlatform?.type === 'ai';
     } catch (e) {
       return false;
@@ -245,8 +248,9 @@ class PlatformDetector {
       const referrerURL = new URL(referrer);
       const currentURL = new URL(currentUrl);
 
-      const referrerPlatform = this.detect(referrer, referrerURL.hostname);
-      const currentPlatform = this.detect(currentUrl, currentURL.hostname);
+      // Skip DOM checks for referrer (different page), but allow for current URL (our page)
+      const referrerPlatform = this.detect(referrer, referrerURL.hostname, true);
+      const currentPlatform = this.detect(currentUrl, currentURL.hostname, false);
 
       return referrerPlatform?.type === 'ai' && currentPlatform?.type === 'ecommerce';
     } catch (e) {

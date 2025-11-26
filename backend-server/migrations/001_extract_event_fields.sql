@@ -2,6 +2,23 @@
 -- Purpose: Improve query performance by creating indexed columns for frequently accessed fields
 -- Date: 2025-01-25
 
+-- CRITICAL: Convert event_data from JSON to JSONB to support ? operator
+-- This must happen BEFORE the trigger function that uses ? operator
+DO $$
+BEGIN
+  -- Check if column is JSON type and convert to JSONB
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'session_events'
+    AND column_name = 'event_data'
+    AND data_type = 'json'
+  ) THEN
+    ALTER TABLE session_events
+      ALTER COLUMN event_data TYPE jsonb USING event_data::jsonb;
+    RAISE NOTICE 'Converted event_data from JSON to JSONB';
+  END IF;
+END $$;
+
 -- Add new columns to session_events table
 ALTER TABLE session_events
 ADD COLUMN IF NOT EXISTS platform_type VARCHAR(32),

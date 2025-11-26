@@ -73,8 +73,9 @@ class SessionEvent(db.Model):
     event_type = db.Column(db.String(64), nullable=False, index=True)
     timestamp = db.Column(db.DateTime, nullable=False, index=True)
 
-    # Event data (JSON) - kept for backward compatibility and flexibility
-    event_data = db.Column(db.JSON, nullable=False)
+    # Event data (JSONB) - kept for backward compatibility and flexibility
+    # Using JSONB for better performance and indexing support
+    event_data = db.Column(db.JSONB, nullable=False)
 
     # Page context
     url = db.Column(db.Text)
