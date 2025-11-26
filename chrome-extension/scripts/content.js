@@ -39,11 +39,24 @@ const EVENT_RULES = {
   await loadPlatformConfig();
   await loadExcludedDomains();
 
-  // Detect current platform
+  // Detect current platform (initial detection - may miss Google AI Overview)
   detectCurrentPlatform();
 
   // Cache AI referrer AFTER platform detector is ready (not before!)
   cacheAIReferrer();
+
+  // Defer detection for DOM-dependent platforms (e.g., Google AI Overview)
+  // Run after DOM is ready to catch elements that don't exist at document_start
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[Content] DOM ready, retrying platform detection');
+      retryPlatformDetection();
+    });
+  } else {
+    // DOM already ready, run immediately
+    console.log('[Content] DOM already ready, retrying platform detection');
+    setTimeout(retryPlatformDetection, 100); // Small delay to ensure elements are rendered
+  }
 
   // Check if recording is active
   chrome.runtime.sendMessage({ type: 'GET_STATUS' }, (response) => {
@@ -127,6 +140,47 @@ function detectCurrentPlatform() {
   } else {
     console.log(`[Content] No platform detected for: ${window.location.hostname}`);
     console.log(`[Content] URL: ${window.location.href}`);
+  }
+}
+
+/**
+ * Retry platform detection after DOM is ready
+ * This is critical for Google AI Overview detection which requires DOM elements
+ */
+function retryPlatformDetection() {
+  if (!platformDetector) {
+    console.warn('[Content] Platform detector not initialized for retry');
+    return;
+  }
+
+  const previousPlatform = currentPlatform;
+
+  // Re-run detection now that DOM is ready
+  currentPlatform = platformDetector.detect(
+    window.location.href,
+    window.location.hostname
+  );
+
+  // Check if platform changed (e.g., null -> google_ai)
+  const platformChanged =
+    (!previousPlatform && currentPlatform) ||
+    (previousPlatform && currentPlatform && previousPlatform.platform !== currentPlatform.platform);
+
+  if (platformChanged) {
+    console.log(`[Content] Platform detected after DOM ready: ${currentPlatform.platform} (${currentPlatform.type})`);
+
+    // If we're already recording, set up the platform-specific tracking now
+    if (isRecording && currentPlatform) {
+      if (currentPlatform.type === 'ai') {
+        console.log('[Content] Setting up AI platform tracking (deferred)');
+        setupAIPlatformTracking();
+      } else if (currentPlatform.type === 'ecommerce') {
+        console.log('[Content] Setting up e-commerce platform tracking (deferred)');
+        setupEcommercePlatformTracking();
+      }
+    }
+  } else if (!previousPlatform && !currentPlatform) {
+    console.log('[Content] Still no platform detected after DOM ready');
   }
 }
 
