@@ -9,7 +9,8 @@ const CONFIG = {
   maxBufferSize: 10 * 1024 * 1024, // 10MB
   uploadEndpoint: 'https://geo-exploration-backend.vercel.app/api/sessions/upload',
   retryAttempts: 3,
-  retryDelay: 5000 // 5 seconds
+  retryDelay: 5000, // 5 seconds
+  DEBUG: true // Set to true to log sensitive event data (URLs, queries, titles)
 };
 
 // Session state
@@ -358,13 +359,23 @@ async function uploadBufferedData() {
     eventCount: dataToUpload.length
   };
 
-  // Debug logging to see what's being sent
-  console.log('[Background] Upload payload:', {
-    sessionId: payload.sessionId,
-    participantId: payload.participantId,
-    eventCount: payload.eventCount,
-    sampleEvent: payload.events[0] // Log first event for inspection
-  });
+  // Log upload metadata
+  if (CONFIG.DEBUG) {
+    // Debug mode: log full payload including sensitive event data
+    console.log('[Background] Upload payload (DEBUG):', {
+      sessionId: payload.sessionId,
+      participantId: payload.participantId,
+      eventCount: payload.eventCount,
+      sampleEvent: payload.events[0] // Includes URLs, queries, titles
+    });
+  } else {
+    // Production mode: log only non-sensitive metadata
+    console.log('[Background] Uploading batch:', {
+      sessionId: payload.sessionId,
+      participantId: payload.participantId,
+      eventCount: payload.eventCount
+    });
+  }
 
   // Upload with retries
   for (let attempt = 1; attempt <= CONFIG.retryAttempts; attempt++) {
