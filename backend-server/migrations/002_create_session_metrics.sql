@@ -100,14 +100,25 @@ BEGIN
     AND platform_name IS NOT NULL;
 
   -- Get AI engagement metrics
-  SELECT
-    COALESCE(COUNT(*) FILTER (WHERE event_type = 'ai_result_click'), 0),
-    COALESCE(SUM(dwell_time_ms) FILTER (WHERE platform_type = 'ai'), 0) / 1000
-  INTO
-    v_ai_result_clicks,
-    v_ai_dwell_time
+  -- Count result clicks from all AI events
+  SELECT COALESCE(COUNT(*) FILTER (WHERE event_type = 'ai_result_click'), 0)
+  INTO v_ai_result_clicks
   FROM session_events
   WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id);
+
+  -- Calculate AI dwell time: sum of MAX dwell time per unique URL
+  -- (dwellTime is cumulative per page, so we take max per URL to avoid double-counting)
+  SELECT COALESCE(SUM(max_dwell_ms), 0) / 1000
+  INTO v_ai_dwell_time
+  FROM (
+    SELECT url, MAX(dwell_time_ms) as max_dwell_ms
+    FROM session_events
+    WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id)
+      AND platform_type = 'ai'
+      AND url IS NOT NULL
+      AND dwell_time_ms IS NOT NULL
+    GROUP BY url
+  ) url_dwell;
 
   -- Get ecommerce metrics
   SELECT
