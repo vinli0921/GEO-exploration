@@ -26,7 +26,7 @@ def test_connection():
 
     # Check if it's a Supabase URL
     if 'supabase.co' not in database_url:
-        print("⚠️  WARNING: Not a Supabase URL (using SQLite or other database)")
+        print("⚠️  WARNING: Not a Supabase URL (using different PostgreSQL database)")
         print(f"   Current: {database_url}")
 
     try:

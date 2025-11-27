@@ -19,11 +19,24 @@ from utils.compression import compress_data, decompress_data
 # Initialize Flask app
 app = Flask(__name__)
 
-# Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL',
-    'sqlite:///llm_search_behavior.db'  # Default to SQLite for development
-)
+# Configuration - PostgreSQL is REQUIRED (JSONB and ARRAY types not supported by SQLite)
+DATABASE_URL = os.getenv('DATABASE_URL')
+if not DATABASE_URL:
+    raise RuntimeError(
+        "DATABASE_URL environment variable is required.\n"
+        "This application requires PostgreSQL for JSONB and ARRAY support.\n"
+        "Example: DATABASE_URL=postgresql://user:pass@host:5432/dbname"
+    )
+
+# Validate PostgreSQL (reject SQLite)
+if DATABASE_URL.startswith('sqlite'):
+    raise RuntimeError(
+        "SQLite is not supported by this application.\n"
+        "PostgreSQL-specific features (JSONB, ARRAY) are required.\n"
+        "Please configure DATABASE_URL with a PostgreSQL connection string."
+    )
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max request size
 app.config['DATA_STORAGE_PATH'] = os.getenv('DATA_STORAGE_PATH', './data/sessions')

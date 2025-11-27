@@ -49,3 +49,46 @@ def validate_upload_data(data):
             return f'Event {i} missing timestamp'
 
     return None
+
+
+def filter_events(events):
+    """
+    Filter events to keep only high-value events for GEO research
+    Returns filtered list of events
+    """
+
+    # High-value event types to keep
+    HIGH_VALUE_EVENTS = {
+        # Session lifecycle
+        'session_start',
+        'session_end',
+        'page_load',
+        'page_unload',
+        'navigation',
+        'tab_switch',
+
+        # User interactions
+        'click',
+        'input',
+        'form_submit',
+
+        # AI platform events
+        'ai_query_input',
+        'ai_result_click',
+
+        # E-commerce events
+        'product_click',
+        'conversion_action',
+
+        # Engagement
+        'scroll_milestone',  # Note: not continuous scroll
+        'visibility_change'
+    }
+
+    # Filter events
+    filtered = [
+        event for event in events
+        if event.get('type') in HIGH_VALUE_EVENTS
+    ]
+
+    return filtered
