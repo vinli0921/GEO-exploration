@@ -81,6 +81,21 @@ const EVENT_RULES = {
 })();
 
 /**
+ * Listen for storage changes to update excluded domains immediately
+ */
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'local' && changes.excludedDomains) {
+    excludedDomains = changes.excludedDomains.newValue || [];
+    console.log('[Content] Updated excluded domains:', excludedDomains);
+
+    // If current domain is now excluded and we're recording, warn
+    if (isRecording && isExcludedDomain(window.location.hostname)) {
+      console.warn('[Content] Current domain now excluded - events will no longer be captured');
+    }
+  }
+});
+
+/**
  * Load platform configuration from JSON file
  */
 async function loadPlatformConfig() {
