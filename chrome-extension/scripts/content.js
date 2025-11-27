@@ -616,9 +616,12 @@ function getElementSelector(element) {
 
 /**
  * Check if domain is excluded
+ * Matches exact domain or subdomains (consistent with background.js)
  */
 function isExcludedDomain(hostname) {
-  return excludedDomains.some(domain => hostname.includes(domain));
+  return excludedDomains.some(domain => {
+    return hostname === domain || hostname.endsWith('.' + domain);
+  });
 }
 
 /**
