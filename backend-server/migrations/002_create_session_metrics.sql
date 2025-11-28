@@ -47,7 +47,7 @@ CREATE INDEX IF NOT EXISTS idx_metrics_conversions
   WHERE conversions > 0;
 
 -- Create function to compute metrics for a session
-CREATE OR REPLACE FUNCTION compute_session_metrics(p_session_id INTEGER)
+CREATE OR REPLACE FUNCTION compute_session_metrics(p_session_id BIGINT)
 RETURNS void AS $$
 DECLARE
   v_ai_platforms TEXT[];
