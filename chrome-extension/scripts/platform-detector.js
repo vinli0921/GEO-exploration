@@ -41,29 +41,19 @@ class PlatformDetector {
           }
         }
 
-        // Bing Copilot requires DOM verification ONLY for bing.com domain
-        // copilot.microsoft.com is always Copilot (no DOM check needed)
-        if (platform === 'bing_copilot') {
-          const isCopilotDomain = hostname === 'copilot.microsoft.com' ||
-                                  hostname.endsWith('.copilot.microsoft.com');
-
-          // If on bing.com (not copilot.microsoft.com), need DOM verification
-          if (!isCopilotDomain) {
-            if (skipDomChecks) {
-              // Can't verify Copilot on bing.com from referrer - skip
-              console.log(`[PlatformDetector] Skipping bing_copilot on bing.com - requires DOM verification`);
-              continue;
-            }
-
-            // Verify Copilot response is actually present on bing.com
-            const hasCopilot = this.findElement(config.selectors.responseContainer);
-            if (!hasCopilot) {
-              console.log(`[PlatformDetector] No Copilot response detected on bing.com - skipping bing_copilot`);
-              continue; // Not Copilot, check for regular bing_search next
+        // Bing AI requires DOM verification to distinguish from regular Bing search
+        // Similar to google_ai, we verify on current page but allow referrer detection
+        if (platform === 'bing_ai') {
+          if (!skipDomChecks) {
+            // On current page - verify AI response is actually present
+            const hasAIResponse = this.findElement(config.selectors.aiResponse);
+            if (!hasAIResponse) {
+              console.log(`[PlatformDetector] No Bing AI response detected - skipping bing_ai`);
+              continue; // Not AI, check for regular bing_search next
             }
           } else {
-            // copilot.microsoft.com domain - always Copilot
-            console.log(`[PlatformDetector] Detected copilot.microsoft.com - no DOM check needed`);
+            // Referrer check - allow detection (can't verify DOM, but preserve attribution)
+            console.log(`[PlatformDetector] Bing AI referrer detected (DOM verification skipped)`);
           }
         }
 

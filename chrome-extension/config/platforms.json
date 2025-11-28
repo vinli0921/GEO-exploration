@@ -147,25 +147,40 @@
       }
     },
     "bing_copilot": {
-      "domains": ["bing.com", "www.bing.com", "copilot.microsoft.com"],
+      "domains": ["copilot.microsoft.com"],
       "urlPatterns": [],
       "selectors": {
         "queryInput": [
           "#userInput",
           "textarea[data-testid='composer-input']",
-          "textarea[placeholder*='Copilot']",
+          "textarea[placeholder*='Copilot']"
+        ],
+        "responseContainer": [
+          "[data-testid='composer-content']",
+          ".cib-serp-main",
+          "[data-content='Copilot']"
+        ],
+        "aiResultLinks": [
+          "a[href^='http']"
+        ]
+      }
+    },
+    "bing_ai": {
+      "domains": ["bing.com", "www.bing.com"],
+      "urlPatterns": [],
+      "selectors": {
+        "queryInput": [
           "#sb_form_q",
           "textarea[placeholder*='Ask']",
           ".b_searchbox"
         ],
-        "responseContainer": [
+        "aiResponse": [
           ".gs_h.gs_caphead",
           ".gs_temp_content",
           ".gs_caphead_main",
           ".gs_heroTextHeader",
           ".b_ans",
-          ".cib-serp-main",
-          "[data-content='Copilot']"
+          ".cib-serp-main"
         ],
         "aiResultLinks": [
           ".b_ans a[href^='http']",
