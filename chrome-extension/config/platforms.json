@@ -92,26 +92,6 @@
         ]
       }
     },
-    "google_search": {
-      "domains": ["google.com", "www.google.com"],
-      "urlPatterns": ["/search"],
-      "selectors": {
-        "queryInput": [
-          "textarea[name='q']",
-          "input[name='q']",
-          "textarea[aria-label*='Search']"
-        ],
-        "organicResults": [
-          "#search .g",
-          ".g",
-          "[data-sokoban-container]"
-        ],
-        "resultLinks": [
-          "#search .g a[href^='http']",
-          ".g a[href^='http']"
-        ]
-      }
-    },
     "claude": {
       "domains": ["claude.ai"],
       "selectors": {
@@ -190,6 +170,28 @@
         "aiResultLinks": [
           ".b_ans a[href^='http']",
           ".cib-serp-main a[href^='http']"
+        ]
+      }
+    }
+  },
+  "search_platforms": {
+    "google_search": {
+      "domains": ["google.com", "www.google.com"],
+      "urlPatterns": ["/search"],
+      "selectors": {
+        "queryInput": [
+          "textarea[name='q']",
+          "input[name='q']",
+          "textarea[aria-label*='Search']"
+        ],
+        "organicResults": [
+          "#search .g",
+          ".g",
+          "[data-sokoban-container]"
+        ],
+        "resultLinks": [
+          "#search .g a[href^='http']",
+          ".g a[href^='http']"
         ]
       }
     },

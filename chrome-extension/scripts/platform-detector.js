@@ -66,6 +66,21 @@ class PlatformDetector {
       }
     }
 
+    // Check search platforms (only on current page, not for referrers)
+    if (!skipDomChecks) {
+      for (const [platform, config] of Object.entries(this.config.search_platforms || {})) {
+        console.log(`[PlatformDetector] Checking search platform: ${platform}`);
+        if (this.matchesPlatform(hostname, url, config)) {
+          console.log(`[PlatformDetector] ✓ Matched search platform: ${platform}`);
+          return {
+            platform,
+            type: 'search',
+            config
+          };
+        }
+      }
+    }
+
     // Check e-commerce platforms
     for (const [platform, config] of Object.entries(this.config.ecommerce_platforms || {})) {
       console.log(`[PlatformDetector] Checking e-commerce platform: ${platform}`);
