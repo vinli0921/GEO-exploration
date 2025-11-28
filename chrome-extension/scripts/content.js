@@ -338,17 +338,51 @@ function setupScrollMilestones() {
  * Setup AI platform-specific tracking
  */
 function setupAIPlatformTracking() {
-  if (!currentPlatform || !platformDetector) return;
+  console.log('[Content] setupAIPlatformTracking called', {
+    currentPlatform: currentPlatform?.platform,
+    platformType: currentPlatform?.type,
+    hasConfig: !!currentPlatform?.config,
+    hasDetector: !!platformDetector
+  });
+
+  if (!currentPlatform || !platformDetector) {
+    console.warn('[Content] Cannot setup AI tracking - missing platform or detector');
+    return;
+  }
 
   const config = currentPlatform.config;
 
   // Track query input with full text capture
   const queryInput = platformDetector.findElement(config.selectors.queryInput);
+
+  console.log('[Content] Query input element search:', {
+    found: !!queryInput,
+    selectors: config.selectors.queryInput,
+    elementTag: queryInput?.tagName,
+    elementClass: queryInput?.className,
+    isContentEditable: queryInput?.contentEditable
+  });
+
   if (queryInput) {
     const handleQueryInput = debounce((e) => {
-      if (!isRecording) return;
+      if (!isRecording) {
+        console.log('[Content] Query input fired but not recording');
+        return;
+      }
 
-      const currentQuery = e.target.value || e.target.textContent || '';
+      // Use currentTarget to get the element the listener is attached to
+      // (not target which could be a child element in contenteditable)
+      const element = e.currentTarget || e.target;
+      const currentQuery = element.value || element.textContent || element.innerText || '';
+
+      console.log('[Content] AI query input detected:', {
+        queryLength: currentQuery.length,
+        queryPreview: currentQuery.substring(0, 30) + (currentQuery.length > 30 ? '...' : ''),
+        isRefinement: lastQuery && currentQuery.includes(lastQuery),
+        eventType: e.type,
+        elementTag: element.tagName,
+        isContentEditable: element.contentEditable
+      });
 
       sendEvent({
         type: 'ai_query_input',
@@ -365,6 +399,12 @@ function setupAIPlatformTracking() {
     addListener(queryInput, 'input', handleQueryInput);
     // For contenteditable
     addListener(queryInput, 'keyup', handleQueryInput);
+
+    console.log('[Content] AI query input handler attached to', queryInput.tagName);
+  } else {
+    console.warn('[Content] Query input element not found - handler not attached', {
+      triedSelectors: config.selectors.queryInput
+    });
   }
 
   // Track AI result link clicks with position
