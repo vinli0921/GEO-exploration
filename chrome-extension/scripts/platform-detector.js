@@ -46,7 +46,7 @@ class PlatformDetector {
         if (platform === 'bing_ai') {
           if (!skipDomChecks) {
             // On current page - verify AI response is actually present
-            const hasAIResponse = this.findElement(config.selectors.aiResponse);
+            const hasAIResponse = this.findElement(config.selectors.responseContainer);
             if (!hasAIResponse) {
               console.log(`[PlatformDetector] No Bing AI response detected - skipping bing_ai`);
               continue; // Not AI, check for regular bing_search next

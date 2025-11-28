@@ -86,7 +86,7 @@
           ".g",
           "[data-sokoban-container]"
         ],
-        "aiResultLinks": [
+        "responseContainer": [
           ".AI-Overview a[href^='http']",
           "[data-attrid='SGPQuestionAnswer'] a[href^='http']"
         ]
@@ -174,7 +174,7 @@
           "textarea[placeholder*='Ask']",
           ".b_searchbox"
         ],
-        "aiResponse": [
+        "responseContainer": [
           ".gs_h.gs_caphead",
           ".gs_temp_content",
           ".gs_caphead_main",
