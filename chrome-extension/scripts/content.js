@@ -7,6 +7,7 @@
 let isRecording = false;
 let observers = [];
 let eventListeners = [];
+let platformListeners = []; // Track platform-specific listeners separately
 let platformDetector = null;
 let currentPlatform = null;
 let platformConfig = null;
@@ -179,6 +180,9 @@ function retryPlatformDetection() {
 
     // If we're already recording, set up the platform-specific tracking now
     if (isRecording && currentPlatform) {
+      // Clear any existing platform listeners before setting up new ones
+      clearPlatformListeners();
+
       if (currentPlatform.type === 'ai') {
         console.log('[Content] Setting up AI platform tracking (deferred)');
         setupAIPlatformTracking();
@@ -190,6 +194,19 @@ function retryPlatformDetection() {
   } else if (!previousPlatform && !currentPlatform) {
     console.log('[Content] Still no platform detected after DOM ready');
   }
+}
+
+/**
+ * Clear platform-specific event listeners
+ * Called before re-setting up platform tracking on SPA navigation
+ */
+function clearPlatformListeners() {
+  console.log('[Content] Clearing platform-specific listeners:', platformListeners.length);
+
+  platformListeners.forEach(({ element, event, handler }) => {
+    element.removeEventListener(event, handler);
+  });
+  platformListeners = [];
 }
 
 /**
@@ -217,8 +234,8 @@ function setupNavigationDetection() {
       if (isRecording && currentPlatform) {
         console.log('[Content] Re-setting up platform tracking after navigation');
 
-        // Clear previous listeners for this platform to avoid duplicates
-        // (Note: this doesn't remove general listeners, only platform-specific ones)
+        // Clear previous platform-specific listeners to avoid duplicates
+        clearPlatformListeners();
 
         if (currentPlatform.type === 'ai') {
           setupAIPlatformTracking();
@@ -259,6 +276,9 @@ function setupNavigationDetection() {
       detectCurrentPlatform();
 
       if (isRecording && currentPlatform) {
+        // Clear previous platform-specific listeners to avoid duplicates
+        clearPlatformListeners();
+
         if (currentPlatform.type === 'ai') {
           setupAIPlatformTracking();
         } else if (currentPlatform.type === 'ecommerce') {
@@ -335,6 +355,12 @@ function stopCapturing() {
     element.removeEventListener(event, handler);
   });
   eventListeners = [];
+
+  // Remove platform-specific listeners
+  platformListeners.forEach(({ element, event, handler }) => {
+    element.removeEventListener(event, handler);
+  });
+  platformListeners = [];
 
   // Disconnect observers
   observers.forEach(observer => observer.disconnect());
@@ -494,7 +520,7 @@ function setupQueryInputTracking(config, attempt = 0) {
       }
     };
 
-    addListener(queryInput, 'keydown', handleKeyDown);
+    addPlatformListener(queryInput, 'keydown', handleKeyDown);
 
     // Also listen for submit button clicks
     const submitButton = platformDetector.findElement(config.selectors.submitButton);
@@ -502,7 +528,7 @@ function setupQueryInputTracking(config, attempt = 0) {
       const handleSubmitClick = () => {
         setTimeout(() => handleQuerySubmit(queryInput), 10);
       };
-      addListener(submitButton, 'click', handleSubmitClick);
+      addPlatformListener(submitButton, 'click', handleSubmitClick);
       console.log('[Content] AI query submit handlers attached (Enter + Button)');
     } else {
       console.log('[Content] AI query submit handler attached (Enter only)');
@@ -546,7 +572,7 @@ function setupResultClickTracking(config) {
       }
     };
 
-    addListener(responseContainer, 'click', handleResultClick, true);
+    addPlatformListener(responseContainer, 'click', handleResultClick, true);
     console.log('[Content] AI result click handler attached');
   } else {
     // This is expected on initial page load - response container appears after AI sends responses
@@ -594,7 +620,7 @@ function setupEcommercePlatformTracking() {
     }
   };
 
-  addListener(document, 'click', handleProductClick, true);
+  addPlatformListener(document, 'click', handleProductClick, true);
 
   // Track conversion actions (add to cart, checkout, etc.)
   const handleConversionClick = (e) => {
@@ -625,7 +651,7 @@ function setupEcommercePlatformTracking() {
     }
   };
 
-  addListener(document, 'click', handleConversionClick, true);
+  addPlatformListener(document, 'click', handleConversionClick, true);
 }
 
 /**
@@ -654,6 +680,15 @@ function checkSessionForAI() {
 function addListener(element, event, handler, useCapture = false) {
   element.addEventListener(event, handler, useCapture);
   eventListeners.push({ element, event, handler });
+}
+
+/**
+ * Helper to add and track platform-specific event listeners
+ * These are cleared on SPA navigation to avoid duplicates
+ */
+function addPlatformListener(element, event, handler, useCapture = false) {
+  element.addEventListener(event, handler, useCapture);
+  platformListeners.push({ element, event, handler });
 }
 
 /**
