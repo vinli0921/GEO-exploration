@@ -169,7 +169,6 @@ class SessionMetrics(db.Model):
 
     # Query metrics
     query_count = db.Column(db.Integer, default=0)
-    query_refinements = db.Column(db.Integer, default=0)
     avg_query_length = db.Column(db.Numeric(10, 2))
 
     # AI engagement metrics
@@ -202,7 +201,6 @@ class SessionMetrics(db.Model):
             'id': self.id,
             'session_id': self.session_id,
             'query_count': self.query_count,
-            'query_refinements': self.query_refinements,
             'avg_query_length': float(self.avg_query_length) if self.avg_query_length else None,
             'ai_platforms_used': self.ai_platforms_used,
             'ai_result_clicks': self.ai_result_clicks,
