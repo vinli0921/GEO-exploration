@@ -4,9 +4,9 @@
       "domains": ["chat.openai.com", "chatgpt.com"],
       "selectors": {
         "queryInput": [
-          "textarea#prompt-textarea",
-          "textarea[data-id='root']",
+          "div#prompt-textarea[contenteditable='true']",
           "div[contenteditable='true'].ProseMirror",
+          "textarea#prompt-textarea:not([style*='display: none'])",
           "textarea[placeholder*='Message']"
         ],
         "submitButton": [
@@ -29,14 +29,18 @@
       "domains": ["perplexity.ai", "www.perplexity.ai"],
       "selectors": {
         "queryInput": [
+          "#ask-input",
+          "div[contenteditable='true'][data-lexical-editor='true']",
+          "div[contenteditable='true'][role='textbox']",
           "textarea[placeholder*='Ask']",
           "textarea[placeholder*='follow']",
           "input[type='search']",
           "textarea.search-input"
         ],
         "submitButton": [
-          "button[type='submit']",
-          "button[aria-label='Submit']"
+          "button[data-testid='submit-button']",
+          "button[aria-label='Submit']",
+          "button[type='submit']"
         ],
         "responseContainer": [
           ".answer-container",
@@ -67,6 +71,10 @@
           "textarea[aria-label*='Search']"
         ],
         "aiOverview": [
+          "[data-al*='AI overview']",
+          ".YzCcne",
+          "[jsname='dEwkXc']",
+          ".hdzaWe",
           "[data-attrid='SGPQuestionAnswer']",
           ".AI-Overview",
           "[jsname='yp1CPe']",
@@ -78,7 +86,7 @@
           ".g",
           "[data-sokoban-container]"
         ],
-        "aiResultLinks": [
+        "responseContainer": [
           ".AI-Overview a[href^='http']",
           "[data-attrid='SGPQuestionAnswer'] a[href^='http']"
         ]
@@ -88,8 +96,11 @@
       "domains": ["claude.ai"],
       "selectors": {
         "queryInput": [
+          "div[data-testid='chat-input']",
+          "div[aria-label*='Write your prompt to Claude']",
+          ".tiptap.ProseMirror",
+          "div[contenteditable='true'][role='textbox']",
           "div[contenteditable='true']",
-          "div[contenteditable='true'][data-placeholder]",
           ".ProseMirror"
         ],
         "submitButton": [
@@ -97,13 +108,15 @@
           "button[type='submit']"
         ],
         "responseContainer": [
+          ".flex-1.flex.flex-col.px-4.max-w-3xl",
+          ".font-claude-response",
           "[data-is-streaming]",
-          ".font-claude-message",
           "[data-test-render-count]",
-          ".whitespace-pre-wrap"
+          "div[class*='flex-col'][class*='max-w-3xl']"
         ],
         "resultLinks": [
-          ".font-claude-message a[href^='http']",
+          ".font-claude-response a[href^='http']",
+          ".standard-markdown a[href^='http']",
           "[data-is-streaming] a[href^='http']"
         ]
       }
@@ -113,10 +126,11 @@
       "urlPatterns": ["/app/"],
       "selectors": {
         "queryInput": [
-          ".ql-editor",
-          "textarea",
-          "div[contenteditable='true']",
-          "rich-textarea"
+          ".ql-editor[contenteditable='true'][aria-label*='prompt']",
+          ".ql-editor[contenteditable='true']",
+          "div.ql-editor",
+          "rich-textarea .ql-editor",
+          "div[contenteditable='true'][aria-label*='prompt']"
         ],
         "submitButton": [
           "button[aria-label='Send']",
@@ -135,8 +149,27 @@
       }
     },
     "bing_copilot": {
-      "domains": ["bing.com", "www.bing.com", "copilot.microsoft.com"],
-      "urlPatterns": ["/search", "/chat"],
+      "domains": ["copilot.microsoft.com"],
+      "urlPatterns": [],
+      "selectors": {
+        "queryInput": [
+          "#userInput",
+          "textarea[data-testid='composer-input']",
+          "textarea[placeholder*='Copilot']"
+        ],
+        "responseContainer": [
+          "[data-testid='composer-content']",
+          ".cib-serp-main",
+          "[data-content='Copilot']"
+        ],
+        "aiResultLinks": [
+          "a[href^='http']"
+        ]
+      }
+    },
+    "bing_ai": {
+      "domains": ["bing.com", "www.bing.com"],
+      "urlPatterns": [],
       "selectors": {
         "queryInput": [
           "#sb_form_q",
@@ -144,13 +177,57 @@
           ".b_searchbox"
         ],
         "responseContainer": [
+          ".gs_h.gs_caphead",
+          ".gs_temp_content",
+          ".gs_caphead_main",
+          ".gs_heroTextHeader",
           ".b_ans",
-          ".cib-serp-main",
-          "[data-content='Copilot']"
+          ".cib-serp-main"
         ],
         "aiResultLinks": [
           ".b_ans a[href^='http']",
           ".cib-serp-main a[href^='http']"
+        ]
+      }
+    }
+  },
+  "search_platforms": {
+    "google_search": {
+      "domains": ["google.com", "www.google.com"],
+      "urlPatterns": ["/search"],
+      "selectors": {
+        "queryInput": [
+          "textarea[name='q']",
+          "input[name='q']",
+          "textarea[aria-label*='Search']"
+        ],
+        "organicResults": [
+          "#search .g",
+          ".g",
+          "[data-sokoban-container]"
+        ],
+        "resultLinks": [
+          "#search .g a[href^='http']",
+          ".g a[href^='http']"
+        ]
+      }
+    },
+    "bing_search": {
+      "domains": ["bing.com", "www.bing.com"],
+      "urlPatterns": ["/search"],
+      "selectors": {
+        "queryInput": [
+          "#sb_form_q",
+          "textarea[placeholder*='Ask']",
+          ".b_searchbox"
+        ],
+        "organicResults": [
+          "#b_results .b_algo",
+          ".b_algo"
+        ],
+        "resultLinks": [
+          "#b_results .b_algo a[href^='http']",
+          ".b_algo a[href^='http']"
         ]
       }
     }

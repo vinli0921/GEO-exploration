@@ -25,20 +25,35 @@ class PlatformDetector {
     for (const [platform, config] of Object.entries(this.config.ai_platforms || {})) {
       console.log(`[PlatformDetector] Checking AI platform: ${platform}`);
       if (this.matchesPlatform(hostname, url, config)) {
-        // Google AI requires DOM verification - can't detect from URL alone
-        // When checking referrers, we can't verify DOM, so skip google_ai entirely
-        // to avoid false positives (regular Google search != AI Overview)
+        // Google AI requires DOM verification to distinguish from regular search
         if (platform === 'google_ai') {
           if (skipDomChecks) {
-            // Can't verify AI Overview from referrer URL - skip to avoid false positives
+            // Can't verify AI Overview from referrer URL - skip
             console.log(`[PlatformDetector] Skipping google_ai - requires DOM verification`);
             continue;
           }
 
-          // On current page - verify AI Overview is actually present
+          // Verify AI Overview is actually present
           const hasAIOverview = this.findElement(config.selectors.aiOverview);
           if (!hasAIOverview) {
-            continue; // Regular Google search, not AI
+            console.log(`[PlatformDetector] No AI Overview detected - skipping google_ai`);
+            continue; // Not AI, check for regular google_search next
+          }
+        }
+
+        // Bing AI requires DOM verification to distinguish from regular Bing search
+        // Similar to google_ai, we verify on current page but allow referrer detection
+        if (platform === 'bing_ai') {
+          if (!skipDomChecks) {
+            // On current page - verify AI response is actually present
+            const hasAIResponse = this.findElement(config.selectors.responseContainer);
+            if (!hasAIResponse) {
+              console.log(`[PlatformDetector] No Bing AI response detected - skipping bing_ai`);
+              continue; // Not AI, check for regular bing_search next
+            }
+          } else {
+            // Referrer check - allow detection (can't verify DOM, but preserve attribution)
+            console.log(`[PlatformDetector] Bing AI referrer detected (DOM verification skipped)`);
           }
         }
 
@@ -48,6 +63,21 @@ class PlatformDetector {
           type: 'ai',
           config
         };
+      }
+    }
+
+    // Check search platforms (only on current page, not for referrers)
+    if (!skipDomChecks) {
+      for (const [platform, config] of Object.entries(this.config.search_platforms || {})) {
+        console.log(`[PlatformDetector] Checking search platform: ${platform}`);
+        if (this.matchesPlatform(hostname, url, config)) {
+          console.log(`[PlatformDetector] ✓ Matched search platform: ${platform}`);
+          return {
+            platform,
+            type: 'search',
+            config
+          };
+        }
       }
     }
 
@@ -76,27 +106,43 @@ class PlatformDetector {
    * @returns {boolean}
    */
   matchesPlatform(hostname, url, config) {
-    // Check domain matches with exact or suffix matching
-    if (config.domains && config.domains.length > 0) {
-      const domainMatch = config.domains.some(domain => {
+    const hasDomains = config.domains && config.domains.length > 0;
+    const hasUrlPatterns = config.urlPatterns && config.urlPatterns.length > 0;
+
+    // Check domain match
+    let domainMatch = false;
+    if (hasDomains) {
+      domainMatch = config.domains.some(domain => {
         // Exact match or subdomain match
         return hostname === domain || hostname.endsWith('.' + domain);
       });
-
-      if (domainMatch) {
-        console.log(`[PlatformDetector] Domain matched: ${hostname} with config domains`);
-        return true;
-      }
     }
 
-    // Check URL pattern matches
-    if (config.urlPatterns && config.urlPatterns.length > 0) {
+    // If domains are specified, require domain match
+    if (hasDomains && !domainMatch) {
+      return false;
+    }
+
+    // If domain matched (or no domains specified), check URL patterns
+    if (hasUrlPatterns) {
       const urlMatch = config.urlPatterns.some(pattern => url.includes(pattern));
 
       if (urlMatch) {
-        console.log(`[PlatformDetector] URL pattern matched: ${url}`);
+        if (domainMatch) {
+          console.log(`[PlatformDetector] Domain and URL pattern matched: ${hostname}, ${url}`);
+        } else {
+          console.log(`[PlatformDetector] URL pattern matched: ${url}`);
+        }
         return true;
       }
+      // URL patterns specified but didn't match
+      return false;
+    }
+
+    // Domain matched and no URL patterns to check
+    if (domainMatch) {
+      console.log(`[PlatformDetector] Domain matched: ${hostname} with config domains`);
+      return true;
     }
 
     return false;

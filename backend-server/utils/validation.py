@@ -73,7 +73,7 @@ def filter_events(events):
         'form_submit',
 
         # AI platform events
-        'ai_query_input',
+        'ai_query_submitted',
         'ai_result_click',
 
         # E-commerce events
