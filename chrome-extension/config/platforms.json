@@ -96,11 +96,11 @@
       "domains": ["claude.ai"],
       "selectors": {
         "queryInput": [
-          "textarea[data-testid='chat-input-ssr']",
-          "textarea[aria-label*='prompt to Claude']",
-          "textarea[placeholder*='help you today']",
+          "div[data-testid='chat-input']",
+          "div[aria-label*='Write your prompt to Claude']",
+          ".tiptap.ProseMirror",
+          "div[contenteditable='true'][role='textbox']",
           "div[contenteditable='true']",
-          "div[contenteditable='true'][data-placeholder]",
           ".ProseMirror"
         ],
         "submitButton": [
@@ -108,13 +108,15 @@
           "button[type='submit']"
         ],
         "responseContainer": [
+          ".flex-1.flex.flex-col.px-4.max-w-3xl",
+          ".font-claude-response",
           "[data-is-streaming]",
-          ".font-claude-message",
           "[data-test-render-count]",
-          ".whitespace-pre-wrap"
+          "div[class*='flex-col'][class*='max-w-3xl']"
         ],
         "resultLinks": [
-          ".font-claude-message a[href^='http']",
+          ".font-claude-response a[href^='http']",
+          ".standard-markdown a[href^='http']",
           "[data-is-streaming] a[href^='http']"
         ]
       }

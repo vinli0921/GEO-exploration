@@ -11,7 +11,6 @@ let platformDetector = null;
 let currentPlatform = null;
 let platformConfig = null;
 let pageLoadTime = Date.now();
-let lastQuery = '';
 let excludedDomains = [];
 let scrollMilestonesReached = new Set();
 
@@ -25,7 +24,7 @@ const CAPTURE_CONFIG = {
 // Event filtering rules by platform type
 const EVENT_RULES = {
   general: ['page_load', 'navigation', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'visibility_change'],
-  ai: ['page_load', 'ai_query_input', 'ai_result_click', 'navigation', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'visibility_change'],
+  ai: ['page_load', 'ai_query_submitted', 'ai_result_click', 'navigation', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'visibility_change'],
   ecommerce: ['page_load', 'product_click', 'conversion_action', 'click', 'input', 'form_submit', 'scroll_milestone', 'page_unload', 'navigation', 'visibility_change']
 };
 
@@ -75,6 +74,9 @@ const EVENT_RULES = {
       sendResponse({ success: true });
     }
   });
+
+  // Setup SPA navigation detection for platforms that don't reload on navigation
+  setupNavigationDetection();
 
   // Capture initial page load
   capturePageLoad();
@@ -191,6 +193,87 @@ function retryPlatformDetection() {
 }
 
 /**
+ * Setup navigation detection for Single Page Applications
+ * Re-attaches handlers when URL changes without page reload (e.g., Claude chat navigation)
+ */
+function setupNavigationDetection() {
+  let lastUrl = window.location.href;
+
+  // Use MutationObserver to detect URL changes in SPAs
+  const observer = new MutationObserver(() => {
+    const currentUrl = window.location.href;
+    if (currentUrl !== lastUrl) {
+      console.log('[Content] SPA navigation detected:', {
+        from: lastUrl,
+        to: currentUrl
+      });
+
+      lastUrl = currentUrl;
+
+      // Re-detect platform (URL might have changed patterns)
+      detectCurrentPlatform();
+
+      // If recording and on AI/ecommerce platform, re-setup tracking
+      if (isRecording && currentPlatform) {
+        console.log('[Content] Re-setting up platform tracking after navigation');
+
+        // Clear previous listeners for this platform to avoid duplicates
+        // (Note: this doesn't remove general listeners, only platform-specific ones)
+
+        if (currentPlatform.type === 'ai') {
+          setupAIPlatformTracking();
+        } else if (currentPlatform.type === 'ecommerce') {
+          setupEcommercePlatformTracking();
+        }
+      }
+
+      // Capture navigation as page load event
+      if (isRecording) {
+        capturePageLoad();
+      }
+    }
+  });
+
+  // Observe document title and body changes (both trigger on SPA navigation)
+  const titleElement = document.querySelector('title');
+  if (titleElement) {
+    observer.observe(titleElement, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  if (document.body) {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // Also listen to popstate for back/forward navigation
+  window.addEventListener('popstate', () => {
+    console.log('[Content] Popstate navigation detected');
+    const currentUrl = window.location.href;
+    if (currentUrl !== lastUrl) {
+      lastUrl = currentUrl;
+      detectCurrentPlatform();
+
+      if (isRecording && currentPlatform) {
+        if (currentPlatform.type === 'ai') {
+          setupAIPlatformTracking();
+        } else if (currentPlatform.type === 'ecommerce') {
+          setupEcommercePlatformTracking();
+        }
+      }
+
+      if (isRecording) {
+        capturePageLoad();
+      }
+    }
+  });
+}
+
+/**
  * Cache AI referrer in sessionStorage for multi-page journey tracking
  * Must be called AFTER platformDetector is initialized
  */
@@ -219,7 +302,6 @@ function startCapturing() {
   console.log('[Content] Starting event capture');
 
   // Reset session-specific state to prevent contamination from previous sessions
-  lastQuery = '';
   scrollMilestonesReached.clear();
   pageLoadTime = Date.now();
 
@@ -259,7 +341,6 @@ function stopCapturing() {
   observers = [];
 
   // Clear session-specific state to prevent contamination
-  lastQuery = '';
   scrollMilestonesReached.clear();
 }
 
@@ -353,9 +434,27 @@ function setupAIPlatformTracking() {
   const config = currentPlatform.config;
 
   // Track query input with full text capture
+  // Use retry mechanism for platforms that load elements asynchronously (e.g., Claude)
+  setupQueryInputTracking(config, 0);
+
+  // Track AI result link clicks with position
+  setupResultClickTracking(config);
+}
+
+/**
+ * Setup query submission tracking with retry mechanism
+ * Captures queries only when user submits (Enter key or Send button click)
+ * @param {Object} config - Platform configuration
+ * @param {number} attempt - Current retry attempt (0-indexed)
+ */
+function setupQueryInputTracking(config, attempt = 0) {
+  const maxAttempts = 5;
+  const retryDelay = 500; // ms
+
   const queryInput = platformDetector.findElement(config.selectors.queryInput);
 
   console.log('[Content] Query input element search:', {
+    attempt: attempt + 1,
     found: !!queryInput,
     selectors: config.selectors.queryInput,
     elementTag: queryInput?.tagName,
@@ -364,50 +463,70 @@ function setupAIPlatformTracking() {
   });
 
   if (queryInput) {
-    const handleQueryInput = debounce((e) => {
-      if (!isRecording) {
-        console.log('[Content] Query input fired but not recording');
-        return;
-      }
+    // Handler to capture query on submission
+    const handleQuerySubmit = (element) => {
+      if (!isRecording) return;
 
-      // Use currentTarget to get the element the listener is attached to
-      // (not target which could be a child element in contenteditable)
-      const element = e.currentTarget || e.target;
-      const currentQuery = element.value || element.textContent || element.innerText || '';
+      const queryText = element.value || element.textContent || element.innerText || '';
 
-      console.log('[Content] AI query input detected:', {
-        queryLength: currentQuery.length,
-        queryPreview: currentQuery.substring(0, 30) + (currentQuery.length > 30 ? '...' : ''),
-        isRefinement: lastQuery && currentQuery.includes(lastQuery),
-        eventType: e.type,
-        elementTag: element.tagName,
-        isContentEditable: element.contentEditable
+      // Only capture non-empty queries
+      if (!queryText.trim()) return;
+
+      console.log('[Content] AI query submitted:', {
+        platform: currentPlatform.platform,
+        queryLength: queryText.length,
+        queryPreview: queryText.substring(0, 50) + '...'
       });
 
       sendEvent({
-        type: 'ai_query_input',
+        type: 'ai_query_submitted',
         platform: currentPlatform.platform,
-        queryText: currentQuery,
-        queryLength: currentQuery.length,
-        isRefinement: lastQuery && currentQuery.includes(lastQuery),
-        previousQuery: lastQuery || null
+        queryText: queryText.trim(),
+        queryLength: queryText.trim().length
       });
+    };
 
-      lastQuery = currentQuery;
-    }, 500);
+    // Listen for Enter key (without Shift)
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        // Small delay to ensure the text is in the input
+        setTimeout(() => handleQuerySubmit(e.currentTarget), 10);
+      }
+    };
 
-    addListener(queryInput, 'input', handleQueryInput);
-    // For contenteditable
-    addListener(queryInput, 'keyup', handleQueryInput);
+    addListener(queryInput, 'keydown', handleKeyDown);
 
-    console.log('[Content] AI query input handler attached to', queryInput.tagName);
+    // Also listen for submit button clicks
+    const submitButton = platformDetector.findElement(config.selectors.submitButton);
+    if (submitButton) {
+      const handleSubmitClick = () => {
+        setTimeout(() => handleQuerySubmit(queryInput), 10);
+      };
+      addListener(submitButton, 'click', handleSubmitClick);
+      console.log('[Content] AI query submit handlers attached (Enter + Button)');
+    } else {
+      console.log('[Content] AI query submit handler attached (Enter only)');
+    }
+
+  } else if (attempt < maxAttempts) {
+    // Retry after delay
+    console.log(`[Content] Query input not found, retrying in ${retryDelay}ms (attempt ${attempt + 1}/${maxAttempts})`);
+    setTimeout(() => {
+      setupQueryInputTracking(config, attempt + 1);
+    }, retryDelay);
   } else {
-    console.warn('[Content] Query input element not found - handler not attached', {
-      triedSelectors: config.selectors.queryInput
+    console.warn('[Content] Query input element not found after max attempts - handler not attached', {
+      triedSelectors: config.selectors.queryInput,
+      maxAttempts: maxAttempts
     });
   }
+}
 
-  // Track AI result link clicks with position
+/**
+ * Setup result click tracking
+ * @param {Object} config - Platform configuration
+ */
+function setupResultClickTracking(config) {
   const responseContainer = platformDetector.findElement(config.selectors.responseContainer);
   if (responseContainer) {
     const handleResultClick = (e) => {
@@ -428,6 +547,12 @@ function setupAIPlatformTracking() {
     };
 
     addListener(responseContainer, 'click', handleResultClick, true);
+    console.log('[Content] AI result click handler attached');
+  } else {
+    // This is expected on initial page load - response container appears after AI sends responses
+    console.log('[Content] Response container not yet available (will track clicks once responses appear)', {
+      triedSelectors: config.selectors.responseContainer
+    });
   }
 }
 
@@ -714,6 +839,12 @@ function sendEvent(eventData) {
     return;
   }
 
+  // Check if extension context is still valid
+  if (!chrome.runtime?.id) {
+    console.warn('[Content] Extension context invalidated, skipping event:', eventData.type);
+    return;
+  }
+
   // Enrich event with platform context
   const enrichedEvent = enrichEvent(eventData);
 
@@ -750,16 +881,5 @@ function throttle(func, wait) {
         func.apply(this, args);
       }, remaining);
     }
-  };
-}
-
-/**
- * Debounce function
- */
-function debounce(func, wait) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
   };
 }

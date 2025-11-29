@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS session_metrics (
 
   -- Query metrics
   query_count INTEGER DEFAULT 0,
-  query_refinements INTEGER DEFAULT 0,
   avg_query_length NUMERIC(10,2),
 
   -- AI engagement metrics
@@ -54,7 +53,6 @@ DECLARE
   v_first_ai_timestamp TIMESTAMP;
   v_first_conversion_timestamp TIMESTAMP;
   v_query_count INTEGER;
-  v_query_refinements INTEGER;
   v_avg_query_length NUMERIC;
   v_ai_result_clicks INTEGER;
   v_ai_dwell_time INTEGER;
@@ -69,27 +67,13 @@ BEGIN
 
   -- Compute query metrics
   SELECT
-    COALESCE(COUNT(*) FILTER (WHERE event_type = 'ai_query_input'), 0),
-    COALESCE(AVG(LENGTH(query_text)) FILTER (WHERE event_type = 'ai_query_input' AND query_text IS NOT NULL), 0)
+    COALESCE(COUNT(*) FILTER (WHERE event_type = 'ai_query_submitted'), 0),
+    COALESCE(AVG(LENGTH(query_text)) FILTER (WHERE event_type = 'ai_query_submitted' AND query_text IS NOT NULL), 0)
   INTO
     v_query_count,
     v_avg_query_length
   FROM session_events
   WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id);
-
-  -- Count refinements (distinct query texts - 1 for initial query)
-  -- Using COUNT(DISTINCT) to avoid counting duplicate query submissions as refinements
-  SELECT COUNT(DISTINCT query_text) - 1
-  INTO v_query_refinements
-  FROM session_events
-  WHERE session_id IN (SELECT id FROM sessions WHERE id = p_session_id)
-    AND event_type = 'ai_query_input'
-    AND query_text IS NOT NULL;
-
-  -- Ensure non-negative
-  IF v_query_refinements < 0 THEN
-    v_query_refinements := 0;
-  END IF;
 
   -- Get AI platforms used
   SELECT array_agg(DISTINCT platform_name)
@@ -158,7 +142,6 @@ BEGIN
   INSERT INTO session_metrics (
     session_id,
     query_count,
-    query_refinements,
     avg_query_length,
     ai_platforms_used,
     ai_result_clicks,
@@ -171,7 +154,6 @@ BEGIN
   ) VALUES (
     p_session_id,
     v_query_count,
-    v_query_refinements,
     v_avg_query_length,
     v_ai_platforms,
     v_ai_result_clicks,
@@ -228,8 +210,7 @@ CREATE TRIGGER trigger_auto_compute_metrics_insert
 
 -- Add helpful comments
 COMMENT ON TABLE session_metrics IS 'Precomputed analytics metrics for each session';
-COMMENT ON COLUMN session_metrics.query_count IS 'Total number of AI queries in session';
-COMMENT ON COLUMN session_metrics.query_refinements IS 'Number of query refinements/iterations';
+COMMENT ON COLUMN session_metrics.query_count IS 'Total number of AI queries submitted in session';
 COMMENT ON COLUMN session_metrics.avg_query_length IS 'Average length of queries in characters';
 COMMENT ON COLUMN session_metrics.ai_platforms_used IS 'Array of AI platform names used in session';
 COMMENT ON COLUMN session_metrics.ai_result_clicks IS 'Number of clicks on AI-provided links';
