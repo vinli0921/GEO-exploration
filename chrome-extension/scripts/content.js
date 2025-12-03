@@ -468,84 +468,72 @@ function setupAIPlatformTracking() {
 }
 
 /**
- * Setup query submission tracking with retry mechanism
- * Captures queries only when user submits (Enter key or Send button click)
- * @param {Object} config - Platform configuration
- * @param {number} attempt - Current retry attempt (0-indexed)
+ * Setup query submission tracking using global Enter key listener
+ * Uses platform-specific selectors from config to detect query inputs
  */
-function setupQueryInputTracking(config, attempt = 0) {
-  const maxAttempts = 5;
-  const retryDelay = 500; // ms
+function setupQueryInputTracking(config) {
+  // Global Enter key listener - captures queries from any focused input
+  const handleGlobalKeyDown = (e) => {
+    if (!isRecording) return;
+    if (e.key !== 'Enter' || e.shiftKey) return;
 
-  const queryInput = platformDetector.findElement(config.selectors.queryInput);
+    const element = document.activeElement;
+    if (!element) return;
 
-  console.log('[Content] Query input element search:', {
-    attempt: attempt + 1,
-    found: !!queryInput,
-    selectors: config.selectors.queryInput,
-    elementTag: queryInput?.tagName,
-    elementClass: queryInput?.className,
-    isContentEditable: queryInput?.contentEditable
-  });
+    // Check if focused element matches any of the platform's queryInput selectors
+    let isQueryInput = false;
 
-  if (queryInput) {
-    // Handler to capture query on submission
-    const handleQuerySubmit = (element) => {
-      if (!isRecording) return;
-
-      const queryText = element.value || element.textContent || element.innerText || '';
-
-      // Only capture non-empty queries
-      if (!queryText.trim()) return;
-
-      console.log('[Content] AI query submitted:', {
-        platform: currentPlatform.platform,
-        queryLength: queryText.length,
-        queryPreview: queryText.substring(0, 50) + '...'
-      });
-
-      sendEvent({
-        type: 'ai_query_submitted',
-        platform: currentPlatform.platform,
-        queryText: queryText.trim(),
-        queryLength: queryText.trim().length
-      });
-    };
-
-    // Listen for Enter key (without Shift)
-    const handleKeyDown = (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        // Small delay to ensure the text is in the input
-        setTimeout(() => handleQuerySubmit(e.currentTarget), 10);
+    for (const selector of config.selectors.queryInput || []) {
+      try {
+        if (element.matches(selector)) {
+          isQueryInput = true;
+          break;
+        }
+      } catch (e) {
+        // Invalid selector, skip
+        continue;
       }
-    };
-
-    addPlatformListener(queryInput, 'keydown', handleKeyDown);
-
-    // Also listen for submit button clicks
-    const submitButton = platformDetector.findElement(config.selectors.submitButton);
-    if (submitButton) {
-      const handleSubmitClick = () => {
-        setTimeout(() => handleQuerySubmit(queryInput), 10);
-      };
-      addPlatformListener(submitButton, 'click', handleSubmitClick);
-      console.log('[Content] AI query submit handlers attached (Enter + Button)');
-    } else {
-      console.log('[Content] AI query submit handler attached (Enter only)');
     }
 
-  } else if (attempt < maxAttempts) {
-    // Retry after delay
-    console.log(`[Content] Query input not found, retrying in ${retryDelay}ms (attempt ${attempt + 1}/${maxAttempts})`);
-    setTimeout(() => {
-      setupQueryInputTracking(config, attempt + 1);
-    }, retryDelay);
-  } else {
-    console.warn('[Content] Query input element not found after max attempts - handler not attached', {
-      triedSelectors: config.selectors.queryInput,
-      maxAttempts: maxAttempts
+    if (!isQueryInput) return;
+
+    // Extract text from the element
+    let queryText = '';
+
+    if (element.contentEditable === 'true') {
+      // For contenteditable divs (Claude, ChatGPT), get innerText
+      queryText = element.innerText || element.textContent || '';
+    } else {
+      // For textarea/input
+      queryText = element.value || '';
+    }
+
+    // Clean up and validate
+    queryText = queryText.trim();
+
+    // Filter out just newlines or empty strings
+    if (!queryText || queryText === '\n' || queryText.length === 0) return;
+
+    console.log('[Content] AI query submitted:', {
+      platform: currentPlatform.platform,
+      queryLength: queryText.length,
+      queryPreview: queryText.substring(0, 50) + (queryText.length > 50 ? '...' : ''),
+      elementType: element.tagName,
+      contentEditable: element.contentEditable
     });
-  }
+
+    sendEvent({
+      type: 'ai_query_submitted',
+      platform: currentPlatform.platform,
+      queryText: queryText,
+      queryLength: queryText.length
+    });
+  };
+
+  // Attach global listener using capture phase
+  addPlatformListener(document, 'keydown', handleGlobalKeyDown, true);
+
+  console.log('[Content] Global query capture handler attached');
 }
 
 /**
