@@ -230,3 +230,8 @@ chrome-extension/icons/*.png
 # IDE
 .idea/
 .vscode/
+
+.claude/
+
+# Git worktrees
+.worktrees/
