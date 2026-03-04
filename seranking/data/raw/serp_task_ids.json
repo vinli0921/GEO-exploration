@@ -1,0 +1,2486 @@
+{
+  "beverages": [
+    {
+      "id": 32411998,
+      "query": "coca cola",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:25:57"
+    },
+    {
+      "id": 32412031,
+      "query": "coke",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:25:57"
+    },
+    {
+      "id": 32412034,
+      "query": "coke zero",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:25:59"
+    },
+    {
+      "id": 32412067,
+      "query": "diet coke",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:25:59"
+    },
+    {
+      "id": 32412070,
+      "query": "coca cola zero sugar",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:00"
+    },
+    {
+      "id": 32412073,
+      "query": "coca cola original",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:01"
+    },
+    {
+      "id": 32412076,
+      "query": "coca cola classic",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:01"
+    },
+    {
+      "id": 32412109,
+      "query": "coca cola flavors",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:02"
+    },
+    {
+      "id": 32412112,
+      "query": "coke products",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:03"
+    },
+    {
+      "id": 32412115,
+      "query": "coca cola website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:04"
+    },
+    {
+      "id": 32412148,
+      "query": "pepsi",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:05"
+    },
+    {
+      "id": 32412151,
+      "query": "pepsi cola",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:06"
+    },
+    {
+      "id": 32412184,
+      "query": "diet pepsi",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:07"
+    },
+    {
+      "id": 32412187,
+      "query": "pepsi zero sugar",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:08"
+    },
+    {
+      "id": 32412190,
+      "query": "pepsi max",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:08"
+    },
+    {
+      "id": 32412193,
+      "query": "pepsi wild cherry",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:09"
+    },
+    {
+      "id": 32412226,
+      "query": "pepsi flavors",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:10"
+    },
+    {
+      "id": 32412229,
+      "query": "pepsi website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:10"
+    },
+    {
+      "id": 32412232,
+      "query": "pepsi products",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:11"
+    },
+    {
+      "id": 32412265,
+      "query": "dr pepper",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:12"
+    },
+    {
+      "id": 32412268,
+      "query": "dr. pepper",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:12"
+    },
+    {
+      "id": 32412271,
+      "query": "diet dr pepper",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:13"
+    },
+    {
+      "id": 32412304,
+      "query": "dr pepper zero sugar",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:14"
+    },
+    {
+      "id": 32412307,
+      "query": "dr pepper cherry",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:14"
+    },
+    {
+      "id": 32412310,
+      "query": "dr pepper flavors",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:15"
+    },
+    {
+      "id": 32412313,
+      "query": "dr pepper website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:16"
+    },
+    {
+      "id": 32412316,
+      "query": "dr pepper products",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:17"
+    },
+    {
+      "id": 32412349,
+      "query": "olipop",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:17"
+    },
+    {
+      "id": 32412382,
+      "query": "olipop soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:18"
+    },
+    {
+      "id": 32412385,
+      "query": "olipop drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:19"
+    },
+    {
+      "id": 32412388,
+      "query": "olipop prebiotic soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:20"
+    },
+    {
+      "id": 32412391,
+      "query": "olipop flavors",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:20"
+    },
+    {
+      "id": 32412424,
+      "query": "buy olipop",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:21"
+    },
+    {
+      "id": 32412427,
+      "query": "olipop near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:22"
+    },
+    {
+      "id": 32412460,
+      "query": "olipop reviews",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:23"
+    },
+    {
+      "id": 32412463,
+      "query": "olipop website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:23"
+    },
+    {
+      "id": 32412466,
+      "query": "olipop ingredients",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:24"
+    },
+    {
+      "id": 32412469,
+      "query": "olipop where to buy",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:25"
+    },
+    {
+      "id": 32412472,
+      "query": "olipop vs poppi",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:25"
+    },
+    {
+      "id": 32412505,
+      "query": "olipop amazon",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:26"
+    },
+    {
+      "id": 32412538,
+      "query": "cola",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:27"
+    },
+    {
+      "id": 32412541,
+      "query": "soda brands",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:27"
+    },
+    {
+      "id": 32412544,
+      "query": "zero sugar soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:28"
+    },
+    {
+      "id": 32412547,
+      "query": "diet soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:29"
+    },
+    {
+      "id": 32412550,
+      "query": "best soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:30"
+    },
+    {
+      "id": 32412583,
+      "query": "carbonated drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:30"
+    },
+    {
+      "id": 32412616,
+      "query": "soft drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:31"
+    },
+    {
+      "id": 32412619,
+      "query": "soda pop",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:32"
+    },
+    {
+      "id": 32412652,
+      "query": "prebiotic soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:34"
+    },
+    {
+      "id": 32412655,
+      "query": "healthy soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:35"
+    },
+    {
+      "id": 32412688,
+      "query": "craft soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:35"
+    },
+    {
+      "id": 32412691,
+      "query": "soda calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:36"
+    },
+    {
+      "id": 32412694,
+      "query": "soda sugar content",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:37"
+    },
+    {
+      "id": 32412697,
+      "query": "best cola",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:38"
+    },
+    {
+      "id": 32412730,
+      "query": "popular soda brands",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:39"
+    },
+    {
+      "id": 32412733,
+      "query": "soda ranking",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:40"
+    },
+    {
+      "id": 32412766,
+      "query": "top soda brands",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:40"
+    },
+    {
+      "id": 32412769,
+      "query": "healthiest soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:41"
+    },
+    {
+      "id": 32412772,
+      "query": "gut health drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:42"
+    },
+    {
+      "id": 32412805,
+      "query": "functional beverages",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:43"
+    },
+    {
+      "id": 32412838,
+      "query": "sparkling water vs soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:45"
+    },
+    {
+      "id": 32412841,
+      "query": "sugar free soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:45"
+    },
+    {
+      "id": 32412844,
+      "query": "soda alternatives",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:46"
+    },
+    {
+      "id": 32412847,
+      "query": "best diet soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:47"
+    },
+    {
+      "id": 32412880,
+      "query": "low calorie soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:48"
+    },
+    {
+      "id": 32412883,
+      "query": "soda flavors",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:48"
+    },
+    {
+      "id": 32412916,
+      "query": "best carbonated drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:49"
+    },
+    {
+      "id": 32412919,
+      "query": "most popular soda brand",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:50"
+    },
+    {
+      "id": 32412922,
+      "query": "soda market",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:51"
+    },
+    {
+      "id": 32412925,
+      "query": "cola brands comparison",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:52"
+    },
+    {
+      "id": 32412958,
+      "query": "soda reviews",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:52"
+    },
+    {
+      "id": 32412961,
+      "query": "flavored soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:53"
+    },
+    {
+      "id": 32412994,
+      "query": "soda with caffeine",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:54"
+    },
+    {
+      "id": 32412997,
+      "query": "caffeine free soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:55"
+    },
+    {
+      "id": 32413000,
+      "query": "best tasting soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:55"
+    },
+    {
+      "id": 32413003,
+      "query": "zero calorie soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:56"
+    },
+    {
+      "id": 32413006,
+      "query": "soda with probiotics",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:57"
+    },
+    {
+      "id": 32413039,
+      "query": "healthy carbonated drinks",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:58"
+    },
+    {
+      "id": 32413042,
+      "query": "soda ingredients list",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:59"
+    },
+    {
+      "id": 32413075,
+      "query": "soda without high fructose corn syrup",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:26:59"
+    },
+    {
+      "id": 32413078,
+      "query": "natural soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:00"
+    },
+    {
+      "id": 32413081,
+      "query": "organic soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:01"
+    },
+    {
+      "id": 32413084,
+      "query": "small batch soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:02"
+    },
+    {
+      "id": 32413087,
+      "query": "craft beverage brand",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:03"
+    },
+    {
+      "id": 32413120,
+      "query": "soda subscription box",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:04"
+    },
+    {
+      "id": 32413153,
+      "query": "canned soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:04"
+    },
+    {
+      "id": 32413156,
+      "query": "soda can brands",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:05"
+    },
+    {
+      "id": 32413159,
+      "query": "soda history",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:06"
+    },
+    {
+      "id": 32413162,
+      "query": "classic american soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:07"
+    },
+    {
+      "id": 32413165,
+      "query": "best selling soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:07"
+    },
+    {
+      "id": 32413168,
+      "query": "soda industry trends",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:08"
+    },
+    {
+      "id": 32413171,
+      "query": "prebiotic drink",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:09"
+    },
+    {
+      "id": 32413204,
+      "query": "gut health beverage",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:10"
+    },
+    {
+      "id": 32413237,
+      "query": "functional soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:11"
+    },
+    {
+      "id": 32413240,
+      "query": "better for you soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:11"
+    },
+    {
+      "id": 32413243,
+      "query": "clean label soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:12"
+    },
+    {
+      "id": 32413246,
+      "query": "soda market share",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:13"
+    },
+    {
+      "id": 32413279,
+      "query": "soda vs sparkling water",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:15"
+    },
+    {
+      "id": 32413312,
+      "query": "soda addiction",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:15"
+    },
+    {
+      "id": 32413315,
+      "query": "soda alternatives healthy",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:16"
+    },
+    {
+      "id": 32413318,
+      "query": "quit soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:17"
+    },
+    {
+      "id": 32413321,
+      "query": "reduce soda intake",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:18"
+    },
+    {
+      "id": 32413324,
+      "query": "soda caffeine comparison",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:18"
+    },
+    {
+      "id": 32413387,
+      "query": "diet soda health effects",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:20"
+    },
+    {
+      "id": 32413390,
+      "query": "artificial sweetener soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:20"
+    },
+    {
+      "id": 32413393,
+      "query": "stevia soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:21"
+    },
+    {
+      "id": 32413396,
+      "query": "cane sugar soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:22"
+    },
+    {
+      "id": 32413399,
+      "query": "craft cola",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:23"
+    },
+    {
+      "id": 32413402,
+      "query": "artisanal soda",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:23"
+    },
+    {
+      "id": 32413465,
+      "query": "boutique beverage brand",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:24"
+    },
+    {
+      "id": 32413468,
+      "query": "emerging beverage brand",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:25"
+    },
+    {
+      "id": 32413471,
+      "query": "challenger beverage brand",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:26"
+    }
+  ],
+  "fast_food": [
+    {
+      "id": 32413474,
+      "query": "mcdonalds",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:27"
+    },
+    {
+      "id": 32413477,
+      "query": "mcdonald's",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:27"
+    },
+    {
+      "id": 32413510,
+      "query": "mcdonalds menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:28"
+    },
+    {
+      "id": 32413537,
+      "query": "mcdonalds near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:29"
+    },
+    {
+      "id": 32413546,
+      "query": "mcdonalds breakfast",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:30"
+    },
+    {
+      "id": 32413549,
+      "query": "mcdonalds happy meal",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:31"
+    },
+    {
+      "id": 32413552,
+      "query": "mcdonalds dollar menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:31"
+    },
+    {
+      "id": 32413555,
+      "query": "mcdonalds deals",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:32"
+    },
+    {
+      "id": 32413588,
+      "query": "mcdonalds app",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:33"
+    },
+    {
+      "id": 32413621,
+      "query": "big mac",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:34"
+    },
+    {
+      "id": 32413624,
+      "query": "mcnuggets",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:35"
+    },
+    {
+      "id": 32413627,
+      "query": "mcdonald's website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:35"
+    },
+    {
+      "id": 32413630,
+      "query": "mcdonald's prices",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:36"
+    },
+    {
+      "id": 32413633,
+      "query": "mcdonald's calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:37"
+    },
+    {
+      "id": 32413636,
+      "query": "mcdonald's new items",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:38"
+    },
+    {
+      "id": 32413669,
+      "query": "wendy's",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:39"
+    },
+    {
+      "id": 32413702,
+      "query": "wendys",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:39"
+    },
+    {
+      "id": 32413705,
+      "query": "wendy's menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:40"
+    },
+    {
+      "id": 32413708,
+      "query": "wendy's near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:41"
+    },
+    {
+      "id": 32413711,
+      "query": "wendy's breakfast",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:42"
+    },
+    {
+      "id": 32413714,
+      "query": "wendy's frosty",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:43"
+    },
+    {
+      "id": 32413747,
+      "query": "wendy's nuggets",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:43"
+    },
+    {
+      "id": 32413750,
+      "query": "wendy's deals",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:44"
+    },
+    {
+      "id": 32413753,
+      "query": "wendy's app",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:45"
+    },
+    {
+      "id": 32413786,
+      "query": "dave's single",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:45"
+    },
+    {
+      "id": 32413789,
+      "query": "baconator",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:46"
+    },
+    {
+      "id": 32413792,
+      "query": "wendy's website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:47"
+    },
+    {
+      "id": 32413795,
+      "query": "wendy's prices",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:47"
+    },
+    {
+      "id": 32413828,
+      "query": "wendy's calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:48"
+    },
+    {
+      "id": 32413831,
+      "query": "wendy's new items",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:49"
+    },
+    {
+      "id": 32413834,
+      "query": "shake shack",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:50"
+    },
+    {
+      "id": 32413837,
+      "query": "shakeshack",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:50"
+    },
+    {
+      "id": 32413870,
+      "query": "shake shack menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:51"
+    },
+    {
+      "id": 32413873,
+      "query": "shake shack near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:52"
+    },
+    {
+      "id": 32413906,
+      "query": "shake shack burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:53"
+    },
+    {
+      "id": 32413909,
+      "query": "shake shack milkshake",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:53"
+    },
+    {
+      "id": 32413912,
+      "query": "shake shack locations",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:54"
+    },
+    {
+      "id": 32413915,
+      "query": "shake shack prices",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:55"
+    },
+    {
+      "id": 32413918,
+      "query": "shake shack website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:56"
+    },
+    {
+      "id": 32413951,
+      "query": "shack burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:56"
+    },
+    {
+      "id": 32413984,
+      "query": "shake shack crinkle cut fries",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:57"
+    },
+    {
+      "id": 32413987,
+      "query": "shake shack calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:58"
+    },
+    {
+      "id": 32413990,
+      "query": "shake shack chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:27:58"
+    },
+    {
+      "id": 32413993,
+      "query": "shake shack new items",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:00"
+    },
+    {
+      "id": 32414026,
+      "query": "five guys",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:01"
+    },
+    {
+      "id": 32414059,
+      "query": "five guys near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:01"
+    },
+    {
+      "id": 32414062,
+      "query": "five guys menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:02"
+    },
+    {
+      "id": 32414065,
+      "query": "five guys prices",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:03"
+    },
+    {
+      "id": 32414068,
+      "query": "five guys burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:04"
+    },
+    {
+      "id": 32414071,
+      "query": "five guys fries",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:04"
+    },
+    {
+      "id": 32414074,
+      "query": "five guys locations",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:05"
+    },
+    {
+      "id": 32414107,
+      "query": "five guys website",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:06"
+    },
+    {
+      "id": 32414140,
+      "query": "five guys calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:07"
+    },
+    {
+      "id": 32414143,
+      "query": "five guys little burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:07"
+    },
+    {
+      "id": 32414146,
+      "query": "five guys milkshake",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:08"
+    },
+    {
+      "id": 32414149,
+      "query": "burger chain",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:09"
+    },
+    {
+      "id": 32414182,
+      "query": "best burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:10"
+    },
+    {
+      "id": 32414185,
+      "query": "fast food burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:11"
+    },
+    {
+      "id": 32414218,
+      "query": "chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:11"
+    },
+    {
+      "id": 32414221,
+      "query": "value menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:12"
+    },
+    {
+      "id": 32414224,
+      "query": "fast food restaurant",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:14"
+    },
+    {
+      "id": 32414227,
+      "query": "best fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:14"
+    },
+    {
+      "id": 32414260,
+      "query": "fast casual restaurant",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:15"
+    },
+    {
+      "id": 32414293,
+      "query": "burger near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:16"
+    },
+    {
+      "id": 32414296,
+      "query": "fast food chain",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:17"
+    },
+    {
+      "id": 32414299,
+      "query": "cheap fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:17"
+    },
+    {
+      "id": 32414302,
+      "query": "fast food deals",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:18"
+    },
+    {
+      "id": 32414335,
+      "query": "smash burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:19"
+    },
+    {
+      "id": 32414338,
+      "query": "gourmet burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:20"
+    },
+    {
+      "id": 32414371,
+      "query": "best fast casual",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:20"
+    },
+    {
+      "id": 32414374,
+      "query": "fast food ranking",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:21"
+    },
+    {
+      "id": 32414380,
+      "query": "top burger chains",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:22"
+    },
+    {
+      "id": 32414383,
+      "query": "burger restaurant",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:22"
+    },
+    {
+      "id": 32414416,
+      "query": "best value fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:23"
+    },
+    {
+      "id": 32414419,
+      "query": "fast food comparison",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:24"
+    },
+    {
+      "id": 32414452,
+      "query": "fast food calories",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:25"
+    },
+    {
+      "id": 32414455,
+      "query": "healthiest fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:26"
+    },
+    {
+      "id": 32414458,
+      "query": "fast food prices",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:26"
+    },
+    {
+      "id": 32414461,
+      "query": "fast food app",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:27"
+    },
+    {
+      "id": 32414494,
+      "query": "best fast food burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:28"
+    },
+    {
+      "id": 32414497,
+      "query": "fast food delivery",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:29"
+    },
+    {
+      "id": 32414500,
+      "query": "drive thru",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:29"
+    },
+    {
+      "id": 32414533,
+      "query": "fast food near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:30"
+    },
+    {
+      "id": 32414536,
+      "query": "burger joint",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:31"
+    },
+    {
+      "id": 32414539,
+      "query": "double burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:31"
+    },
+    {
+      "id": 32414572,
+      "query": "classic burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:32"
+    },
+    {
+      "id": 32414575,
+      "query": "premium burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:33"
+    },
+    {
+      "id": 32414578,
+      "query": "wagyu burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:33"
+    },
+    {
+      "id": 32414581,
+      "query": "grass fed burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:34"
+    },
+    {
+      "id": 32414614,
+      "query": "best french fries",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:35"
+    },
+    {
+      "id": 32414617,
+      "query": "fast food fries",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:36"
+    },
+    {
+      "id": 32414650,
+      "query": "fast food milkshake",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:36"
+    },
+    {
+      "id": 32414653,
+      "query": "fast food chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:37"
+    },
+    {
+      "id": 32414656,
+      "query": "best chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:38"
+    },
+    {
+      "id": 32414689,
+      "query": "crispy chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:39"
+    },
+    {
+      "id": 32414692,
+      "query": "spicy chicken sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:40"
+    },
+    {
+      "id": 32414695,
+      "query": "fast food breakfast",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:40"
+    },
+    {
+      "id": 32414698,
+      "query": "fast food breakfast sandwich",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:41"
+    },
+    {
+      "id": 32414731,
+      "query": "fast food kids meal",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:42"
+    },
+    {
+      "id": 32414734,
+      "query": "fast food new menu item",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:43"
+    },
+    {
+      "id": 32414737,
+      "query": "limited time fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:43"
+    },
+    {
+      "id": 32414770,
+      "query": "fast food collaboration",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:44"
+    },
+    {
+      "id": 32414773,
+      "query": "celebrity fast food meal",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:45"
+    },
+    {
+      "id": 32414776,
+      "query": "fast food trend 2024",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:46"
+    },
+    {
+      "id": 32414779,
+      "query": "fast food market",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:46"
+    },
+    {
+      "id": 32414812,
+      "query": "fast food industry",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:47"
+    },
+    {
+      "id": 32414815,
+      "query": "fast food vs fast casual",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:48"
+    },
+    {
+      "id": 32414848,
+      "query": "fast casual vs qsr",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:48"
+    },
+    {
+      "id": 32414851,
+      "query": "fast food quality",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:49"
+    },
+    {
+      "id": 32414854,
+      "query": "fast food ingredients",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:50"
+    },
+    {
+      "id": 32414857,
+      "query": "fast food sustainability",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:51"
+    },
+    {
+      "id": 32414890,
+      "query": "fast food nutrition",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:51"
+    },
+    {
+      "id": 32414893,
+      "query": "fast food protein",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:52"
+    },
+    {
+      "id": 32414926,
+      "query": "fast food healthy options",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:53"
+    },
+    {
+      "id": 32414929,
+      "query": "best burger chain us",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:53"
+    },
+    {
+      "id": 32414932,
+      "query": "america's best burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:54"
+    },
+    {
+      "id": 32414935,
+      "query": "fast food culture",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:55"
+    },
+    {
+      "id": 32414968,
+      "query": "fast food review",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:56"
+    },
+    {
+      "id": 32414971,
+      "query": "burger taste test",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:56"
+    },
+    {
+      "id": 32414974,
+      "query": "fast food ranking 2024",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:57"
+    },
+    {
+      "id": 32415001,
+      "query": "best smash burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:58"
+    },
+    {
+      "id": 32415010,
+      "query": "smashed burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:59"
+    },
+    {
+      "id": 32415013,
+      "query": "best double smash burger",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:28:59"
+    },
+    {
+      "id": 32415046,
+      "query": "fast food secret menu",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:00"
+    },
+    {
+      "id": 32415049,
+      "query": "fast food hack",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:01"
+    },
+    {
+      "id": 32415052,
+      "query": "fast food loyalty program",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:02"
+    },
+    {
+      "id": 32415055,
+      "query": "fast food rewards",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:03"
+    },
+    {
+      "id": 32415088,
+      "query": "best fast food app deal",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:03"
+    },
+    {
+      "id": 32415091,
+      "query": "best fast food value",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:04"
+    },
+    {
+      "id": 32415094,
+      "query": "cheap burgers near me",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:05"
+    },
+    {
+      "id": 32415127,
+      "query": "best burger under 10",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:05"
+    },
+    {
+      "id": 32415130,
+      "query": "affordable fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:06"
+    },
+    {
+      "id": 32415133,
+      "query": "fast food hours",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:07"
+    },
+    {
+      "id": 32415136,
+      "query": "late night fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:07"
+    },
+    {
+      "id": 32415169,
+      "query": "24 hour fast food",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:08"
+    },
+    {
+      "id": 32415172,
+      "query": "fast food open now",
+      "device": "desktop",
+      "location_id": null,
+      "google_ads_location_id": 2840,
+      "language_code": "en",
+      "is_completed": false,
+      "added": "2026-03-02 17:29:10"
+    }
+  ]
+}

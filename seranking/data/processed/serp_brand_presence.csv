@@ -1,0 +1,993 @@
+query,category,brand_domain,size_tier,snapshot_date,brand_present_top10,best_rank_brand,count_brand_results_top10,count_brand_results_top20
+artificial sweetener soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+artificial sweetener soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+artificial sweetener soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+artificial sweetener soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+artisanal soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+artisanal soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+artisanal soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+artisanal soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best carbonated drinks,beverages,coca-cola.com,large,2026-03-02,0,62.0,0,0
+best carbonated drinks,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best carbonated drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best carbonated drinks,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best cola,beverages,coca-cola.com,large,2026-03-02,0,46.0,0,0
+best cola,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best cola,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best cola,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best diet soda,beverages,coca-cola.com,large,2026-03-02,0,63.0,0,0
+best diet soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best diet soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best diet soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best selling soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+best selling soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best selling soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best selling soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best soda,beverages,coca-cola.com,large,2026-03-02,0,67.0,0,0
+best soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+best tasting soda,beverages,coca-cola.com,large,2026-03-02,0,73.0,0,0
+best tasting soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+best tasting soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+best tasting soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+better for you soda,beverages,coca-cola.com,large,2026-03-02,0,54.0,0,0
+better for you soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+better for you soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+better for you soda,beverages,drinkolipop.com,small,2026-03-02,1,4.0,1,1
+boutique beverage brand,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+boutique beverage brand,beverages,pepsi.com,large,2026-03-02,0,,0,0
+boutique beverage brand,beverages,drpepper.com,large,2026-03-02,0,,0,0
+boutique beverage brand,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+buy olipop,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+buy olipop,beverages,pepsi.com,large,2026-03-02,0,,0,0
+buy olipop,beverages,drpepper.com,large,2026-03-02,0,,0,0
+buy olipop,beverages,drinkolipop.com,small,2026-03-02,1,2.0,4,6
+caffeine free soda,beverages,coca-cola.com,large,2026-03-02,0,82.0,0,0
+caffeine free soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+caffeine free soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+caffeine free soda,beverages,drinkolipop.com,small,2026-03-02,0,50.0,0,0
+cane sugar soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+cane sugar soda,beverages,pepsi.com,large,2026-03-02,0,63.0,0,0
+cane sugar soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+cane sugar soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+canned soda,beverages,coca-cola.com,large,2026-03-02,0,60.0,0,0
+canned soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+canned soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+canned soda,beverages,drinkolipop.com,small,2026-03-02,0,69.0,0,0
+carbonated drinks,beverages,coca-cola.com,large,2026-03-02,0,90.0,0,0
+carbonated drinks,beverages,pepsi.com,large,2026-03-02,0,,0,0
+carbonated drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+carbonated drinks,beverages,drinkolipop.com,small,2026-03-02,0,54.0,0,0
+challenger beverage brand,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+challenger beverage brand,beverages,pepsi.com,large,2026-03-02,0,,0,0
+challenger beverage brand,beverages,drpepper.com,large,2026-03-02,0,47.0,0,0
+challenger beverage brand,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+classic american soda,beverages,coca-cola.com,large,2026-03-02,0,22.0,0,0
+classic american soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+classic american soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+classic american soda,beverages,drinkolipop.com,small,2026-03-02,0,36.0,0,0
+clean label soda,beverages,coca-cola.com,large,2026-03-02,0,105.0,0,0
+clean label soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+clean label soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+clean label soda,beverages,drinkolipop.com,small,2026-03-02,0,20.0,0,1
+coca cola,beverages,coca-cola.com,large,2026-03-02,1,1.0,2,2
+coca cola,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coca cola,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coca cola classic,beverages,coca-cola.com,large,2026-03-02,1,2.0,1,1
+coca cola classic,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coca cola classic,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola classic,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coca cola flavors,beverages,coca-cola.com,large,2026-03-02,1,2.0,2,3
+coca cola flavors,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coca cola flavors,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola flavors,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coca cola original,beverages,coca-cola.com,large,2026-03-02,1,5.0,2,2
+coca cola original,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coca cola original,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola original,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coca cola website,beverages,coca-cola.com,large,2026-03-02,1,1.0,2,3
+coca cola website,beverages,pepsi.com,large,2026-03-02,0,95.0,0,0
+coca cola website,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola website,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coca cola zero sugar,beverages,coca-cola.com,large,2026-03-02,1,2.0,1,1
+coca cola zero sugar,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coca cola zero sugar,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coca cola zero sugar,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coke,beverages,coca-cola.com,large,2026-03-02,0,27.0,0,0
+coke,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coke,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coke,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coke products,beverages,coca-cola.com,large,2026-03-02,1,4.0,3,4
+coke products,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coke products,beverages,drpepper.com,large,2026-03-02,0,18.0,0,1
+coke products,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+coke zero,beverages,coca-cola.com,large,2026-03-02,1,2.0,1,1
+coke zero,beverages,pepsi.com,large,2026-03-02,0,,0,0
+coke zero,beverages,drpepper.com,large,2026-03-02,0,,0,0
+coke zero,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+cola,beverages,coca-cola.com,large,2026-03-02,1,5.0,1,1
+cola,beverages,pepsi.com,large,2026-03-02,0,,0,0
+cola,beverages,drpepper.com,large,2026-03-02,0,,0,0
+cola,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+cola brands comparison,beverages,coca-cola.com,large,2026-03-02,0,31.0,0,0
+cola brands comparison,beverages,pepsi.com,large,2026-03-02,0,,0,0
+cola brands comparison,beverages,drpepper.com,large,2026-03-02,0,,0,0
+cola brands comparison,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+craft beverage brand,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+craft beverage brand,beverages,pepsi.com,large,2026-03-02,0,,0,0
+craft beverage brand,beverages,drpepper.com,large,2026-03-02,0,,0,0
+craft beverage brand,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+craft cola,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+craft cola,beverages,pepsi.com,large,2026-03-02,0,,0,0
+craft cola,beverages,drpepper.com,large,2026-03-02,0,,0,0
+craft cola,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+craft soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+craft soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+craft soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+craft soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+diet coke,beverages,coca-cola.com,large,2026-03-02,1,2.0,1,2
+diet coke,beverages,pepsi.com,large,2026-03-02,0,,0,0
+diet coke,beverages,drpepper.com,large,2026-03-02,0,,0,0
+diet coke,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+diet dr pepper,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+diet dr pepper,beverages,pepsi.com,large,2026-03-02,0,,0,0
+diet dr pepper,beverages,drpepper.com,large,2026-03-02,1,4.0,2,2
+diet dr pepper,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+diet pepsi,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+diet pepsi,beverages,pepsi.com,large,2026-03-02,0,18.0,0,1
+diet pepsi,beverages,drpepper.com,large,2026-03-02,0,,0,0
+diet pepsi,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+diet soda,beverages,coca-cola.com,large,2026-03-02,1,5.0,1,1
+diet soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+diet soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+diet soda,beverages,drinkolipop.com,small,2026-03-02,0,98.0,0,0
+diet soda health effects,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+diet soda health effects,beverages,pepsi.com,large,2026-03-02,0,,0,0
+diet soda health effects,beverages,drpepper.com,large,2026-03-02,0,,0,0
+diet soda health effects,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper,beverages,drpepper.com,large,2026-03-02,1,2.0,2,2
+dr pepper,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper cherry,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper cherry,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper cherry,beverages,drpepper.com,large,2026-03-02,1,2.0,2,3
+dr pepper cherry,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper flavors,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper flavors,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper flavors,beverages,drpepper.com,large,2026-03-02,1,2.0,2,3
+dr pepper flavors,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper products,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper products,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper products,beverages,drpepper.com,large,2026-03-02,1,2.0,3,4
+dr pepper products,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper website,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper website,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper website,beverages,drpepper.com,large,2026-03-02,1,1.0,2,3
+dr pepper website,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr pepper zero sugar,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr pepper zero sugar,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr pepper zero sugar,beverages,drpepper.com,large,2026-03-02,1,4.0,1,2
+dr pepper zero sugar,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+dr. pepper,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+dr. pepper,beverages,pepsi.com,large,2026-03-02,0,,0,0
+dr. pepper,beverages,drpepper.com,large,2026-03-02,1,5.0,1,1
+dr. pepper,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+emerging beverage brand,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+emerging beverage brand,beverages,pepsi.com,large,2026-03-02,0,,0,0
+emerging beverage brand,beverages,drpepper.com,large,2026-03-02,0,,0,0
+emerging beverage brand,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+flavored soda,beverages,coca-cola.com,large,2026-03-02,0,37.0,0,0
+flavored soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+flavored soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+flavored soda,beverages,drinkolipop.com,small,2026-03-02,0,16.0,0,1
+functional beverages,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+functional beverages,beverages,pepsi.com,large,2026-03-02,0,,0,0
+functional beverages,beverages,drpepper.com,large,2026-03-02,0,,0,0
+functional beverages,beverages,drinkolipop.com,small,2026-03-02,0,24.0,0,0
+functional soda,beverages,coca-cola.com,large,2026-03-02,0,62.0,0,0
+functional soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+functional soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+functional soda,beverages,drinkolipop.com,small,2026-03-02,0,12.0,0,1
+gut health beverage,beverages,coca-cola.com,large,2026-03-02,1,5.0,1,1
+gut health beverage,beverages,pepsi.com,large,2026-03-02,0,,0,0
+gut health beverage,beverages,drpepper.com,large,2026-03-02,0,,0,0
+gut health beverage,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+gut health drinks,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+gut health drinks,beverages,pepsi.com,large,2026-03-02,0,,0,0
+gut health drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+gut health drinks,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+healthiest soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+healthiest soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+healthiest soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+healthiest soda,beverages,drinkolipop.com,small,2026-03-02,0,12.0,0,1
+healthy carbonated drinks,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+healthy carbonated drinks,beverages,pepsi.com,large,2026-03-02,0,,0,0
+healthy carbonated drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+healthy carbonated drinks,beverages,drinkolipop.com,small,2026-03-02,0,16.0,0,1
+healthy soda,beverages,coca-cola.com,large,2026-03-02,0,23.0,0,0
+healthy soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+healthy soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+healthy soda,beverages,drinkolipop.com,small,2026-03-02,1,6.0,1,1
+low calorie soda,beverages,coca-cola.com,large,2026-03-02,1,9.0,1,1
+low calorie soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+low calorie soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+low calorie soda,beverages,drinkolipop.com,small,2026-03-02,0,11.0,0,1
+most popular soda brand,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+most popular soda brand,beverages,pepsi.com,large,2026-03-02,0,,0,0
+most popular soda brand,beverages,drpepper.com,large,2026-03-02,0,,0,0
+most popular soda brand,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+natural soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+natural soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+natural soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+natural soda,beverages,drinkolipop.com,small,2026-03-02,0,32.0,0,0
+olipop,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop,beverages,drinkolipop.com,small,2026-03-02,1,1.0,1,1
+olipop amazon,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop amazon,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop amazon,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop amazon,beverages,drinkolipop.com,small,2026-03-02,0,62.0,0,0
+olipop drinks,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop drinks,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop drinks,beverages,drinkolipop.com,small,2026-03-02,1,2.0,3,5
+olipop flavors,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop flavors,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop flavors,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop flavors,beverages,drinkolipop.com,small,2026-03-02,1,1.0,3,4
+olipop ingredients,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop ingredients,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop ingredients,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop ingredients,beverages,drinkolipop.com,small,2026-03-02,1,2.0,4,7
+olipop near me,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop near me,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop near me,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop near me,beverages,drinkolipop.com,small,2026-03-02,1,2.0,3,4
+olipop prebiotic soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop prebiotic soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop prebiotic soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop prebiotic soda,beverages,drinkolipop.com,small,2026-03-02,1,2.0,1,1
+olipop reviews,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop reviews,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop reviews,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop reviews,beverages,drinkolipop.com,small,2026-03-02,0,18.0,0,1
+olipop soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop soda,beverages,drinkolipop.com,small,2026-03-02,1,2.0,1,1
+olipop vs poppi,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop vs poppi,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop vs poppi,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop vs poppi,beverages,drinkolipop.com,small,2026-03-02,0,49.0,0,0
+olipop website,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop website,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop website,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop website,beverages,drinkolipop.com,small,2026-03-02,1,1.0,1,1
+olipop where to buy,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+olipop where to buy,beverages,pepsi.com,large,2026-03-02,0,,0,0
+olipop where to buy,beverages,drpepper.com,large,2026-03-02,0,,0,0
+olipop where to buy,beverages,drinkolipop.com,small,2026-03-02,1,3.0,3,5
+organic soda,beverages,coca-cola.com,large,2026-03-02,0,96.0,0,0
+organic soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+organic soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+organic soda,beverages,drinkolipop.com,small,2026-03-02,0,18.0,0,1
+pepsi,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi,beverages,pepsi.com,large,2026-03-02,1,1.0,1,1
+pepsi,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi cola,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi cola,beverages,pepsi.com,large,2026-03-02,1,2.0,1,1
+pepsi cola,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi cola,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi flavors,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi flavors,beverages,pepsi.com,large,2026-03-02,1,5.0,1,1
+pepsi flavors,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi flavors,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi max,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi max,beverages,pepsi.com,large,2026-03-02,0,35.0,0,0
+pepsi max,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi max,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi products,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi products,beverages,pepsi.com,large,2026-03-02,1,4.0,1,2
+pepsi products,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi products,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi website,beverages,coca-cola.com,large,2026-03-02,0,98.0,0,0
+pepsi website,beverages,pepsi.com,large,2026-03-02,1,1.0,3,5
+pepsi website,beverages,drpepper.com,large,2026-03-02,0,96.0,0,0
+pepsi website,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi wild cherry,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi wild cherry,beverages,pepsi.com,large,2026-03-02,1,6.0,1,1
+pepsi wild cherry,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi wild cherry,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+pepsi zero sugar,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+pepsi zero sugar,beverages,pepsi.com,large,2026-03-02,0,36.0,0,0
+pepsi zero sugar,beverages,drpepper.com,large,2026-03-02,0,,0,0
+pepsi zero sugar,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+popular soda brands,beverages,coca-cola.com,large,2026-03-02,0,72.0,0,0
+popular soda brands,beverages,pepsi.com,large,2026-03-02,0,,0,0
+popular soda brands,beverages,drpepper.com,large,2026-03-02,0,,0,0
+popular soda brands,beverages,drinkolipop.com,small,2026-03-02,0,86.0,0,0
+prebiotic drink,beverages,coca-cola.com,large,2026-03-02,0,11.0,0,1
+prebiotic drink,beverages,pepsi.com,large,2026-03-02,0,,0,0
+prebiotic drink,beverages,drpepper.com,large,2026-03-02,0,,0,0
+prebiotic drink,beverages,drinkolipop.com,small,2026-03-02,0,13.0,0,1
+prebiotic soda,beverages,coca-cola.com,large,2026-03-02,0,24.0,0,0
+prebiotic soda,beverages,pepsi.com,large,2026-03-02,0,46.0,0,0
+prebiotic soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+prebiotic soda,beverages,drinkolipop.com,small,2026-03-02,0,18.0,0,1
+quit soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+quit soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+quit soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+quit soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+reduce soda intake,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+reduce soda intake,beverages,pepsi.com,large,2026-03-02,0,,0,0
+reduce soda intake,beverages,drpepper.com,large,2026-03-02,0,,0,0
+reduce soda intake,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+small batch soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+small batch soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+small batch soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+small batch soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda addiction,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda addiction,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda addiction,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda addiction,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda alternatives,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda alternatives,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda alternatives,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda alternatives,beverages,drinkolipop.com,small,2026-03-02,0,55.0,0,0
+soda alternatives healthy,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda alternatives healthy,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda alternatives healthy,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda alternatives healthy,beverages,drinkolipop.com,small,2026-03-02,0,23.0,0,0
+soda brands,beverages,coca-cola.com,large,2026-03-02,0,38.0,0,0
+soda brands,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda brands,beverages,drpepper.com,large,2026-03-02,1,9.0,1,1
+soda brands,beverages,drinkolipop.com,small,2026-03-02,0,55.0,0,0
+soda caffeine comparison,beverages,coca-cola.com,large,2026-03-02,0,21.0,0,0
+soda caffeine comparison,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda caffeine comparison,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda caffeine comparison,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda calories,beverages,coca-cola.com,large,2026-03-02,1,5.0,1,1
+soda calories,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda calories,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda calories,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda can brands,beverages,coca-cola.com,large,2026-03-02,0,18.0,0,1
+soda can brands,beverages,pepsi.com,large,2026-03-02,0,70.0,0,0
+soda can brands,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda can brands,beverages,drinkolipop.com,small,2026-03-02,0,79.0,0,0
+soda flavors,beverages,coca-cola.com,large,2026-03-02,0,30.0,0,0
+soda flavors,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda flavors,beverages,drpepper.com,large,2026-03-02,0,46.0,0,0
+soda flavors,beverages,drinkolipop.com,small,2026-03-02,0,49.0,0,0
+soda history,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda history,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda history,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda history,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda industry trends,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda industry trends,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda industry trends,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda industry trends,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda ingredients list,beverages,coca-cola.com,large,2026-03-02,1,4.0,1,3
+soda ingredients list,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda ingredients list,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda ingredients list,beverages,drinkolipop.com,small,2026-03-02,0,30.0,0,0
+soda market,beverages,coca-cola.com,large,2026-03-02,0,108.0,0,0
+soda market,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda market,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda market,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda market share,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda market share,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda market share,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda market share,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda pop,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda pop,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda pop,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda pop,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda ranking,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda ranking,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda ranking,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda ranking,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda reviews,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda reviews,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda reviews,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda reviews,beverages,drinkolipop.com,small,2026-03-02,0,88.0,0,0
+soda subscription box,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda subscription box,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda subscription box,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda subscription box,beverages,drinkolipop.com,small,2026-03-02,0,21.0,0,0
+soda sugar content,beverages,coca-cola.com,large,2026-03-02,0,17.0,0,1
+soda sugar content,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda sugar content,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda sugar content,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda vs sparkling water,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda vs sparkling water,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda vs sparkling water,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda vs sparkling water,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda with caffeine,beverages,coca-cola.com,large,2026-03-02,0,42.0,0,0
+soda with caffeine,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda with caffeine,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda with caffeine,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soda with probiotics,beverages,coca-cola.com,large,2026-03-02,0,19.0,0,1
+soda with probiotics,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda with probiotics,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda with probiotics,beverages,drinkolipop.com,small,2026-03-02,1,8.0,1,1
+soda without high fructose corn syrup,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+soda without high fructose corn syrup,beverages,pepsi.com,large,2026-03-02,0,,0,0
+soda without high fructose corn syrup,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soda without high fructose corn syrup,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+soft drinks,beverages,coca-cola.com,large,2026-03-02,0,34.0,0,0
+soft drinks,beverages,pepsi.com,large,2026-03-02,0,83.0,0,0
+soft drinks,beverages,drpepper.com,large,2026-03-02,0,,0,0
+soft drinks,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+sparkling water vs soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+sparkling water vs soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+sparkling water vs soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+sparkling water vs soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+stevia soda,beverages,coca-cola.com,large,2026-03-02,0,,0,0
+stevia soda,beverages,pepsi.com,large,2026-03-02,0,80.0,0,0
+stevia soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+stevia soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+sugar free soda,beverages,coca-cola.com,large,2026-03-02,1,7.0,1,1
+sugar free soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+sugar free soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+sugar free soda,beverages,drinkolipop.com,small,2026-03-02,0,28.0,0,0
+top soda brands,beverages,coca-cola.com,large,2026-03-02,0,86.0,0,0
+top soda brands,beverages,pepsi.com,large,2026-03-02,0,105.0,0,0
+top soda brands,beverages,drpepper.com,large,2026-03-02,0,69.0,0,0
+top soda brands,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+zero calorie soda,beverages,coca-cola.com,large,2026-03-02,1,5.0,1,1
+zero calorie soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+zero calorie soda,beverages,drpepper.com,large,2026-03-02,0,,0,0
+zero calorie soda,beverages,drinkolipop.com,small,2026-03-02,0,41.0,0,0
+zero sugar soda,beverages,coca-cola.com,large,2026-03-02,1,9.0,1,1
+zero sugar soda,beverages,pepsi.com,large,2026-03-02,0,,0,0
+zero sugar soda,beverages,drpepper.com,large,2026-03-02,0,97.0,0,0
+zero sugar soda,beverages,drinkolipop.com,small,2026-03-02,0,,0,0
+24 hour fast food,fast_food,mcdonalds.com,large,2026-03-02,0,17.0,0,1
+24 hour fast food,fast_food,wendys.com,large,2026-03-02,0,,0,0
+24 hour fast food,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+24 hour fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+affordable fast food,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+affordable fast food,fast_food,wendys.com,large,2026-03-02,0,,0,0
+affordable fast food,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+affordable fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+america's best burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+america's best burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+america's best burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+america's best burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+baconator,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+baconator,fast_food,wendys.com,large,2026-03-02,1,1.0,2,3
+baconator,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+baconator,fast_food,fiveguys.com,small,2026-03-02,0,109.0,0,0
+best burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best burger chain us,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best burger chain us,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best burger chain us,fast_food,shakeshack.com,small,2026-03-02,0,14.0,0,1
+best burger chain us,fast_food,fiveguys.com,small,2026-03-02,0,77.0,0,0
+best burger under 10,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best burger under 10,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best burger under 10,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best burger under 10,fast_food,fiveguys.com,small,2026-03-02,0,77.0,0,0
+best chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,0,19.0,0,1
+best chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best double smash burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best double smash burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best double smash burger,fast_food,shakeshack.com,small,2026-03-02,0,108.0,0,0
+best double smash burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best fast casual,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best fast casual,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best fast casual,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best fast casual,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best fast food,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best fast food,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best fast food,fast_food,shakeshack.com,small,2026-03-02,0,22.0,0,0
+best fast food,fast_food,fiveguys.com,small,2026-03-02,0,20.0,0,1
+best fast food app deal,fast_food,mcdonalds.com,large,2026-03-02,0,22.0,0,0
+best fast food app deal,fast_food,wendys.com,large,2026-03-02,0,24.0,0,0
+best fast food app deal,fast_food,shakeshack.com,small,2026-03-02,0,71.0,0,0
+best fast food app deal,fast_food,fiveguys.com,small,2026-03-02,0,58.0,0,0
+best fast food burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best fast food burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best fast food burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best fast food burger,fast_food,fiveguys.com,small,2026-03-02,0,46.0,0,0
+best fast food value,fast_food,mcdonalds.com,large,2026-03-02,0,69.0,0,0
+best fast food value,fast_food,wendys.com,large,2026-03-02,0,22.0,0,0
+best fast food value,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best fast food value,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best french fries,fast_food,mcdonalds.com,large,2026-03-02,0,85.0,0,0
+best french fries,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best french fries,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best french fries,fast_food,fiveguys.com,small,2026-03-02,0,98.0,0,0
+best smash burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+best smash burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+best smash burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+best smash burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+best value fast food,fast_food,mcdonalds.com,large,2026-03-02,0,61.0,0,0
+best value fast food,fast_food,wendys.com,large,2026-03-02,0,30.0,0,0
+best value fast food,fast_food,shakeshack.com,small,2026-03-02,0,37.0,0,0
+best value fast food,fast_food,fiveguys.com,small,2026-03-02,0,41.0,0,0
+big mac,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,2,3
+big mac,fast_food,wendys.com,large,2026-03-02,0,,0,0
+big mac,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+big mac,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+burger chain,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+burger chain,fast_food,wendys.com,large,2026-03-02,0,11.0,0,1
+burger chain,fast_food,shakeshack.com,small,2026-03-02,1,6.0,1,1
+burger chain,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+burger joint,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+burger joint,fast_food,wendys.com,large,2026-03-02,0,,0,0
+burger joint,fast_food,shakeshack.com,small,2026-03-02,1,9.0,1,1
+burger joint,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+burger near me,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+burger near me,fast_food,wendys.com,large,2026-03-02,0,105.0,0,0
+burger near me,fast_food,shakeshack.com,small,2026-03-02,1,7.0,1,1
+burger near me,fast_food,fiveguys.com,small,2026-03-02,1,2.0,1,1
+burger restaurant,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+burger restaurant,fast_food,wendys.com,large,2026-03-02,0,,0,0
+burger restaurant,fast_food,shakeshack.com,small,2026-03-02,1,6.0,1,1
+burger restaurant,fast_food,fiveguys.com,small,2026-03-02,1,5.0,1,1
+burger taste test,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+burger taste test,fast_food,wendys.com,large,2026-03-02,0,,0,0
+burger taste test,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+burger taste test,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+celebrity fast food meal,fast_food,mcdonalds.com,large,2026-03-02,0,46.0,0,0
+celebrity fast food meal,fast_food,wendys.com,large,2026-03-02,0,,0,0
+celebrity fast food meal,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+celebrity fast food meal,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+cheap burgers near me,fast_food,mcdonalds.com,large,2026-03-02,0,11.0,0,1
+cheap burgers near me,fast_food,wendys.com,large,2026-03-02,1,8.0,1,1
+cheap burgers near me,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+cheap burgers near me,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+cheap fast food,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+cheap fast food,fast_food,wendys.com,large,2026-03-02,0,36.0,0,0
+cheap fast food,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+cheap fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,18.0,0,1
+chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,110.0,0,0
+chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+classic burger,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+classic burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+classic burger,fast_food,shakeshack.com,small,2026-03-02,0,86.0,0,0
+classic burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+crispy chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,13.0,0,1
+crispy chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,,0,0
+crispy chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+crispy chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+dave's single,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+dave's single,fast_food,wendys.com,large,2026-03-02,1,4.0,2,2
+dave's single,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+dave's single,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+double burger,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,2,2
+double burger,fast_food,wendys.com,large,2026-03-02,0,41.0,0,0
+double burger,fast_food,shakeshack.com,small,2026-03-02,0,53.0,0,0
+double burger,fast_food,fiveguys.com,small,2026-03-02,0,48.0,0,0
+drive thru,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+drive thru,fast_food,wendys.com,large,2026-03-02,0,62.0,0,0
+drive thru,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+drive thru,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast casual restaurant,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast casual restaurant,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast casual restaurant,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast casual restaurant,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast casual vs qsr,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast casual vs qsr,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast casual vs qsr,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast casual vs qsr,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food app,fast_food,mcdonalds.com,large,2026-03-02,0,35.0,0,0
+fast food app,fast_food,wendys.com,large,2026-03-02,0,71.0,0,0
+fast food app,fast_food,shakeshack.com,small,2026-03-02,0,31.0,0,0
+fast food app,fast_food,fiveguys.com,small,2026-03-02,0,69.0,0,0
+fast food breakfast,fast_food,mcdonalds.com,large,2026-03-02,0,15.0,0,1
+fast food breakfast,fast_food,wendys.com,large,2026-03-02,0,25.0,0,0
+fast food breakfast,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food breakfast,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food breakfast sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,15.0,0,1
+fast food breakfast sandwich,fast_food,wendys.com,large,2026-03-02,0,25.0,0,0
+fast food breakfast sandwich,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food breakfast sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food burger,fast_food,fiveguys.com,small,2026-03-02,0,11.0,0,1
+fast food calories,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+fast food calories,fast_food,wendys.com,large,2026-03-02,0,53.0,0,0
+fast food calories,fast_food,shakeshack.com,small,2026-03-02,0,56.0,0,0
+fast food calories,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food chain,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+fast food chain,fast_food,wendys.com,large,2026-03-02,1,10.0,1,1
+fast food chain,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food chain,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,47.0,0,0
+fast food chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,0,73.0,0,0
+fast food chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food collaboration,fast_food,mcdonalds.com,large,2026-03-02,0,18.0,0,1
+fast food collaboration,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food collaboration,fast_food,shakeshack.com,small,2026-03-02,0,43.0,0,0
+fast food collaboration,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food comparison,fast_food,mcdonalds.com,large,2026-03-02,0,97.0,0,0
+fast food comparison,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food comparison,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food comparison,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food culture,fast_food,mcdonalds.com,large,2026-03-02,0,79.0,0,0
+fast food culture,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food culture,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food culture,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food deals,fast_food,mcdonalds.com,large,2026-03-02,1,10.0,1,1
+fast food deals,fast_food,wendys.com,large,2026-03-02,1,7.0,1,1
+fast food deals,fast_food,shakeshack.com,small,2026-03-02,0,36.0,0,0
+fast food deals,fast_food,fiveguys.com,small,2026-03-02,0,49.0,0,0
+fast food delivery,fast_food,mcdonalds.com,large,2026-03-02,1,7.0,1,1
+fast food delivery,fast_food,wendys.com,large,2026-03-02,1,5.0,1,1
+fast food delivery,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food delivery,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food fries,fast_food,mcdonalds.com,large,2026-03-02,0,32.0,0,0
+fast food fries,fast_food,wendys.com,large,2026-03-02,0,76.0,0,0
+fast food fries,fast_food,shakeshack.com,small,2026-03-02,0,45.0,0,0
+fast food fries,fast_food,fiveguys.com,small,2026-03-02,0,73.0,0,0
+fast food hack,fast_food,mcdonalds.com,large,2026-03-02,0,80.0,0,0
+fast food hack,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food hack,fast_food,shakeshack.com,small,2026-03-02,0,56.0,0,0
+fast food hack,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food healthy options,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food healthy options,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food healthy options,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food healthy options,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food hours,fast_food,mcdonalds.com,large,2026-03-02,1,3.0,1,1
+fast food hours,fast_food,wendys.com,large,2026-03-02,0,28.0,0,0
+fast food hours,fast_food,shakeshack.com,small,2026-03-02,0,11.0,0,1
+fast food hours,fast_food,fiveguys.com,small,2026-03-02,1,9.0,1,1
+fast food industry,fast_food,mcdonalds.com,large,2026-03-02,0,76.0,0,0
+fast food industry,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food industry,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food industry,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food ingredients,fast_food,mcdonalds.com,large,2026-03-02,0,60.0,0,0
+fast food ingredients,fast_food,wendys.com,large,2026-03-02,0,82.0,0,0
+fast food ingredients,fast_food,shakeshack.com,small,2026-03-02,0,43.0,0,0
+fast food ingredients,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food kids meal,fast_food,mcdonalds.com,large,2026-03-02,1,5.0,1,1
+fast food kids meal,fast_food,wendys.com,large,2026-03-02,1,10.0,1,1
+fast food kids meal,fast_food,shakeshack.com,small,2026-03-02,0,32.0,0,0
+fast food kids meal,fast_food,fiveguys.com,small,2026-03-02,0,83.0,0,0
+fast food loyalty program,fast_food,mcdonalds.com,large,2026-03-02,0,17.0,0,1
+fast food loyalty program,fast_food,wendys.com,large,2026-03-02,1,9.0,1,1
+fast food loyalty program,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food loyalty program,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food market,fast_food,mcdonalds.com,large,2026-03-02,0,76.0,0,0
+fast food market,fast_food,wendys.com,large,2026-03-02,0,88.0,0,0
+fast food market,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food market,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food milkshake,fast_food,mcdonalds.com,large,2026-03-02,0,60.0,0,0
+fast food milkshake,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food milkshake,fast_food,shakeshack.com,small,2026-03-02,1,9.0,1,1
+fast food milkshake,fast_food,fiveguys.com,small,2026-03-02,0,23.0,0,0
+fast food near me,fast_food,mcdonalds.com,large,2026-03-02,1,5.0,1,1
+fast food near me,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food near me,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food near me,fast_food,fiveguys.com,small,2026-03-02,1,4.0,1,1
+fast food new menu item,fast_food,mcdonalds.com,large,2026-03-02,0,12.0,0,1
+fast food new menu item,fast_food,wendys.com,large,2026-03-02,1,7.0,1,1
+fast food new menu item,fast_food,shakeshack.com,small,2026-03-02,0,24.0,0,0
+fast food new menu item,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food nutrition,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+fast food nutrition,fast_food,wendys.com,large,2026-03-02,0,71.0,0,0
+fast food nutrition,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food nutrition,fast_food,fiveguys.com,small,2026-03-02,0,110.0,0,0
+fast food open now,fast_food,mcdonalds.com,large,2026-03-02,1,4.0,1,1
+fast food open now,fast_food,wendys.com,large,2026-03-02,1,9.0,1,1
+fast food open now,fast_food,shakeshack.com,small,2026-03-02,0,17.0,0,1
+fast food open now,fast_food,fiveguys.com,small,2026-03-02,0,16.0,0,1
+fast food prices,fast_food,mcdonalds.com,large,2026-03-02,0,21.0,0,0
+fast food prices,fast_food,wendys.com,large,2026-03-02,0,40.0,0,0
+fast food prices,fast_food,shakeshack.com,small,2026-03-02,0,39.0,0,0
+fast food prices,fast_food,fiveguys.com,small,2026-03-02,0,75.0,0,0
+fast food protein,fast_food,mcdonalds.com,large,2026-03-02,0,61.0,0,0
+fast food protein,fast_food,wendys.com,large,2026-03-02,0,82.0,0,0
+fast food protein,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food protein,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food quality,fast_food,mcdonalds.com,large,2026-03-02,0,77.0,0,0
+fast food quality,fast_food,wendys.com,large,2026-03-02,0,110.0,0,0
+fast food quality,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food quality,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food ranking,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food ranking,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food ranking,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food ranking,fast_food,fiveguys.com,small,2026-03-02,0,96.0,0,0
+fast food ranking 2024,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food ranking 2024,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food ranking 2024,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food ranking 2024,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food restaurant,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+fast food restaurant,fast_food,wendys.com,large,2026-03-02,1,7.0,1,1
+fast food restaurant,fast_food,shakeshack.com,small,2026-03-02,0,15.0,0,1
+fast food restaurant,fast_food,fiveguys.com,small,2026-03-02,0,53.0,0,0
+fast food review,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food review,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food review,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food review,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food rewards,fast_food,mcdonalds.com,large,2026-03-02,1,3.0,1,1
+fast food rewards,fast_food,wendys.com,large,2026-03-02,1,9.0,1,1
+fast food rewards,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food rewards,fast_food,fiveguys.com,small,2026-03-02,0,69.0,0,0
+fast food secret menu,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food secret menu,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food secret menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food secret menu,fast_food,fiveguys.com,small,2026-03-02,0,99.0,0,0
+fast food sustainability,fast_food,mcdonalds.com,large,2026-03-02,0,43.0,0,0
+fast food sustainability,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food sustainability,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food sustainability,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food trend 2024,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food trend 2024,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food trend 2024,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food trend 2024,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+fast food vs fast casual,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+fast food vs fast casual,fast_food,wendys.com,large,2026-03-02,0,,0,0
+fast food vs fast casual,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+fast food vs fast casual,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+five guys,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys,fast_food,fiveguys.com,small,2026-03-02,1,2.0,1,1
+five guys burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys burger,fast_food,fiveguys.com,small,2026-03-02,1,1.0,1,2
+five guys calories,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys calories,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys calories,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys calories,fast_food,fiveguys.com,small,2026-03-02,1,1.0,5,8
+five guys fries,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys fries,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys fries,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys fries,fast_food,fiveguys.com,small,2026-03-02,1,2.0,3,6
+five guys little burger,fast_food,mcdonalds.com,large,2026-03-02,0,101.0,0,0
+five guys little burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys little burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys little burger,fast_food,fiveguys.com,small,2026-03-02,1,1.0,4,4
+five guys locations,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys locations,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys locations,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys locations,fast_food,fiveguys.com,small,2026-03-02,1,2.0,6,7
+five guys menu,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys menu,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys menu,fast_food,fiveguys.com,small,2026-03-02,1,1.0,3,7
+five guys milkshake,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys milkshake,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys milkshake,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys milkshake,fast_food,fiveguys.com,small,2026-03-02,1,1.0,3,4
+five guys near me,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys near me,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys near me,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys near me,fast_food,fiveguys.com,small,2026-03-02,1,3.0,1,1
+five guys prices,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys prices,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys prices,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys prices,fast_food,fiveguys.com,small,2026-03-02,1,2.0,1,1
+five guys website,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+five guys website,fast_food,wendys.com,large,2026-03-02,0,,0,0
+five guys website,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+five guys website,fast_food,fiveguys.com,small,2026-03-02,1,1.0,2,2
+gourmet burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+gourmet burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+gourmet burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+gourmet burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+grass fed burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+grass fed burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+grass fed burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+grass fed burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+healthiest fast food,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+healthiest fast food,fast_food,wendys.com,large,2026-03-02,0,,0,0
+healthiest fast food,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+healthiest fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+late night fast food,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+late night fast food,fast_food,wendys.com,large,2026-03-02,0,,0,0
+late night fast food,fast_food,shakeshack.com,small,2026-03-02,0,15.0,0,1
+late night fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+limited time fast food,fast_food,mcdonalds.com,large,2026-03-02,1,10.0,1,1
+limited time fast food,fast_food,wendys.com,large,2026-03-02,0,13.0,0,1
+limited time fast food,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+limited time fast food,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonald's,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,3,6
+mcdonald's,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonald's,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonald's,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonald's calories,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,4,7
+mcdonald's calories,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonald's calories,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonald's calories,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonald's new items,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,3,3
+mcdonald's new items,fast_food,wendys.com,large,2026-03-02,0,90.0,0,0
+mcdonald's new items,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonald's new items,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonald's prices,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,3,4
+mcdonald's prices,fast_food,wendys.com,large,2026-03-02,0,80.0,0,0
+mcdonald's prices,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonald's prices,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonald's website,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,7,11
+mcdonald's website,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonald's website,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonald's website,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,3,6
+mcdonalds,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonalds,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds app,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,4,6
+mcdonalds app,fast_food,wendys.com,large,2026-03-02,0,66.0,0,0
+mcdonalds app,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds app,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds breakfast,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,3,3
+mcdonalds breakfast,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonalds breakfast,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds breakfast,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds deals,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,4,6
+mcdonalds deals,fast_food,wendys.com,large,2026-03-02,0,62.0,0,0
+mcdonalds deals,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds deals,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds dollar menu,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,4,5
+mcdonalds dollar menu,fast_food,wendys.com,large,2026-03-02,0,57.0,0,0
+mcdonalds dollar menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds dollar menu,fast_food,fiveguys.com,small,2026-03-02,0,78.0,0,0
+mcdonalds happy meal,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,3,5
+mcdonalds happy meal,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonalds happy meal,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds happy meal,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds menu,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,4,5
+mcdonalds menu,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcdonalds menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds menu,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcdonalds near me,fast_food,mcdonalds.com,large,2026-03-02,1,3.0,6,9
+mcdonalds near me,fast_food,wendys.com,large,2026-03-02,0,38.0,0,0
+mcdonalds near me,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcdonalds near me,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+mcnuggets,fast_food,mcdonalds.com,large,2026-03-02,1,1.0,2,3
+mcnuggets,fast_food,wendys.com,large,2026-03-02,0,,0,0
+mcnuggets,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+mcnuggets,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+premium burger,fast_food,mcdonalds.com,large,2026-03-02,0,21.0,0,0
+premium burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+premium burger,fast_food,shakeshack.com,small,2026-03-02,0,32.0,0,0
+premium burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shack burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shack burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shack burger,fast_food,shakeshack.com,small,2026-03-02,1,2.0,1,1
+shack burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack,fast_food,shakeshack.com,small,2026-03-02,1,2.0,1,1
+shake shack,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack burger,fast_food,shakeshack.com,small,2026-03-02,1,1.0,5,6
+shake shack burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack calories,fast_food,mcdonalds.com,large,2026-03-02,0,66.0,0,0
+shake shack calories,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack calories,fast_food,shakeshack.com,small,2026-03-02,1,1.0,6,7
+shake shack calories,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,1,1.0,3,6
+shake shack chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack crinkle cut fries,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack crinkle cut fries,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack crinkle cut fries,fast_food,shakeshack.com,small,2026-03-02,1,2.0,2,5
+shake shack crinkle cut fries,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack locations,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack locations,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack locations,fast_food,shakeshack.com,small,2026-03-02,1,2.0,4,4
+shake shack locations,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack menu,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack menu,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack menu,fast_food,shakeshack.com,small,2026-03-02,1,1.0,1,1
+shake shack menu,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack milkshake,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack milkshake,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack milkshake,fast_food,shakeshack.com,small,2026-03-02,1,1.0,1,2
+shake shack milkshake,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack near me,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack near me,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack near me,fast_food,shakeshack.com,small,2026-03-02,1,2.0,5,6
+shake shack near me,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack new items,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack new items,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack new items,fast_food,shakeshack.com,small,2026-03-02,1,2.0,1,1
+shake shack new items,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack prices,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shake shack prices,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack prices,fast_food,shakeshack.com,small,2026-03-02,1,2.0,1,1
+shake shack prices,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shake shack website,fast_food,mcdonalds.com,large,2026-03-02,0,88.0,0,0
+shake shack website,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shake shack website,fast_food,shakeshack.com,small,2026-03-02,1,1.0,1,1
+shake shack website,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+shakeshack,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+shakeshack,fast_food,wendys.com,large,2026-03-02,0,,0,0
+shakeshack,fast_food,shakeshack.com,small,2026-03-02,1,1.0,1,1
+shakeshack,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+smash burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+smash burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+smash burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+smash burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+smashed burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+smashed burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+smashed burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+smashed burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+spicy chicken sandwich,fast_food,mcdonalds.com,large,2026-03-02,1,6.0,1,1
+spicy chicken sandwich,fast_food,wendys.com,large,2026-03-02,0,,0,0
+spicy chicken sandwich,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+spicy chicken sandwich,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+top burger chains,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+top burger chains,fast_food,wendys.com,large,2026-03-02,0,,0,0
+top burger chains,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+top burger chains,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+value menu,fast_food,mcdonalds.com,large,2026-03-02,1,2.0,1,1
+value menu,fast_food,wendys.com,large,2026-03-02,0,17.0,0,1
+value menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+value menu,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wagyu burger,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wagyu burger,fast_food,wendys.com,large,2026-03-02,0,,0,0
+wagyu burger,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wagyu burger,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's,fast_food,wendys.com,large,2026-03-02,1,2.0,1,2
+wendy's,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's app,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's app,fast_food,wendys.com,large,2026-03-02,1,4.0,4,5
+wendy's app,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's app,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's breakfast,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's breakfast,fast_food,wendys.com,large,2026-03-02,1,2.0,3,6
+wendy's breakfast,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's breakfast,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's calories,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's calories,fast_food,wendys.com,large,2026-03-02,1,1.0,4,5
+wendy's calories,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's calories,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's deals,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's deals,fast_food,wendys.com,large,2026-03-02,1,2.0,6,8
+wendy's deals,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's deals,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's frosty,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's frosty,fast_food,wendys.com,large,2026-03-02,1,1.0,3,6
+wendy's frosty,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's frosty,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's menu,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's menu,fast_food,wendys.com,large,2026-03-02,1,1.0,3,5
+wendy's menu,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's menu,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's near me,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's near me,fast_food,wendys.com,large,2026-03-02,1,1.0,1,1
+wendy's near me,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's near me,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's new items,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's new items,fast_food,wendys.com,large,2026-03-02,1,2.0,3,5
+wendy's new items,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's new items,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's nuggets,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's nuggets,fast_food,wendys.com,large,2026-03-02,1,1.0,4,5
+wendy's nuggets,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's nuggets,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's prices,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's prices,fast_food,wendys.com,large,2026-03-02,1,2.0,4,7
+wendy's prices,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's prices,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendy's website,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendy's website,fast_food,wendys.com,large,2026-03-02,1,1.0,2,3
+wendy's website,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendy's website,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
+wendys,fast_food,mcdonalds.com,large,2026-03-02,0,,0,0
+wendys,fast_food,wendys.com,large,2026-03-02,1,2.0,1,2
+wendys,fast_food,shakeshack.com,small,2026-03-02,0,,0,0
+wendys,fast_food,fiveguys.com,small,2026-03-02,0,,0,0
