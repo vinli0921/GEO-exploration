@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'invalid password' }, { status: 401 });
   }
 
-  const token = signSession(secret, { issuedAt: Date.now() });
+  const token = await signSession(secret, { issuedAt: Date.now() });
   const next = (body.next && body.next.startsWith('/') ? body.next : '/');
 
   const res = NextResponse.json({ ok: true, next });

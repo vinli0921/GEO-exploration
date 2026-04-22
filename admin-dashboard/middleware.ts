@@ -3,7 +3,7 @@ import { verifySession } from '@/lib/auth';
 
 const PUBLIC_PATHS = ['/login', '/api/auth'];
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (PUBLIC_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))) {
     return NextResponse.next();
@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   if (!secret) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
-  if (verifySession(secret, token)) {
+  if (await verifySession(secret, token)) {
     return NextResponse.next();
   }
 
