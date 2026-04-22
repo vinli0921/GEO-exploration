@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getMongo } from '@/lib/mongo';
 import { getEventsPage } from '@/lib/ads/queries';
+import { toErrorResponse } from '@/lib/ads/api-error';
 
 const schema = z.object({
   pageSize: z.coerce.number().int().min(1).max(200).default(50),
@@ -18,12 +19,16 @@ export async function GET(req: NextRequest) {
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
-  const db = await getMongo();
-  const { from, to, ...rest } = parsed.data;
-  const result = await getEventsPage(db, {
-    ...rest,
-    from: from ? new Date(from) : undefined,
-    to: to ? new Date(to) : undefined,
-  });
-  return NextResponse.json(result);
+  try {
+    const db = await getMongo();
+    const { from, to, ...rest } = parsed.data;
+    const result = await getEventsPage(db, {
+      ...rest,
+      from: from ? new Date(from) : undefined,
+      to: to ? new Date(to) : undefined,
+    });
+    return NextResponse.json(result);
+  } catch (err) {
+    return toErrorResponse(err, 'GET /api/ads/events');
+  }
 }

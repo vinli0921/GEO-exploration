@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { getMongo } from '@/lib/mongo';
 import { streamEventsForExport } from '@/lib/ads/queries';
 import { AD_EVENT_CSV_HEADER, formatAdEventRow } from '@/lib/ads/csv';
+import { toErrorResponse } from '@/lib/ads/api-error';
 
 const schema = z.object({
   variant: z.enum(['sponsored-inline', 'sponsored-outside']).optional(),
@@ -20,7 +21,12 @@ export async function GET(req: NextRequest) {
       status: 400, headers: { 'Content-Type': 'application/json' },
     });
   }
-  const db = await getMongo();
+  let db;
+  try {
+    db = await getMongo();
+  } catch (err) {
+    return toErrorResponse(err, 'GET /api/ads/events/export (setup)');
+  }
   const { from, to, ...rest } = parsed.data;
 
   const stream = new ReadableStream({
