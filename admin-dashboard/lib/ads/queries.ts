@@ -1,7 +1,8 @@
 import type { Db } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow,
 } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
@@ -178,4 +179,78 @@ export async function getDwellStats(db: Db, filters: DwellFilters): Promise<Dwel
     }
   }
   return result;
+}
+
+export type EventBrowserFilters = {
+  pageSize?: number;
+  after?: string;
+  variant?: string;
+  eventType?: string;
+  from?: Date;
+  to?: Date;
+  queryText?: string;
+};
+
+function buildEventFilter(filters: EventBrowserFilters): Record<string, unknown> {
+  const m: Record<string, unknown> = { studyId: STUDY_ID };
+  if (filters.variant)   m.variant = filters.variant;
+  if (filters.eventType) m.eventType = filters.eventType;
+  if (filters.from || filters.to) {
+    const range: Record<string, Date> = {};
+    if (filters.from) range.$gte = filters.from;
+    if (filters.to) range.$lte = filters.to;
+    m.timestamp = range;
+  }
+  if (filters.queryText) {
+    const escaped = filters.queryText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    m.queryText = { $regex: escaped, $options: 'i' };
+  }
+  if (filters.after) {
+    m._id = { $lt: new ObjectId(filters.after) };
+  }
+  return m;
+}
+
+function toEventRow(r: any): EventBrowserRow {
+  return {
+    id: r._id.toString(),
+    timestamp: (r.timestamp as Date).toISOString(),
+    pseudonym: pseudonym(r.userId),
+    variant: r.variant,
+    eventType: r.eventType,
+    conversationId: r.conversationId,
+    messageId: r.messageId,
+    queryText: r.queryText ?? '',
+  };
+}
+
+export async function getEventsPage(
+  db: Db,
+  filters: EventBrowserFilters,
+): Promise<{ rows: EventBrowserRow[]; nextCursor: string | null }> {
+  const pageSize = Math.min(Math.max(filters.pageSize ?? 50, 1), 200);
+  const docs = await db.collection('adevents')
+    .find(buildEventFilter(filters))
+    .sort({ _id: -1 })
+    .limit(pageSize + 1)
+    .toArray();
+
+  const hasMore = docs.length > pageSize;
+  const page = docs.slice(0, pageSize);
+  return {
+    rows: page.map(toEventRow),
+    nextCursor: hasMore ? page[page.length - 1]._id.toString() : null,
+  };
+}
+
+export async function* streamEventsForExport(
+  db: Db,
+  filters: Omit<EventBrowserFilters, 'pageSize' | 'after'>,
+): AsyncGenerator<EventBrowserRow> {
+  const cursor = db.collection('adevents')
+    .find(buildEventFilter(filters))
+    .sort({ _id: -1 });
+  for await (const doc of cursor) {
+    yield toEventRow(doc);
+  }
 }
