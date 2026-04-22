@@ -27,6 +27,8 @@ export function Sidebar() {
   const pathname = usePathname()
   const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'offline'>('checking')
 
+  if (pathname === '/login') return null
+
   useEffect(() => {
     const checkHealth = async () => {
       try {
