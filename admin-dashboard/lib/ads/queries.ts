@@ -1,7 +1,7 @@
 import type { Db } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow,
 } from './types';
 
 const STUDY_ID = 'study-1';
@@ -63,4 +63,65 @@ export async function getLatestEvents(db: Db, n = 10): Promise<LatestEventDto[]>
     eventType: r.eventType as string,
     queryText: r.queryText ?? '',
   }));
+}
+
+export type FunnelFilters = {
+  from?: Date;
+  to?: Date;
+  minImpressionsPerUser?: number;
+};
+
+export async function getFunnelStats(db: Db, filters: FunnelFilters): Promise<FunnelStatsRow[]> {
+  const match: Record<string, unknown> = { studyId: STUDY_ID, variant: { $ne: null } };
+  if (filters.from || filters.to) {
+    const range: Record<string, Date> = {};
+    if (filters.from) range.$gte = filters.from;
+    if (filters.to) range.$lte = filters.to;
+    match.timestamp = range;
+  }
+
+  const rows = await db.collection('adevents').aggregate<{
+    _id: string;
+    impressions: number; viewports: number; hovers: number; clicks: number;
+  }>([
+    { $match: match },
+    {
+      $group: {
+        _id: { userId: '$userId', messageId: '$messageId', variant: '$variant' },
+        types: { $addToSet: '$eventType' },
+      },
+    },
+    {
+      $project: {
+        variant: '$_id.variant',
+        sawImpression:   { $in: ['impression',     '$types'] },
+        enteredViewport: { $in: ['viewport_enter', '$types'] },
+        hovered:         { $in: ['hover_start',    '$types'] },
+        clicked:         { $in: ['link_visit',     '$types'] },
+      },
+    },
+    {
+      $group: {
+        _id: '$variant',
+        impressions: { $sum: { $cond: ['$sawImpression',   1, 0] } },
+        viewports:   { $sum: { $cond: ['$enteredViewport', 1, 0] } },
+        hovers:      { $sum: { $cond: ['$hovered',         1, 0] } },
+        clicks:      { $sum: { $cond: ['$clicked',         1, 0] } },
+      },
+    },
+  ]).toArray();
+
+  const existing = new Map(rows.map(r => [r._id, r]));
+  const result: FunnelStatsRow[] = [];
+  for (const v of ['sponsored-inline', 'sponsored-outside']) {
+    const row = existing.get(v);
+    result.push({
+      variant: v,
+      impressions: row?.impressions ?? 0,
+      viewports:   row?.viewports ?? 0,
+      hovers:      row?.hovers ?? 0,
+      clicks:      row?.clicks ?? 0,
+    });
+  }
+  return result;
 }
