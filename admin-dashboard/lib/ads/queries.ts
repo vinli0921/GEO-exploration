@@ -2,7 +2,7 @@ import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation,
 } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
@@ -315,4 +315,131 @@ export async function getUserList(db: Db): Promise<UserListRow[]> {
     hovers: r.hovers,
     linkVisits: r.linkVisits,
   }));
+}
+
+export async function resolveUserByPseudonym(db: Db, pn: string): Promise<ObjectId | null> {
+  const users = await db.collection('users')
+    .find({ 'experimentAssignment.studyId': STUDY_ID })
+    .project({ _id: 1 })
+    .toArray();
+  for (const u of users) {
+    if (pseudonym(u._id) === pn) return u._id;
+  }
+  return null;
+}
+
+export async function getUserConversations(db: Db, userId: ObjectId): Promise<ThreadConversation[]> {
+  const userIdStr = userId.toString();
+  const convos = await db.collection('conversations')
+    .find({ user: userIdStr })
+    .sort({ createdAt: -1 })
+    .toArray();
+
+  const convIds = convos.map(c => c.conversationId as string);
+
+  const userMsgs = await db.collection('messages')
+    .find({ conversationId: { $in: convIds }, isCreatedByUser: true })
+    .project({ messageId: 1, conversationId: 1 })
+    .toArray();
+
+  const msgIdsByConv = new Map<string, Set<string>>();
+  for (const m of userMsgs) {
+    const cid = m.conversationId as string;
+    if (!msgIdsByConv.has(cid)) msgIdsByConv.set(cid, new Set());
+    msgIdsByConv.get(cid)!.add(m.messageId as string);
+  }
+
+  const allUserMsgIds = [...new Set(userMsgs.map(m => m.messageId as string))];
+  const ads = await db.collection('adevents')
+    .find({ userId, messageId: { $in: allUserMsgIds }, eventType: 'impression' })
+    .project({ messageId: 1 })
+    .toArray();
+  const adMessageIds = new Set(ads.map(a => a.messageId as string));
+
+  return convos.map(c => {
+    const cid = c.conversationId as string;
+    const msgSet = msgIdsByConv.get(cid) ?? new Set();
+    let adCount = 0;
+    for (const mid of msgSet) if (adMessageIds.has(mid)) adCount++;
+    return {
+      conversationId: cid,
+      title: (c.title as string) ?? '(untitled)',
+      createdAt: (c.createdAt as Date).toISOString(),
+      adCount,
+    };
+  });
+}
+
+function flattenContent(content: unknown): string {
+  if (!Array.isArray(content)) return '';
+  const parts: string[] = [];
+  for (const block of content) {
+    if (block && typeof block === 'object' && (block as any).type === 'text' && typeof (block as any).text === 'string') {
+      parts.push((block as any).text);
+    } else {
+      parts.push('[non-text content]');
+    }
+  }
+  return parts.join('\n');
+}
+
+export async function getConversationThread(
+  db: Db,
+  userId: ObjectId,
+  conversationId: string,
+): Promise<ThreadMessage[]> {
+  const msgs = await db.collection('messages')
+    .find({ conversationId })
+    .sort({ createdAt: 1 })
+    .toArray();
+
+  const userMsgIds = msgs.filter(m => m.isCreatedByUser).map(m => m.messageId as string);
+  const ads = userMsgIds.length
+    ? await db.collection('adevents')
+        .find({ userId, messageId: { $in: userMsgIds } })
+        .sort({ timestamp: 1 })
+        .toArray()
+    : [];
+
+  const adsByMsg = new Map<string, any[]>();
+  for (const a of ads) {
+    const key = a.messageId as string;
+    if (!adsByMsg.has(key)) adsByMsg.set(key, []);
+    adsByMsg.get(key)!.push(a);
+  }
+
+  return msgs.map(m => {
+    const base: ThreadMessage = {
+      messageId: m.messageId as string,
+      isCreatedByUser: !!m.isCreatedByUser,
+      sender: (m.sender as string) ?? (m.isCreatedByUser ? 'User' : 'Assistant'),
+      text: (m.text as string) || flattenContent(m.content),
+      createdAt: (m.createdAt as Date).toISOString(),
+    };
+    if (m.isCreatedByUser) {
+      const group = adsByMsg.get(m.messageId as string) ?? [];
+      if (group.length > 0) {
+        const variant = group[0].variant as string;
+        const pairs = pairDurations(
+          group.map(ev => ({
+            userId: userId.toString(),
+            messageId: m.messageId as string,
+            eventType: ev.eventType as string,
+            timestamp: ev.timestamp as Date,
+          })),
+          'hover_start', 'hover_end', 60_000,
+        );
+        const totalHoverMs = pairs.durations.reduce((a, b) => a + b, 0);
+        base.adOverlay = {
+          variant,
+          events: group.map(ev => ({
+            eventType: ev.eventType as string,
+            timestamp: (ev.timestamp as Date).toISOString(),
+          })),
+          totalHoverMs,
+        };
+      }
+    }
+    return base;
+  });
 }
