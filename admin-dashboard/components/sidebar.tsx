@@ -41,9 +41,15 @@ export function Sidebar() {
 
   if (pathname === '/login') return null
 
+  const allHrefs = [...chromeExtNav, ...adsNav].map(i => i.href)
+  const isSectionRoot = (href: string) =>
+    href === '/' || allHrefs.some(h => h !== href && h.startsWith(href + '/'))
+
   const renderLink = (item: { title: string; href: string; icon: any }) => {
     const Icon = item.icon
-    const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(item.href + '/')
+    const isActive = isSectionRoot(item.href)
+      ? pathname === item.href
+      : pathname === item.href || pathname.startsWith(item.href + '/')
     return (
       <Link key={item.href} href={item.href}
         className={cn(
