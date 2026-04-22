@@ -1,8 +1,10 @@
 import type { Db } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary,
 } from './types';
+import { pairDurations } from './pairing';
+import { percentile } from './stats';
 
 const STUDY_ID = 'study-1';
 
@@ -122,6 +124,58 @@ export async function getFunnelStats(db: Db, filters: FunnelFilters): Promise<Fu
       hovers:      row?.hovers ?? 0,
       clicks:      row?.clicks ?? 0,
     });
+  }
+  return result;
+}
+
+export type DwellFilters = { from?: Date; to?: Date };
+const DWELL_MAX_MS = 60_000;
+
+export async function getDwellStats(db: Db, filters: DwellFilters): Promise<DwellSummary[]> {
+  const match: Record<string, unknown> = {
+    studyId: STUDY_ID,
+    variant: { $in: ['sponsored-inline', 'sponsored-outside'] },
+    eventType: { $in: ['hover_start', 'hover_end', 'viewport_enter', 'viewport_exit'] },
+  };
+  if (filters.from || filters.to) {
+    const range: Record<string, Date> = {};
+    if (filters.from) range.$gte = filters.from;
+    if (filters.to) range.$lte = filters.to;
+    match.timestamp = range;
+  }
+
+  const events = await db.collection('adevents')
+    .find(match)
+    .project({ userId: 1, messageId: 1, eventType: 1, timestamp: 1, variant: 1 })
+    .sort({ userId: 1, messageId: 1, timestamp: 1 })
+    .toArray();
+
+  const result: DwellSummary[] = [];
+  for (const variant of ['sponsored-inline', 'sponsored-outside']) {
+    for (const [metric, s, e] of [
+      ['hover',    'hover_start',    'hover_end'] as const,
+      ['viewport', 'viewport_enter', 'viewport_exit'] as const,
+    ]) {
+      const filtered = events
+        .filter(ev => ev.variant === variant)
+        .map(ev => ({
+          userId:    ev.userId.toString(),
+          messageId: ev.messageId as string,
+          eventType: ev.eventType as string,
+          timestamp: ev.timestamp as Date,
+        }));
+      const { durations, excluded } = pairDurations(filtered, s, e, DWELL_MAX_MS);
+      result.push({
+        variant,
+        metric,
+        n: durations.length,
+        median: durations.length ? percentile(durations, 50) : 0,
+        p25:    durations.length ? percentile(durations, 25) : 0,
+        p75:    durations.length ? percentile(durations, 75) : 0,
+        p95:    durations.length ? percentile(durations, 95) : 0,
+        excludedOutliers: excluded,
+      });
+    }
   }
   return result;
 }
