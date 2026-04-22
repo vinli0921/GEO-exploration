@@ -27,8 +27,6 @@ export function Sidebar() {
   const pathname = usePathname()
   const [serverStatus, setServerStatus] = useState<'checking' | 'online' | 'offline'>('checking')
 
-  if (pathname === '/login') return null
-
   useEffect(() => {
     const checkHealth = async () => {
       try {
@@ -40,6 +38,8 @@ export function Sidebar() {
     const interval = setInterval(checkHealth, 30000)
     return () => clearInterval(interval)
   }, [])
+
+  if (pathname === '/login') return null
 
   const renderLink = (item: { title: string; href: string; icon: any }) => {
     const Icon = item.icon
