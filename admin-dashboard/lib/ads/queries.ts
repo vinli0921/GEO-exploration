@@ -2,7 +2,7 @@ import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow,
 } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
@@ -253,4 +253,66 @@ export async function* streamEventsForExport(
   for await (const doc of cursor) {
     yield toEventRow(doc);
   }
+}
+
+export async function getUserList(db: Db): Promise<UserListRow[]> {
+  const rows = await db.collection('users').aggregate<{
+    _id: ObjectId;
+    variant: string;
+    conversationCount: number;
+    messageCount: number;
+    impressions: number;
+    hovers: number;
+    linkVisits: number;
+  }>([
+    { $match: { 'experimentAssignment.studyId': STUDY_ID } },
+    {
+      $lookup: {
+        from: 'conversations',
+        let: { uid: { $toString: '$_id' } },
+        pipeline: [{ $match: { $expr: { $eq: ['$user', '$$uid'] } } }, { $project: { _id: 1 } }],
+        as: 'convs',
+      },
+    },
+    {
+      $lookup: {
+        from: 'messages',
+        let: { uid: { $toString: '$_id' } },
+        pipeline: [
+          { $match: { $expr: { $eq: ['$user', '$$uid'] } } },
+          { $project: { _id: 1 } },
+        ],
+        as: 'msgs',
+      },
+    },
+    {
+      $lookup: {
+        from: 'adevents',
+        localField: '_id',
+        foreignField: 'userId',
+        as: 'ads',
+      },
+    },
+    {
+      $project: {
+        variant: '$experimentAssignment.variant',
+        conversationCount: { $size: '$convs' },
+        messageCount: { $size: '$msgs' },
+        impressions: { $size: { $filter: { input: '$ads', as: 'a', cond: { $eq: ['$$a.eventType', 'impression'] } } } },
+        hovers:      { $size: { $filter: { input: '$ads', as: 'a', cond: { $eq: ['$$a.eventType', 'hover_start'] } } } },
+        linkVisits:  { $size: { $filter: { input: '$ads', as: 'a', cond: { $eq: ['$$a.eventType', 'link_visit']  } } } },
+      },
+    },
+    { $sort: { impressions: -1 } },
+  ]).toArray();
+
+  return rows.map(r => ({
+    pseudonym: pseudonym(r._id),
+    variant: r.variant,
+    conversationCount: r.conversationCount,
+    messageCount: r.messageCount,
+    impressions: r.impressions,
+    hovers: r.hovers,
+    linkVisits: r.linkVisits,
+  }));
 }
