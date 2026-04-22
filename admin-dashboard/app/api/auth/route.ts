@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
   }
 
   const token = await signSession(secret, { issuedAt: Date.now() });
-  const next = (body.next && body.next.startsWith('/') ? body.next : '/');
+  const rawNext = body.next && body.next.startsWith('/') ? body.next : '/ads';
+  const next = rawNext === '/' ? '/ads' : rawNext;
 
   const res = NextResponse.json({ ok: true, next });
   res.cookies.set('dashboard_session', token, {

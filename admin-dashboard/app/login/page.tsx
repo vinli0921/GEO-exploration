@@ -20,14 +20,14 @@ function LoginForm() {
       const res = await fetch('/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, next: params.get('next') ?? '/' }),
+        body: JSON.stringify({ password, next: params.get('next') ?? '/ads' }),
       });
       if (!res.ok) {
         const j = await res.json().catch(() => ({}));
         throw new Error(j.error || 'Login failed');
       }
       const j = await res.json();
-      router.push(j.next || '/');
+      router.push(j.next || '/ads');
     } catch (err) {
       setError((err as Error).message);
     } finally {
