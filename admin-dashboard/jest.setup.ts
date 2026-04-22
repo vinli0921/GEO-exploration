@@ -1,2 +1,2 @@
-// Runs before each test file. Nothing global needed yet — kept as a hook for future setup.
+// Runs before the test framework loads in each test file. Placeholder for future global setup.
 export {};
