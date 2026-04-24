@@ -63,7 +63,8 @@ describe('getResponseDwellStats', () => {
     expect(ctl.median).toBeCloseTo((4500 + 2100) / 2); // R-7 interpolation for n=2
 
     const inline = rows.find(r => r.variant === 'sponsored-inline')!;
-    expect(inline.n).toBe(2); // two paired durations on m[1] and m[3]
+    expect(inline.n).toBe(2); // paired durations on m[1] (5200) and m[3] (1800)
+    expect(inline.median).toBeCloseTo((5200 + 1800) / 2);
 
     const outside = rows.find(r => r.variant === 'sponsored-outside')!;
     expect(outside.n).toBe(1);
@@ -119,6 +120,26 @@ describe('getScrollDepthStats', () => {
       expect(r.histogram).toHaveLength(10);
       expect(r.histogram[0].bucket).toBe('0–10');
       expect(r.histogram[9].bucket).toBe('90–100');
+    }
+  });
+
+  it('returns finite percentiles (not NaN) for variants with zero events', async () => {
+    const emptyMongod = await MongoMemoryServer.create();
+    const emptyClient = new MongoClient(emptyMongod.getUri());
+    try {
+      await emptyClient.connect();
+      const emptyDb = emptyClient.db('test');
+      const rows = await getScrollDepthStats(emptyDb);
+      expect(rows).toHaveLength(3);
+      for (const r of rows) {
+        expect(r.n).toBe(0);
+        expect(Number.isFinite(r.median)).toBe(true);
+        expect(Number.isFinite(r.p25)).toBe(true);
+        expect(Number.isFinite(r.p75)).toBe(true);
+      }
+    } finally {
+      await emptyClient.close();
+      await emptyMongod.stop();
     }
   });
 });

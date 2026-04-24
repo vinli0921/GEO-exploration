@@ -1,11 +1,11 @@
 import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
-import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow, ResponseDwellSummary, ScrollDepthSummary, LinkClickStats,
+import {
+  VARIANTS,
+  type EnrollmentRow, type FunnelTotalsRow, type TimeseriesRow, type LatestEventDto, type FunnelStatsRow, type DwellSummary, type EventBrowserRow, type UserListRow, type ThreadMessage, type ThreadConversation, type ResponseViewRateRow, type ResponseDwellSummary, type ScrollDepthSummary, type LinkClickStats,
 } from './types';
 import { hostnameFromUrl } from './url';
-import { VARIANTS } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
 
@@ -592,9 +592,9 @@ export async function getScrollDepthStats(db: Db): Promise<ScrollDepthSummary[]>
     result.push({
       variant,
       n: depths.length,
-      median: percentile(depths, 50),
-      p25:    percentile(depths, 25),
-      p75:    percentile(depths, 75),
+      median: depths.length ? percentile(depths, 50) : 0,
+      p25:    depths.length ? percentile(depths, 25) : 0,
+      p75:    depths.length ? percentile(depths, 75) : 0,
       histogram: bucketScrollDepth(depths),
     });
   }
