@@ -46,7 +46,7 @@ export function Sidebar() {
   const isSectionRoot = (href: string) =>
     href === '/' || allHrefs.some(h => h !== href && h.startsWith(href + '/'))
 
-  const renderLink = (item: { title: string; href: string; icon: any }) => {
+  const renderLink = (item: { title: string; href: string; icon: any }, iconAccent: string) => {
     const Icon = item.icon
     const isActive = isSectionRoot(item.href)
       ? pathname === item.href
@@ -60,7 +60,7 @@ export function Sidebar() {
             : "text-muted-foreground hover:text-foreground"
         )}
       >
-        <Icon className="h-5 w-5" />
+        <Icon className={cn("h-5 w-5", !isActive && iconAccent)} />
         <span>{item.title}</span>
       </Link>
     )
@@ -78,13 +78,13 @@ export function Sidebar() {
       </div>
 
       <nav className="flex-1 space-y-4 overflow-y-auto p-4">
-        <div>
-          <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Chrome Study</p>
-          <div className="space-y-1">{chromeExtNav.map(renderLink)}</div>
+        <div className="rounded-lg border border-indigo-200/60 bg-indigo-50/40 p-2 dark:border-indigo-900/40 dark:bg-indigo-950/20">
+          <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-400">Chrome Study</p>
+          <div className="space-y-1">{chromeExtNav.map(item => renderLink(item, "text-indigo-700 dark:text-indigo-400"))}</div>
         </div>
-        <div>
-          <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Chat Ads Study</p>
-          <div className="space-y-1">{adsNav.map(renderLink)}</div>
+        <div className="rounded-lg border border-fuchsia-200/60 bg-fuchsia-50/40 p-2 dark:border-fuchsia-900/40 dark:bg-fuchsia-950/20">
+          <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-fuchsia-600 dark:text-fuchsia-300">Chat Ads Study</p>
+          <div className="space-y-1">{adsNav.map(item => renderLink(item, "text-fuchsia-500 dark:text-fuchsia-300"))}</div>
         </div>
       </nav>
 
