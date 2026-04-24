@@ -2,8 +2,9 @@ import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow, ResponseDwellSummary, ScrollDepthSummary,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow, ResponseDwellSummary, ScrollDepthSummary, LinkClickStats,
 } from './types';
+import { hostnameFromUrl } from './url';
 import { VARIANTS } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
@@ -610,4 +611,61 @@ function bucketScrollDepth(sorted: number[]): Array<{ bucket: string; count: num
     counts[idx].count++;
   }
   return counts;
+}
+
+export async function getResponseLinkClickStats(db: Db): Promise<LinkClickStats> {
+  const clickAgg = await db.collection('adevents').aggregate<{
+    _id: string; count: number; urls: string[];
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_link_click',
+        variant: { $in: VARIANTS as unknown as string[] },
+      },
+    },
+    {
+      $group: {
+        _id: '$variant',
+        count: { $sum: 1 },
+        urls: { $push: '$linkUrl' },
+      },
+    },
+  ]).toArray();
+
+  const viewedAgg = await db.collection('adevents').aggregate<{ _id: string; count: number }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_viewport_enter',
+        variant: { $in: VARIANTS as unknown as string[] },
+      },
+    },
+    { $group: { _id: { variant: '$variant', messageId: '$messageId' } } },
+    { $group: { _id: '$_id.variant', count: { $sum: 1 } } },
+  ]).toArray();
+
+  const rates = VARIANTS.map(variant => {
+    const clicks = clickAgg.find(r => r._id === variant)?.count ?? 0;
+    const viewedMessages = viewedAgg.find(r => r._id === variant)?.count ?? 0;
+    return {
+      variant,
+      clicks,
+      viewedMessages,
+      rate: viewedMessages > 0 ? clicks / viewedMessages : 0,
+    };
+  });
+
+  const allUrls = clickAgg.flatMap(r => r.urls ?? []);
+  const domainCounts = new Map<string, number>();
+  for (const url of allUrls) {
+    const host = hostnameFromUrl(url);
+    if (host) domainCounts.set(host, (domainCounts.get(host) ?? 0) + 1);
+  }
+  const topDomains = Array.from(domainCounts.entries())
+    .map(([domain, count]) => ({ domain, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  return { rates, topDomains };
 }

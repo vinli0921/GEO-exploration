@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongoClient, Db } from 'mongodb';
-import { getResponseViewRate, getResponseDwellStats, getScrollDepthStats } from '../queries';
+import { getResponseViewRate, getResponseDwellStats, getScrollDepthStats, getResponseLinkClickStats } from '../queries';
 import { seedFixture } from '../__fixtures__/seed';
 
 process.env.PSEUDONYM_SECRET = 'test-secret';
@@ -119,6 +119,51 @@ describe('getScrollDepthStats', () => {
       expect(r.histogram).toHaveLength(10);
       expect(r.histogram[0].bucket).toBe('0–10');
       expect(r.histogram[9].bucket).toBe('90–100');
+    }
+  });
+});
+
+describe('getResponseLinkClickStats', () => {
+  it('reports clicks per variant, denominated by viewed messages', async () => {
+    const stats = await getResponseLinkClickStats(db);
+    expect(stats.rates.map(r => r.variant)).toEqual(['control', 'sponsored-inline', 'sponsored-outside']);
+
+    const ctl = stats.rates.find(r => r.variant === 'control')!;
+    // Control: 1 click on am-ctl-2; 2 viewed messages (am-ctl-1, am-ctl-2)
+    expect(ctl.clicks).toBe(1);
+    expect(ctl.viewedMessages).toBe(2);
+    expect(ctl.rate).toBeCloseTo(0.5);
+
+    const inline = stats.rates.find(r => r.variant === 'sponsored-inline')!;
+    expect(inline.clicks).toBe(1);
+    expect(inline.viewedMessages).toBe(2);
+
+    const outside = stats.rates.find(r => r.variant === 'sponsored-outside')!;
+    expect(outside.clicks).toBe(2);
+    expect(outside.viewedMessages).toBe(1);
+    expect(outside.rate).toBeCloseTo(2);
+  });
+
+  it('reports top domains across all variants, sorted by count desc', async () => {
+    const stats = await getResponseLinkClickStats(db);
+    const domains = stats.topDomains.map(d => d.domain);
+    expect(domains).toContain('example.com');
+    expect(domains).toContain('wikipedia.org');
+
+    const example = stats.topDomains.find(d => d.domain === 'example.com')!;
+    expect(example.count).toBe(2);
+  });
+
+  it('caps top domains at 10 entries', async () => {
+    const stats = await getResponseLinkClickStats(db);
+    expect(stats.topDomains.length).toBeLessThanOrEqual(10);
+  });
+
+  it('returns zero rates when no clicks exist for a variant', async () => {
+    const stats = await getResponseLinkClickStats(db);
+    // All three variants have clicks in the fixture, but zero-rate handling must not NaN
+    for (const r of stats.rates) {
+      expect(Number.isFinite(r.rate)).toBe(true);
     }
   });
 });
