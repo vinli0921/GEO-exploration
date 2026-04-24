@@ -2,7 +2,7 @@ import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow, ResponseDwellSummary,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow, ResponseDwellSummary, ScrollDepthSummary,
 } from './types';
 import { VARIANTS } from './types';
 import { pairDurations } from './pairing';
@@ -563,6 +563,51 @@ function bucketResponseDurations(sorted: number[]): Array<{ bucket: string; coun
   for (const d of sorted) {
     const idx = buckets.findIndex(b => d <= b.max);
     if (idx >= 0) counts[idx].count++;
+  }
+  return counts;
+}
+
+export async function getScrollDepthStats(db: Db): Promise<ScrollDepthSummary[]> {
+  const events = await db.collection('adevents').aggregate<{
+    variant: string; scrollDepthPercent: number;
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_viewport_exit',
+        variant: { $in: VARIANTS as unknown as string[] },
+        scrollDepthPercent: { $exists: true, $gte: 0, $lte: 100 },
+      },
+    },
+    { $project: { variant: 1, scrollDepthPercent: 1, _id: 0 } },
+  ]).toArray();
+
+  const result: ScrollDepthSummary[] = [];
+  for (const variant of VARIANTS) {
+    const depths = events
+      .filter(e => e.variant === variant)
+      .map(e => e.scrollDepthPercent)
+      .sort((a, b) => a - b);
+    result.push({
+      variant,
+      n: depths.length,
+      median: percentile(depths, 50),
+      p25:    percentile(depths, 25),
+      p75:    percentile(depths, 75),
+      histogram: bucketScrollDepth(depths),
+    });
+  }
+  return result;
+}
+
+function bucketScrollDepth(sorted: number[]): Array<{ bucket: string; count: number }> {
+  const counts = Array.from({ length: 10 }, (_, i) => ({
+    bucket: `${i * 10}–${(i + 1) * 10}`,
+    count: 0,
+  }));
+  for (const d of sorted) {
+    const idx = Math.min(9, Math.max(0, Math.floor(d / 10)));
+    counts[idx].count++;
   }
   return counts;
 }

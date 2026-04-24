@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongoClient, Db } from 'mongodb';
-import { getResponseViewRate, getResponseDwellStats } from '../queries';
+import { getResponseViewRate, getResponseDwellStats, getScrollDepthStats } from '../queries';
 import { seedFixture } from '../__fixtures__/seed';
 
 process.env.PSEUDONYM_SECRET = 'test-secret';
@@ -86,6 +86,39 @@ describe('getResponseDwellStats', () => {
         expect(typeof b.bucket).toBe('string');
         expect(typeof b.count).toBe('number');
       }
+    }
+  });
+});
+
+describe('getScrollDepthStats', () => {
+  it('returns one row per variant with scroll depth percentiles', async () => {
+    const rows = await getScrollDepthStats(db);
+    expect(rows.map(r => r.variant)).toEqual(['control', 'sponsored-inline', 'sponsored-outside']);
+  });
+
+  it('reads scrollDepthPercent from response_viewport_exit events only', async () => {
+    const rows = await getScrollDepthStats(db);
+    const ctl = rows.find(r => r.variant === 'control')!;
+    // Control depths on exit events: 62, 95, 15 → sorted 15, 62, 95 → median 62
+    expect(ctl.n).toBe(3);
+    expect(ctl.median).toBeCloseTo(62);
+
+    const inline = rows.find(r => r.variant === 'sponsored-inline')!;
+    // Inline depths: 78, 40 → sorted 40, 78 → median 59 (R-7 linear interp for n=2)
+    expect(inline.n).toBe(2);
+    expect(inline.median).toBeCloseTo(59);
+
+    const outside = rows.find(r => r.variant === 'sponsored-outside')!;
+    expect(outside.n).toBe(1);
+    expect(outside.median).toBeCloseTo(100);
+  });
+
+  it('produces 10 histogram buckets covering 0–100', async () => {
+    const rows = await getScrollDepthStats(db);
+    for (const r of rows) {
+      expect(r.histogram).toHaveLength(10);
+      expect(r.histogram[0].bucket).toBe('0–10');
+      expect(r.histogram[9].bucket).toBe('90–100');
     }
   });
 });
