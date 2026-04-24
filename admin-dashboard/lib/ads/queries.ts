@@ -2,12 +2,19 @@ import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation,
+  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation, ResponseViewRateRow,
 } from './types';
+import { VARIANTS } from './types';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
 
 const STUDY_ID = 'study-1';
+
+const RESPONSE_EVENT_TYPES = [
+  'response_viewport_enter',
+  'response_viewport_exit',
+  'response_link_click',
+] as const;
 
 export async function getEnrollment(db: Db): Promise<EnrollmentRow[]> {
   const rows = await db.collection('users').aggregate<{ _id: string | null; count: number }>([
@@ -441,5 +448,46 @@ export async function getConversationThread(
       }
     }
     return base;
+  });
+}
+
+export async function getResponseViewRate(db: Db): Promise<ResponseViewRateRow[]> {
+  const rows = await db.collection('adevents').aggregate<{
+    _id: string; viewed: number; total: number;
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        variant: { $in: VARIANTS as unknown as string[] },
+        eventType: { $in: RESPONSE_EVENT_TYPES as unknown as string[] },
+      },
+    },
+    {
+      $group: {
+        _id: { variant: '$variant', messageId: '$messageId' },
+        eventTypes: { $addToSet: '$eventType' },
+      },
+    },
+    {
+      $group: {
+        _id: '$_id.variant',
+        viewed: {
+          $sum: { $cond: [{ $in: ['response_viewport_enter', '$eventTypes'] }, 1, 0] },
+        },
+        total: { $sum: 1 },
+      },
+    },
+  ]).toArray();
+
+  return VARIANTS.map(variant => {
+    const row = rows.find(r => r._id === variant);
+    const messagesViewed = row?.viewed ?? 0;
+    const totalMessages = row?.total ?? 0;
+    return {
+      variant,
+      messagesViewed,
+      totalMessages,
+      rate: totalMessages > 0 ? messagesViewed / totalMessages : 0,
+    };
   });
 }
