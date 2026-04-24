@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongoClient, Db } from 'mongodb';
-import { getResponseViewRate } from '../queries';
+import { getResponseViewRate, getResponseDwellStats } from '../queries';
 import { seedFixture } from '../__fixtures__/seed';
 
 process.env.PSEUDONYM_SECRET = 'test-secret';
@@ -46,5 +46,46 @@ describe('getResponseViewRate', () => {
     expect(outside.messagesViewed).toBe(1);
     expect(outside.totalMessages).toBe(1);
     expect(outside.rate).toBe(1);
+  });
+});
+
+describe('getResponseDwellStats', () => {
+  it('returns one row per variant with pair-derived durations', async () => {
+    const rows = await getResponseDwellStats(db, {});
+    expect(rows.map(r => r.variant)).toEqual(['control', 'sponsored-inline', 'sponsored-outside']);
+  });
+
+  it('pairs response_viewport_enter/exit per (userId, messageId) and computes percentiles', async () => {
+    const rows = await getResponseDwellStats(db, {});
+    const ctl = rows.find(r => r.variant === 'control')!;
+    // Control paired durations: am-ctl-1 (4500ms), am-ctl-2 (2100ms). am-ctl-3 has only exit, no pair.
+    expect(ctl.n).toBe(2);
+    expect(ctl.median).toBeCloseTo((4500 + 2100) / 2); // R-7 interpolation for n=2
+
+    const inline = rows.find(r => r.variant === 'sponsored-inline')!;
+    expect(inline.n).toBe(2); // two paired durations on m[1] and m[3]
+
+    const outside = rows.find(r => r.variant === 'sponsored-outside')!;
+    expect(outside.n).toBe(1);
+    expect(outside.median).toBeCloseTo(8000);
+  });
+
+  it('reports excludedOutliers as a number', async () => {
+    const rows = await getResponseDwellStats(db, {});
+    for (const r of rows) {
+      expect(typeof r.excludedOutliers).toBe('number');
+      expect(r.excludedOutliers).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it('produces a non-empty histogram array with bucket + count fields', async () => {
+    const rows = await getResponseDwellStats(db, {});
+    for (const r of rows) {
+      expect(Array.isArray(r.histogram)).toBe(true);
+      for (const b of r.histogram) {
+        expect(typeof b.bucket).toBe('string');
+        expect(typeof b.count).toBe('number');
+      }
+    }
   });
 });
