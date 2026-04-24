@@ -63,7 +63,7 @@ describe('getDailyTimeseries', () => {
     expect(rows.length).toBeGreaterThan(0);
     for (const r of rows) {
       expect(r.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(['sponsored-inline', 'sponsored-outside']).toContain(r.variant);
+      expect(['control', 'sponsored-inline', 'sponsored-outside']).toContain(r.variant);
     }
   });
 });
