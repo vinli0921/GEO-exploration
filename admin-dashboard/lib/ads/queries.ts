@@ -1,13 +1,21 @@
 import type { Db } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
-import type {
-  EnrollmentRow, FunnelTotalsRow, TimeseriesRow, LatestEventDto, FunnelStatsRow, DwellSummary, EventBrowserRow, UserListRow, ThreadMessage, ThreadConversation,
+import {
+  VARIANTS,
+  type EnrollmentRow, type FunnelTotalsRow, type TimeseriesRow, type LatestEventDto, type FunnelStatsRow, type DwellSummary, type EventBrowserRow, type UserListRow, type ThreadMessage, type ThreadConversation, type ResponseViewRateRow, type ResponseDwellSummary, type ScrollDepthSummary, type LinkClickStats,
 } from './types';
+import { hostnameFromUrl } from './url';
 import { pairDurations } from './pairing';
 import { percentile } from './stats';
 
 const STUDY_ID = 'study-1';
+
+const RESPONSE_EVENT_TYPES = [
+  'response_viewport_enter',
+  'response_viewport_exit',
+  'response_link_click',
+] as const;
 
 export async function getEnrollment(db: Db): Promise<EnrollmentRow[]> {
   const rows = await db.collection('users').aggregate<{ _id: string | null; count: number }>([
@@ -442,4 +450,222 @@ export async function getConversationThread(
     }
     return base;
   });
+}
+
+export async function getResponseViewRate(db: Db): Promise<ResponseViewRateRow[]> {
+  const rows = await db.collection('adevents').aggregate<{
+    _id: string; viewed: number; total: number;
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        variant: { $in: VARIANTS as unknown as string[] },
+        eventType: { $in: RESPONSE_EVENT_TYPES as unknown as string[] },
+      },
+    },
+    {
+      $group: {
+        _id: { variant: '$variant', messageId: '$messageId' },
+        eventTypes: { $addToSet: '$eventType' },
+      },
+    },
+    {
+      $group: {
+        _id: '$_id.variant',
+        viewed: {
+          $sum: { $cond: [{ $in: ['response_viewport_enter', '$eventTypes'] }, 1, 0] },
+        },
+        total: { $sum: 1 },
+      },
+    },
+  ]).toArray();
+
+  return VARIANTS.map(variant => {
+    const row = rows.find(r => r._id === variant);
+    const messagesViewed = row?.viewed ?? 0;
+    const totalMessages = row?.total ?? 0;
+    return {
+      variant,
+      messagesViewed,
+      totalMessages,
+      rate: totalMessages > 0 ? messagesViewed / totalMessages : 0,
+    };
+  });
+}
+
+const RESPONSE_DWELL_MAX_MS = 60_000;
+
+export type ResponseDwellFilters = { from?: Date; to?: Date };
+
+export async function getResponseDwellStats(
+  db: Db,
+  filters: ResponseDwellFilters,
+): Promise<ResponseDwellSummary[]> {
+  const match: Record<string, unknown> = {
+    studyId: STUDY_ID,
+    variant: { $in: VARIANTS as unknown as string[] },
+    eventType: { $in: ['response_viewport_enter', 'response_viewport_exit'] },
+  };
+  if (filters.from || filters.to) {
+    const range: Record<string, Date> = {};
+    if (filters.from) range.$gte = filters.from;
+    if (filters.to)   range.$lte = filters.to;
+    match.timestamp = range;
+  }
+
+  const events = await db.collection('adevents')
+    .find(match)
+    .project({ userId: 1, messageId: 1, eventType: 1, timestamp: 1, variant: 1 })
+    .sort({ userId: 1, messageId: 1, timestamp: 1 })
+    .toArray();
+
+  const result: ResponseDwellSummary[] = [];
+  for (const variant of VARIANTS) {
+    const filtered = events
+      .filter(ev => ev.variant === variant)
+      .map(ev => ({
+        userId:    (ev.userId as { toString(): string }).toString(),
+        messageId: ev.messageId as string,
+        eventType: ev.eventType as string,
+        timestamp: ev.timestamp as Date,
+      }));
+    const { durations, excluded } = pairDurations(
+      filtered,
+      'response_viewport_enter',
+      'response_viewport_exit',
+      RESPONSE_DWELL_MAX_MS,
+    );
+    durations.sort((a, b) => a - b);
+    result.push({
+      variant,
+      n: durations.length,
+      median: durations.length ? percentile(durations, 50) : 0,
+      p25:    durations.length ? percentile(durations, 25) : 0,
+      p75:    durations.length ? percentile(durations, 75) : 0,
+      p95:    durations.length ? percentile(durations, 95) : 0,
+      excludedOutliers: excluded,
+      histogram: bucketResponseDurations(durations),
+    });
+  }
+  return result;
+}
+
+function bucketResponseDurations(sorted: number[]): Array<{ bucket: string; count: number }> {
+  const buckets: Array<{ bucket: string; max: number }> = [
+    { bucket: '0–500ms',   max: 500 },
+    { bucket: '500ms–1s',  max: 1000 },
+    { bucket: '1–2s',      max: 2000 },
+    { bucket: '2–5s',      max: 5000 },
+    { bucket: '5–10s',     max: 10_000 },
+    { bucket: '10–30s',    max: 30_000 },
+    { bucket: '30–60s',    max: 60_000 },
+  ];
+  const counts = buckets.map(b => ({ bucket: b.bucket, count: 0 }));
+  for (const d of sorted) {
+    const idx = buckets.findIndex(b => d <= b.max);
+    if (idx >= 0) counts[idx].count++;
+  }
+  return counts;
+}
+
+export async function getScrollDepthStats(db: Db): Promise<ScrollDepthSummary[]> {
+  const events = await db.collection('adevents').aggregate<{
+    variant: string; scrollDepthPercent: number;
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_viewport_exit',
+        variant: { $in: VARIANTS as unknown as string[] },
+        scrollDepthPercent: { $exists: true, $gte: 0, $lte: 100 },
+      },
+    },
+    { $project: { variant: 1, scrollDepthPercent: 1, _id: 0 } },
+  ]).toArray();
+
+  const result: ScrollDepthSummary[] = [];
+  for (const variant of VARIANTS) {
+    const depths = events
+      .filter(e => e.variant === variant)
+      .map(e => e.scrollDepthPercent)
+      .sort((a, b) => a - b);
+    result.push({
+      variant,
+      n: depths.length,
+      median: depths.length ? percentile(depths, 50) : 0,
+      p25:    depths.length ? percentile(depths, 25) : 0,
+      p75:    depths.length ? percentile(depths, 75) : 0,
+      histogram: bucketScrollDepth(depths),
+    });
+  }
+  return result;
+}
+
+function bucketScrollDepth(sorted: number[]): Array<{ bucket: string; count: number }> {
+  const counts = Array.from({ length: 10 }, (_, i) => ({
+    bucket: `${i * 10}–${(i + 1) * 10}`,
+    count: 0,
+  }));
+  for (const d of sorted) {
+    const idx = Math.min(9, Math.max(0, Math.floor(d / 10)));
+    counts[idx].count++;
+  }
+  return counts;
+}
+
+export async function getResponseLinkClickStats(db: Db): Promise<LinkClickStats> {
+  const clickAgg = await db.collection('adevents').aggregate<{
+    _id: string; count: number; urls: string[];
+  }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_link_click',
+        variant: { $in: VARIANTS as unknown as string[] },
+      },
+    },
+    {
+      $group: {
+        _id: '$variant',
+        count: { $sum: 1 },
+        urls: { $push: '$linkUrl' },
+      },
+    },
+  ]).toArray();
+
+  const viewedAgg = await db.collection('adevents').aggregate<{ _id: string; count: number }>([
+    {
+      $match: {
+        studyId: STUDY_ID,
+        eventType: 'response_viewport_enter',
+        variant: { $in: VARIANTS as unknown as string[] },
+      },
+    },
+    { $group: { _id: { variant: '$variant', messageId: '$messageId' } } },
+    { $group: { _id: '$_id.variant', count: { $sum: 1 } } },
+  ]).toArray();
+
+  const rates = VARIANTS.map(variant => {
+    const clicks = clickAgg.find(r => r._id === variant)?.count ?? 0;
+    const viewedMessages = viewedAgg.find(r => r._id === variant)?.count ?? 0;
+    return {
+      variant,
+      clicks,
+      viewedMessages,
+      rate: viewedMessages > 0 ? clicks / viewedMessages : 0,
+    };
+  });
+
+  const allUrls = clickAgg.flatMap(r => r.urls ?? []);
+  const domainCounts = new Map<string, number>();
+  for (const url of allUrls) {
+    const host = hostnameFromUrl(url);
+    if (host) domainCounts.set(host, (domainCounts.get(host) ?? 0) + 1);
+  }
+  const topDomains = Array.from(domainCounts.entries())
+    .map(([domain, count]) => ({ domain, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  return { rates, topDomains };
 }

@@ -9,23 +9,32 @@ export type EventType =
   | 'viewport_exit'
   | 'hover_start'
   | 'hover_end'
-  | 'link_visit';
+  | 'link_visit'
+  | 'response_viewport_enter'
+  | 'response_viewport_exit'
+  | 'response_link_click';
 
 export const EVENT_TYPES: readonly EventType[] = [
-  'impression', 'viewport_enter', 'viewport_exit', 'hover_start', 'hover_end', 'link_visit',
+  'impression', 'viewport_enter', 'viewport_exit',
+  'hover_start', 'hover_end', 'link_visit',
+  'response_viewport_enter', 'response_viewport_exit', 'response_link_click',
 ];
 
 /** Raw MongoDB doc shape. */
 export type AdEventDoc = {
   _id: ObjectId;
   userId: ObjectId;
-  conversationId: string;      // can be the literal "new"
+  conversationId: string;
   messageId: string;
   studyId: string;
-  variant: string;             // enforce via Variant at query boundary
-  eventType: string;           // enforce via EventType at query boundary
+  variant: string;
+  eventType: string;
   productSource: string;
-  queryText: string;
+  queryText?: string;
+  dwellTimeMs?: number;
+  hoverTimeMs?: number;
+  scrollDepthPercent?: number;
+  linkUrl?: string;
   timestamp: Date;
 };
 
@@ -138,4 +147,41 @@ export type ThreadConversation = {
   title: string;
   createdAt: string;
   adCount: number;
+};
+
+export type ResponseViewRateRow = {
+  variant: string;
+  messagesViewed: number;
+  totalMessages: number;
+  rate: number;
+};
+
+export type ResponseDwellSummary = {
+  variant: string;
+  n: number;
+  median: number;
+  p25: number;
+  p75: number;
+  p95: number;
+  excludedOutliers: number;
+  histogram: Array<{ bucket: string; count: number }>;
+};
+
+export type ScrollDepthSummary = {
+  variant: string;
+  n: number;
+  median: number;
+  p25: number;
+  p75: number;
+  histogram: Array<{ bucket: string; count: number }>;
+};
+
+export type LinkClickStats = {
+  rates: Array<{
+    variant: string;
+    clicks: number;
+    viewedMessages: number;
+    rate: number;
+  }>;
+  topDomains: Array<{ domain: string; count: number }>;
 };

@@ -53,6 +53,32 @@ export async function seedFixture(db: Db): Promise<{
     { userId: u[3], conversationId: conv2, messageId: m2[0], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'hover_start',    productSource: 'sponsored', queryText: 'best laptop under 1000', timestamp: new Date(t1 + 500) },
     { userId: u[3], conversationId: conv2, messageId: m2[0], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'hover_end',      productSource: 'sponsored', queryText: 'best laptop under 1000', timestamp: new Date(t1 + 1100) },
     { userId: u[3], conversationId: conv2, messageId: m2[0], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'viewport_exit',  productSource: 'sponsored', queryText: 'best laptop under 1000', timestamp: new Date(t1 + 2000) },
+
+    // --- Response-level events: control user (u[0]) sees assistant replies without ads ---
+    // Control has no conversation/messages in the seed; create events on synthetic messageIds
+    // (queries operate on adevents only, no join to messages needed).
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-1', studyId: 'study-1', variant: 'control',           eventType: 'response_viewport_enter', productSource: 'none',      timestamp: new Date('2026-04-08T12:00:00Z') },
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-1', studyId: 'study-1', variant: 'control',           eventType: 'response_viewport_exit',  productSource: 'none',      dwellTimeMs: 4500, scrollDepthPercent: 62, timestamp: new Date('2026-04-08T12:00:04.5Z') },
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-2', studyId: 'study-1', variant: 'control',           eventType: 'response_viewport_enter', productSource: 'none',      timestamp: new Date('2026-04-08T12:01:00Z') },
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-2', studyId: 'study-1', variant: 'control',           eventType: 'response_viewport_exit',  productSource: 'none',      dwellTimeMs: 2100, scrollDepthPercent: 95, timestamp: new Date('2026-04-08T12:01:02.1Z') },
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-2', studyId: 'study-1', variant: 'control',           eventType: 'response_link_click',     productSource: 'none',      linkUrl: 'https://wikipedia.org/article', timestamp: new Date('2026-04-08T12:01:02.5Z') },
+
+    // --- Response-level events: sponsored-inline user (u[1]) on existing assistant messages ---
+    { userId: u[1], conversationId: conv1, messageId: m[1], studyId: 'study-1', variant: 'sponsored-inline',  eventType: 'response_viewport_enter', productSource: 'none', timestamp: new Date(t0 + 200) },
+    { userId: u[1], conversationId: conv1, messageId: m[1], studyId: 'study-1', variant: 'sponsored-inline',  eventType: 'response_viewport_exit',  productSource: 'none', dwellTimeMs: 5200, scrollDepthPercent: 78, timestamp: new Date(t0 + 5400) },
+    { userId: u[1], conversationId: conv1, messageId: m[1], studyId: 'study-1', variant: 'sponsored-inline',  eventType: 'response_link_click',     productSource: 'none', linkUrl: 'https://example.com/blenders', timestamp: new Date(t0 + 5500) },
+    { userId: u[1], conversationId: conv1, messageId: m[3], studyId: 'study-1', variant: 'sponsored-inline',  eventType: 'response_viewport_enter', productSource: 'none', timestamp: new Date(t0 + 70_000) },
+    { userId: u[1], conversationId: conv1, messageId: m[3], studyId: 'study-1', variant: 'sponsored-inline',  eventType: 'response_viewport_exit',  productSource: 'none', dwellTimeMs: 1800, scrollDepthPercent: 40, timestamp: new Date(t0 + 71_800) },
+
+    // --- Response-level events: sponsored-outside user (u[3]) ---
+    { userId: u[3], conversationId: conv2, messageId: m2[1], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'response_viewport_enter', productSource: 'none', timestamp: new Date(t1 + 200) },
+    { userId: u[3], conversationId: conv2, messageId: m2[1], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'response_viewport_exit',  productSource: 'none', dwellTimeMs: 8000, scrollDepthPercent: 100, timestamp: new Date(t1 + 8200) },
+    { userId: u[3], conversationId: conv2, messageId: m2[1], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'response_link_click',     productSource: 'none', linkUrl: 'https://example.com/laptops',   timestamp: new Date(t1 + 8300) },
+    { userId: u[3], conversationId: conv2, messageId: m2[1], studyId: 'study-1', variant: 'sponsored-outside', eventType: 'response_link_click',     productSource: 'none', linkUrl: 'https://wikipedia.org/laptop',  timestamp: new Date(t1 + 8400) },
+
+    // --- A message that fired a response_viewport_exit but never an enter (scroll-past) ---
+    // Used to validate the denominator handles "observed but not viewed" messages.
+    { userId: u[0], conversationId: 'conv-ctl', messageId: 'am-ctl-3', studyId: 'study-1', variant: 'control',           eventType: 'response_viewport_exit',  productSource: 'none', dwellTimeMs: 200, scrollDepthPercent: 15, timestamp: new Date('2026-04-08T12:02:00Z') },
   ]);
 
   return {
