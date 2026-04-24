@@ -8,7 +8,13 @@ import { toErrorResponse } from '@/lib/ads/api-error';
 
 const schema = z.object({
   variant: z.enum(['sponsored-inline', 'sponsored-outside']).optional(),
-  eventType: z.enum(['impression', 'viewport_enter', 'viewport_exit', 'hover_start', 'hover_end', 'link_visit']).optional(),
+  eventType: z.enum([
+    'impression',
+    'viewport_enter', 'viewport_exit',
+    'hover_start', 'hover_end',
+    'link_visit',
+    'response_viewport_enter', 'response_viewport_exit', 'response_link_click',
+  ]).optional(),
   queryText: z.string().optional(),
   from: z.string().datetime().optional(),
   to: z.string().datetime().optional(),
