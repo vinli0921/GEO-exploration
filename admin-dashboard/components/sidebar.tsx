@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, FileText, Users, BarChart3, Download, MousePointerClick, MessageSquare, Filter, TrendingUp } from "lucide-react"
+import { LayoutDashboard, FileText, Users, BarChart3, Download, MousePointerClick, MessageSquare, Filter, TrendingUp, Eye } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import { ApiService } from "@/lib/api"
@@ -19,6 +19,7 @@ const adsNav = [
   { title: "Overview",      href: "/ads",               icon: TrendingUp },
   { title: "Funnel & CTR",  href: "/ads/funnel",        icon: Filter },
   { title: "Dwell Time",    href: "/ads/dwell",         icon: MousePointerClick },
+  { title: "Engagement",    href: "/ads/engagement",    icon: Eye },
   { title: "Events",        href: "/ads/events",        icon: FileText },
   { title: "Conversations", href: "/ads/conversations", icon: MessageSquare },
 ]
