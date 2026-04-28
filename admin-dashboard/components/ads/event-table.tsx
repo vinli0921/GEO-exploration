@@ -43,12 +43,18 @@ export function EventTable() {
 
   useEffect(() => { loadFirstPage(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function exportCsv() {
+  function exportEventsCsv() {
     const params = new URLSearchParams();
     if (variant) params.set('variant', variant);
     if (eventType) params.set('eventType', eventType);
     if (queryText) params.set('queryText', queryText);
     window.location.href = `/api/ads/events/export?${params}`;
+  }
+
+  function exportMessagesCsv() {
+    const params = new URLSearchParams();
+    if (variant) params.set('variant', variant);
+    window.location.href = `/api/ads/messages/export?${params}`;
   }
 
   return (
@@ -57,6 +63,7 @@ export function EventTable() {
         <div><Label>Variant</Label>
           <select className="mt-1 block rounded border px-2 py-1 text-sm" value={variant} onChange={e => setVariant(e.target.value)}>
             <option value="">All</option>
+            <option value="control">control</option>
             <option value="sponsored-inline">inline</option>
             <option value="sponsored-outside">outside</option>
           </select>
@@ -76,7 +83,8 @@ export function EventTable() {
           <Input className="mt-1" value={queryText} onChange={e => setQueryText(e.target.value)} />
         </div>
         <Button onClick={loadFirstPage} disabled={loading}>Apply</Button>
-        <Button variant="secondary" onClick={exportCsv}>Export CSV</Button>
+        <Button variant="secondary" onClick={exportEventsCsv}>Events CSV</Button>
+        <Button variant="secondary" onClick={exportMessagesCsv} title="Per-message conversation export (variant filter applies; eventType / query filters do not)">Messages CSV</Button>
       </div>
 
       <div className="overflow-x-auto rounded border bg-card">

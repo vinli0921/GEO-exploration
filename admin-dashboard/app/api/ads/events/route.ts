@@ -7,7 +7,7 @@ import { toErrorResponse } from '@/lib/ads/api-error';
 const schema = z.object({
   pageSize: z.coerce.number().int().min(1).max(200).default(50),
   after: z.string().optional(),
-  variant: z.enum(['sponsored-inline', 'sponsored-outside']).optional(),
+  variant: z.enum(['control', 'sponsored-inline', 'sponsored-outside']).optional(),
   eventType: z.enum([
     'impression',
     'viewport_enter', 'viewport_exit',

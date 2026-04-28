@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import { pseudonym } from '../pseudonym';
 import {
   VARIANTS,
-  type EnrollmentRow, type FunnelTotalsRow, type TimeseriesRow, type LatestEventDto, type FunnelStatsRow, type DwellSummary, type EventBrowserRow, type UserListRow, type ThreadMessage, type ThreadConversation, type ResponseViewRateRow, type ResponseDwellSummary, type ScrollDepthSummary, type LinkClickStats,
+  type EnrollmentRow, type FunnelTotalsRow, type TimeseriesRow, type LatestEventDto, type FunnelStatsRow, type DwellSummary, type EventBrowserRow, type UserListRow, type ThreadMessage, type ThreadConversation, type ResponseViewRateRow, type ResponseDwellSummary, type ScrollDepthSummary, type LinkClickStats, type MessageExportRow,
 } from './types';
 import { hostnameFromUrl } from './url';
 import { pairDurations } from './pairing';
@@ -382,8 +382,18 @@ function flattenContent(content: unknown): string {
   if (!Array.isArray(content)) return '';
   const parts: string[] = [];
   for (const block of content) {
-    if (block && typeof block === 'object' && (block as any).type === 'text' && typeof (block as any).text === 'string') {
-      parts.push((block as any).text);
+    if (!block || typeof block !== 'object') continue;
+    const b = block as { type?: string; text?: string; tool_call?: { name?: string } };
+    if (b.type === 'text' && typeof b.text === 'string') {
+      parts.push(b.text);
+    } else if (b.type === 'tool_call') {
+      parts.push(`[tool_call:${b.tool_call?.name ?? 'tool'}]`);
+    } else if (b.type === 'image' || b.type === 'image_url') {
+      parts.push('[image]');
+    } else if (b.type === 'think' || b.type === 'reasoning') {
+      // skip private reasoning blocks
+    } else if (typeof b.text === 'string') {
+      parts.push(b.text);
     } else {
       parts.push('[non-text content]');
     }
@@ -668,4 +678,72 @@ export async function getResponseLinkClickStats(db: Db): Promise<LinkClickStats>
     .slice(0, 10);
 
   return { rates, topDomains };
+}
+
+export type MessagesExportFilters = {
+  variant?: string;
+  from?: Date;
+  to?: Date;
+};
+
+export async function* streamMessagesForExport(
+  db: Db,
+  filters: MessagesExportFilters,
+): AsyncGenerator<MessageExportRow> {
+  const userMatch: Record<string, unknown> = { 'experimentAssignment.studyId': STUDY_ID };
+  if (filters.variant) userMatch['experimentAssignment.variant'] = filters.variant;
+
+  const enrolled = await db.collection('users')
+    .find(userMatch, { projection: { _id: 1, 'experimentAssignment.variant': 1 } })
+    .toArray();
+  if (enrolled.length === 0) return;
+
+  const variantByUserId = new Map<string, string>();
+  for (const u of enrolled) {
+    variantByUserId.set(u._id.toString(), u.experimentAssignment.variant);
+  }
+  const enrolledIds = enrolled.map(u => u._id.toString());
+
+  const convs = await db.collection('conversations')
+    .find({ user: { $in: enrolledIds } }, { projection: { conversationId: 1, user: 1, title: 1 } })
+    .toArray();
+  if (convs.length === 0) return;
+
+  const conversationIds = convs.map(c => c.conversationId as string);
+  const convoMeta = new Map<string, { user: string; title: string }>();
+  for (const c of convs) {
+    convoMeta.set(c.conversationId as string, {
+      user: c.user as string,
+      title: (c.title as string) ?? '',
+    });
+  }
+
+  const msgFilter: Record<string, unknown> = { conversationId: { $in: conversationIds } };
+  if (filters.from || filters.to) {
+    const range: Record<string, Date> = {};
+    if (filters.from) range.$gte = filters.from;
+    if (filters.to)   range.$lte = filters.to;
+    msgFilter.createdAt = range;
+  }
+
+  const cursor = db.collection('messages').find(msgFilter).sort({ conversationId: 1, createdAt: 1 });
+  for await (const m of cursor) {
+    const userIdStr = String(m.user ?? convoMeta.get(m.conversationId as string)?.user ?? '');
+    const variant = variantByUserId.get(userIdStr);
+    if (!variant) continue;
+    const text = ((typeof m.text === 'string' ? m.text : '') || flattenContent(m.content)).trim();
+    yield {
+      pseudonym: pseudonym(new ObjectId(userIdStr)),
+      variant,
+      conversationId: m.conversationId as string,
+      conversationTitle: convoMeta.get(m.conversationId as string)?.title ?? '',
+      messageId: m.messageId as string,
+      parentMessageId: (m.parentMessageId as string) ?? '',
+      role: m.isCreatedByUser ? 'user' : 'assistant',
+      sender: (m.sender as string) ?? '',
+      tokenCount: typeof m.tokenCount === 'number' ? m.tokenCount : null,
+      createdAt: m.createdAt as Date,
+      text,
+    };
+  }
 }
