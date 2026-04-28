@@ -185,3 +185,17 @@ export type LinkClickStats = {
   }>;
   topDomains: Array<{ domain: string; count: number }>;
 };
+
+export type MessageExportRow = {
+  pseudonym: string;
+  variant: string;
+  conversationId: string;
+  conversationTitle: string;
+  messageId: string;
+  parentMessageId: string;
+  role: 'user' | 'assistant';
+  sender: string;
+  tokenCount: number | null;
+  createdAt: Date;
+  text: string;
+};
